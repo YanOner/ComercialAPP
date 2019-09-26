@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecuperarClaveActivity"
+    android:background="@drawable/trial"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:srcCompat="@drawable/logo"
+            android:layout_gravity="center" />
+
+
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:paddingTop="10dp">
+
+            <EditText
+                android:id="@+id/txtUsuario"
+                style="@style/editText_style"
+                android:hint="Ingrese su correo electrónico"
+                android:inputType="textEmailAddress" />
+
+            <Button
+                style="@style/button_style"
+                android:id="@+id/btnIngresar"
+                android:text="Ingresar"
+                android:onClick="onEnviarCorreo" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
