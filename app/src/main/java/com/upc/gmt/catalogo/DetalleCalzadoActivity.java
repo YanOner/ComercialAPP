@@ -258,6 +258,13 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
         new HttpRequestTaskPedido().execute();
     }
 
+    public void onClickBuscarCliente(View v){
+        Util.REGRESAR_A_CATALOGO = true;
+        Intent i = new Intent(getApplicationContext(), BuscarCliente.class);
+        startActivity(i);
+        return;
+    }
+
     public void onRegresarMenu(View v) {
         finish();
     }

@@ -190,6 +190,12 @@
                 android:layout_gravity="center">
 
                 <Button
+                    android:id="@+id/btnBuscarCliente"
+                    style="@style/button_style_pedido"
+                    android:onClick="onClickBuscarCliente"
+                    android:text="BUSCAR CLIENTE" />
+
+                <Button
                     android:id="@+id/btnAgregarPedido"
                     style="@style/button_style_pedido"
                     android:onClick="onClickAgregarPedido"
