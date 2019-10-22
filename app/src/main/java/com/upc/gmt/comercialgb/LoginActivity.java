@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText txtUsuario;
     EditText txtPassword;
+    EditText txtIP;
 
     String usuario;
     String password;
@@ -37,6 +40,27 @@ public class LoginActivity extends AppCompatActivity {
 
         txtUsuario = (EditText) findViewById(R.id.txtUsuario);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
+        txtIP = (EditText) findViewById(R.id.txtIP);
+
+        txtIP.setText(Util.URL_WEB_SERVICE);
+
+        txtIP.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d("beforeTextChanged", s.toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("onTextChanged", s.toString());
+                Util.URL_WEB_SERVICE = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.d("afterTextChanged", s.toString());
+            }
+        });
 
     }
 
@@ -85,6 +109,9 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Usuario usuario) {
+            //TEST
+            usuario = new Usuario();
+            usuario.setCodUsuario("00000");
             if (null != usuario) {
                 Util.USUARIO_SESSION = usuario;
                 Toast.makeText(LoginActivity.this,

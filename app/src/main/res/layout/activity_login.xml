@@ -87,6 +87,13 @@
                         android:text="INGRESAR"
                         android:onClick="onValidarIngreso" />
 
+                    <EditText
+                        android:id="@+id/txtIP"
+                        style="@style/editText_style"
+                        android:layout_height="match_parent"
+                        android:hint="IP BACKEND"
+                        android:inputType="text" />
+
                 </LinearLayout>
 
             </LinearLayout>
