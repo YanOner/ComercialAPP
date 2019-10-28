@@ -9,7 +9,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.upc.gmt.catalogo.CatalogoActivity">
+    tools:context="com.upc.gmt.catalogo.CatalogoActivity"
+    android:background="@drawable/trial">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -105,18 +106,18 @@
                 style="@style/button_styleCatalogo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:onClick="onClickBuscar"
-                android:text="Buscar"
-                android:layout_weight="1" />
+                android:text="BUSCAR" />
 
             <Button
                 android:id="@+id/button3"
                 style="@style/button_styleCatalogo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:onClick="onClickReiniciar"
-                android:text="Limpiar"
-                android:layout_weight="1" />
+                android:text="LIMPIAR" />
 
 
         </LinearLayout>

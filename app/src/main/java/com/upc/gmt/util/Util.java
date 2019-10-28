@@ -8,7 +8,9 @@ import com.upc.gmt.model.Producto;
 import com.upc.gmt.model.Usuario;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by MALEX on 14/09/2017.
@@ -17,10 +19,10 @@ import java.util.List;
 public class Util {
 
     //public static String URL_WEB_SERVICE = "http://192.168.43.172:8080/ComercialWEB";
-    public static String URL_WEB_SERVICE = "http://192.168.19.17:8080/ComercialWEB";
+    public static String URL_WEB_SERVICE = "http://192.168.1.4:8080/ComercialWEB";
 //        public static String URL_WEB_SERVICE = "http://10.230.168.210:9090/ComercialWEB";
 
-    public static Usuario USUARIO_SESSION;
+    public static Usuario USUARIO_SESSION = new Usuario();
 
     public static Cliente CLIENTE_SESSION;
 
@@ -47,4 +49,14 @@ public class Util {
             return listView.getChildAt(childIndex);
         }
     }
+
+    public static String formatearDecimales(Double numero) {
+//        return (new DecimalFormat("#,##0.00")).format(numero.doubleValue());
+//        return String.format("%,.2f", numero.doubleValue());
+        StringBuilder sb = new StringBuilder();
+        Formatter formatter = new Formatter(sb, Locale.US);
+        formatter.format("%(,.2f", numero);
+        return sb.toString();
+    }
+
 }

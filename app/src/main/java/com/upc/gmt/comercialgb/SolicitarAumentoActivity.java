@@ -111,9 +111,9 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         protected void onPostExecute(Cliente cliente) {
             if (null != cliente) {
                 Util.CLIENTE_SESSION = cliente;
-                txtCreditoTotalAumento.setText("S/. " + String.format("%.2f", cliente.getLineaCreditoActual()));
-                txtCreditoDisponibleAumento.setText("S/. " + String.format("%.2f", cliente.getSaldoLineaCredito()));
-                txtDeudaPendienteAumento.setText("S/. " + String.format("%.2f", cliente.getLineaCreditoActual() - cliente.getSaldoLineaCredito()));
+                txtCreditoTotalAumento.setText("S/. " + Util.formatearDecimales(cliente.getLineaCreditoActual()));
+                txtCreditoDisponibleAumento.setText("S/. " + Util.formatearDecimales(cliente.getSaldoLineaCredito()));
+                txtDeudaPendienteAumento.setText("S/. " + Util.formatearDecimales((cliente.getLineaCreditoActual() - cliente.getSaldoLineaCredito())));
                 new HttpRequestTaskListaAumento().execute();
             } else {
                 Util.CLIENTE_SESSION = new Cliente();

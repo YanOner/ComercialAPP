@@ -260,7 +260,7 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
 
     public void onClickBuscarCliente(View v){
         Util.REGRESAR_A_CATALOGO = true;
-        Intent i = new Intent(getApplicationContext(), BuscarCliente.class);
+        Intent i = new Intent(getApplicationContext(), BuscarClienteActivity.class);
         startActivity(i);
         return;
     }
@@ -323,11 +323,11 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
             if (p.getIdProducto() != null) {
                 tvDetalleNombre.setText(p.getDescripcion());
                 tvDetalleCodigo.setText(p.getSKU());
-                if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
-                    tvDetallePrecio.setText(p.getPrecioVendedor() + " (RV)");
-                } else {
-                    tvDetallePrecio.setText("Precio  :" + p.getPrecioUnitario());
-                }
+//                if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
+                tvDetallePrecio.setText("" + p.getPrecioVendedor().doubleValue());
+//                } else {
+//                    tvDetallePrecio.setText("Precio  :" + p.getPrecioUnitario());
+//                }
                 List<String> colores = new ArrayList<>();
                 int contador = 0;
                 for (Map.Entry<String, String> entry : mapaColores.entrySet()) {
@@ -460,7 +460,7 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
                 p.setIdColor(idColor);
                 p.setNroTalla(Integer.parseInt(nroTalla.substring(0, 2)));
                 p.setColor(spnColores.getSelectedItem().toString());
-                p.setCantidad(1);
+//                p.setCantidad(1);
                 boolean existe = false;
                 for (Producto ps : Util.LISTA_PRODUCTOS_PEDIDO) {
                     if (p.getIdProducto() == ps.getIdProducto() &&

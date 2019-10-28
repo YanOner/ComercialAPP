@@ -15,7 +15,10 @@
         android:screenOrientation="landscape"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.upc.gmt.catalogo.BuscarCliente"></activity>
+        <activity
+            android:name="com.upc.gmt.catalogo.BuscarClienteActivity"
+            android:label="BUSCAR CLIENTE"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".LoginActivity"
             android:label="INICIAR SESIÓN"
@@ -24,22 +27,6 @@
             android:name=".MenuPrincipalActivity"
             android:label="MENÚ PRINCIPAL"
             android:parentActivityName=".LoginActivity"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".MantenimientoCalzadoActivity"
-            android:label="MANTENIMIENTO DE CALZADO"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".AgregarCalzadoActivity"
-            android:label="AGREGAR CALZADO"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".ModificarCalzadoActivity"
-            android:label="MODIFICAR CALZADO"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".EliminarCalzadoActivity"
-            android:label="ELIMINAR CALZADO"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.upc.gmt.pedido.RegistrarPedidoActivity"
@@ -72,7 +59,10 @@
             android:name="com.upc.gmt.catalogo.FullScreenImageActivity"
             android:label="IMAGEN CALZADO"
             android:screenOrientation="landscape" />
-        <activity android:name="com.upc.gmt.pedido.DatosPedidoActivity" />
+        <activity
+            android:name=".SolicitarAumentoActivity"
+            android:label="SOLICITAR AUMENTO DE LÍNEA DE CRÉDITO"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".RecuperarClaveActivity"
             android:label="RECUPERAR CONTRASEÑA"
@@ -80,6 +70,22 @@
         <activity
             android:name="com.upc.gmt.pedido.PedidoConsignacionActivity"
             android:label="PEDIDO POR CONSIGNACIÓN"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MantenimientoCalzadoActivity"
+            android:label="MANTENIMIENTO DE CALZADO"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".AgregarCalzadoActivity"
+            android:label="AGREGAR CALZADO"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ModificarCalzadoActivity"
+            android:label="MODIFICAR CALZADO"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".EliminarCalzadoActivity"
+            android:label="ELIMINAR CALZADO"
             android:screenOrientation="landscape" />
         <activity
             android:name=".HomeActivity"
@@ -91,11 +97,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SolicitarAumentoActivity"
-            android:label="SOLICITAR AUMENTO DE LÍNEA DE CRÉDITO"
-            android:parentActivityName=".MenuPrincipalActivity"
-            android:screenOrientation="landscape" />
+
     </application>
 
 </manifest>

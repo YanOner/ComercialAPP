@@ -36,7 +36,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="TOTAL A PAGAR: S/ 1000.00" />
+                android:text="TOTAL A PAGAR: S/ 1000.00"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent" />
 
         </LinearLayout>
 
@@ -49,6 +51,7 @@
                 android:id="@+id/btnRealizarPedido"
                 style="@style/button_style_pedido"
                 android:onClick="onClickRealizarPedido"
+                android:layout_width="match_parent"
                 android:text="PAGAR" />
         </LinearLayout>
     </LinearLayout>

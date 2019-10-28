@@ -115,7 +115,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
         tvTotalPagar = (TextView) findViewById(R.id.tvTotalPagar);
         BigDecimal total = new BigDecimal(Util.PRECIO_TOTAL_CALZADOS);
         total.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-        tvTotalPagar.setText("TOTAL A PAGAR: S/ " + String.format("%.2f", total.doubleValue()));
+        tvTotalPagar.setText("TOTAL A PAGAR: S/ " + Util.formatearDecimales(total.doubleValue()));
 
         String[] items = {"TIPO DE ENTREGA", "TIPO DE PAGO", "COMPROBANTE DE PAGO"};
         lvRegistrarPedido = (ListView) findViewById(R.id.lvRegistrarPedido);
@@ -175,7 +175,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
     public static void actualizarTotalPagar() {
         BigDecimal total = new BigDecimal(Util.PRECIO_TOTAL_CALZADOS + Util.PRECIO_COSTO_ENVIO);
         total.setScale(2, BigDecimal.ROUND_HALF_EVEN);
-        tvTotalPagar.setText("TOTAL A PAGAR: S/ " + String.format("%.2f", total.doubleValue()));
+        tvTotalPagar.setText("TOTAL A PAGAR: S/ " + Util.formatearDecimales(total.doubleValue()));
     }
 
     public void onClickRealizarPedido(View v) {

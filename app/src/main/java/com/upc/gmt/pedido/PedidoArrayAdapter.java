@@ -92,11 +92,11 @@ public class PedidoArrayAdapter extends ArrayAdapter {
                             chbArticulo.setChecked(false);
                             return;
                         }
-                        if (Util.USUARIO_SESSION.getIdTipoUsuario() != 2 && cantidad > 3) {
-                            Toast.makeText(getContext().getApplicationContext(), "SOLO PUEDE COMPRAR HASTA 3 PARES DEL MISMO CALZADO", Toast.LENGTH_LONG).show();
-                            chbArticulo.setChecked(false);
-                            return;
-                        }
+//                        if (Util.USUARIO_SESSION.getIdTipoUsuario() != 2 && cantidad > 3) {
+//                            Toast.makeText(getContext().getApplicationContext(), "SOLO PUEDE COMPRAR HASTA 3 PARES DEL MISMO CALZADO", Toast.LENGTH_LONG).show();
+//                            chbArticulo.setChecked(false);
+//                            return;
+//                        }
                         if (p.getStockVenta().intValue() < cantidad) {
                             Toast.makeText(getContext().getApplicationContext(), "LA CANTIDAD INGRESADA SUPERA EL STOCK DISPONIBLE (" + p.getStockVenta().intValue() + ")", Toast.LENGTH_LONG).show();
                             chbArticulo.setChecked(false);
@@ -106,21 +106,21 @@ public class PedidoArrayAdapter extends ArrayAdapter {
                         Util.LISTA_PRODUCTOS_PEDIDO.set(i, p);
                         txtCantidadPedido.setEnabled(false);
                         TextView tvTotalArticulo = (TextView) viewPedido.findViewById(R.id.tvTotalArticulo);
-                        if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
+//                        if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
                             double subTotal = (p.getCantidad() * p.getPrecioVendedor().doubleValue());
-                            tvTotalArticulo.setText("SubTotal del Calzado: S/ " + String.format("%.2f", subTotal));
+                        tvTotalArticulo.setText("SubTotal del Calzado: S/ " + Util.formatearDecimales(subTotal));
                             totalPrecio += (p.getCantidad() * p.getPrecioVendedor().doubleValue());
-                        } else {
-                            double subTotal = (p.getCantidad() * p.getPrecioUnitario().doubleValue());
-                            tvTotalArticulo.setText("SubTotal del Calzado: S/ " + String.format("%.2f", subTotal));
-                            totalPrecio += (p.getCantidad() * p.getPrecioUnitario().doubleValue());
-                        }
+//                        } else {
+//                            double subTotal = (p.getCantidad() * p.getPrecioUnitario().doubleValue());
+//                            tvTotalArticulo.setText("SubTotal del Calzado: S/ " + Util.formatearDecimales(subTotal));
+//                            totalPrecio += (p.getCantidad() * p.getPrecioUnitario().doubleValue());
+//                        }
                     } else {
                         txtCantidadPedido.setEnabled(true);
                     }
                 }
                 TextView vTotalPedido = (TextView) buttonView.getRootView().findViewById(R.id.tvTotalPedido);
-                vTotalPedido.setText("PRECIO TOTAL DE CALZADOS: S/ " + String.format("%.2f", totalPrecio));
+                vTotalPedido.setText("PRECIO TOTAL DE CALZADOS: S/ " + Util.formatearDecimales(totalPrecio));
                 Util.PRECIO_TOTAL_CALZADOS = totalPrecio;
             }
         });
@@ -132,7 +132,8 @@ public class PedidoArrayAdapter extends ArrayAdapter {
 //            Log.i("Producto "+position, p.toString());
 
         EditText txtCantidadPedido = (EditText) convertView.findViewById(R.id.txtCantidadPedido);
-        txtCantidadPedido.setText("" + p.getCantidad());
+        if (p.getCantidad() > 0)
+            txtCantidadPedido.setText("" + p.getCantidad());
 
         TextView tvNombre = (TextView) convertView.findViewById(R.id.grid_pedido_label_nombre);
         tvNombre.setText("Nombre: " + p.getDescripcion());
@@ -146,16 +147,19 @@ public class PedidoArrayAdapter extends ArrayAdapter {
         TextView tvTalla = (TextView) convertView.findViewById(R.id.grid_pedido_label_talla);
         tvTalla.setText("Talla: " + p.getNroTalla().toString());
 
+        TextView tvStock = (TextView) convertView.findViewById(R.id.grid_pedido_label_stock);
+        tvStock.setText("Stock: " + p.getStockVenta());
+
         TextView tvPrecio = (TextView) convertView.findViewById(R.id.grid_pedido_label_precio);
         TextView tvTotalArticulo = (TextView) convertView.findViewById(R.id.tvTotalArticulo);
 
-        if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
-            tvPrecio.setText("Precio: " + p.getPrecioVendedor() + " (RV)");
+//        if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
+        tvPrecio.setText("Precio: " + p.getPrecioVendedor());
             tvTotalArticulo.setText("SubTotal del Calzado: S/ " + p.getCantidad() * p.getPrecioVendedor().doubleValue());
-        } else {
-            tvPrecio.setText("Precio: " + p.getPrecioUnitario());
-            tvTotalArticulo.setText("SubTotal del Calzado: S/ " + p.getCantidad() * p.getPrecioUnitario().doubleValue());
-        }
+//        } else {
+//            tvPrecio.setText("Precio: " + p.getPrecioUnitario());
+//            tvTotalArticulo.setText("SubTotal del Calzado: S/ " + p.getCantidad() * p.getPrecioUnitario().doubleValue());
+//        }
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.grid_pedido_image);
 

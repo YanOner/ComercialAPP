@@ -184,26 +184,30 @@
 
 
             <LinearLayout
-                android:layout_width="334dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:gravity="center">
 
                 <Button
                     android:id="@+id/btnBuscarCliente"
                     style="@style/button_style_pedido"
                     android:onClick="onClickBuscarCliente"
+                    android:layout_width="match_parent"
                     android:text="BUSCAR CLIENTE" />
 
                 <Button
                     android:id="@+id/btnAgregarPedido"
                     style="@style/button_style_pedido"
                     android:onClick="onClickAgregarPedido"
-                    android:text="AGREGAR AL PEDIDO" />
+                    android:layout_width="match_parent"
+                    android:text="   AGREGAR AL PEDIDO   " />
 
                 <Button
                     style="@style/button_style_pedido"
                     android:onClick="onRegresarMenu"
+                    android:layout_width="match_parent"
                     android:text="REGRESAR" />
 
             </LinearLayout>

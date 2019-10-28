@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.upc.gmt.pedido.TipoEntregaFragment">
+    tools:context="com.upc.gmt.pedido.TipoEntregaFragment"
+    android:background="@drawable/trial">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -28,7 +29,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Dirección del Almacén: A.C.P Cerro Verde Mz B Lt 12 - San Gabriel – Villa María del Triunfo  "
-                android:visibility="invisible" />
+                android:visibility="invisible"
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/rdEnvioDomicilio"
@@ -82,7 +84,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Costo de Envío: 0.00"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent" />
 
                 <ToggleButton
                     android:id="@+id/btnAceptarCosto"
@@ -90,7 +93,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:textOff="ACEPTAR COSTO"
-                    android:textOn="COSTO ACEPTADO" />
+                    android:textOn="COSTO ACEPTADO"
+                    style="@style/button_style_pedido" />
 
             </LinearLayout>
         </ScrollView>

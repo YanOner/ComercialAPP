@@ -110,8 +110,8 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Usuario usuario) {
             //TEST
-            usuario = new Usuario();
-            usuario.setCodUsuario("00000");
+//            usuario = new Usuario();
+//            usuario.setCodUsuario("00000");
             if (null != usuario) {
                 Util.USUARIO_SESSION = usuario;
                 Toast.makeText(LoginActivity.this,

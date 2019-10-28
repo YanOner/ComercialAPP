@@ -134,7 +134,7 @@ public class PedidoActivity extends AppCompatActivity {
             }
 
             TextView vTotalPedido = (TextView) findViewById(R.id.tvTotalPedido);
-            vTotalPedido.setText("PRECIO TOTAL DE CALZADOS: S/ " + String.format("%.2f", totalPrecio));
+            vTotalPedido.setText("PRECIO TOTAL DE CALZADOS: S/ " + Util.formatearDecimales(totalPrecio));
             Util.PRECIO_TOTAL_CALZADOS = totalPrecio;
 
         }

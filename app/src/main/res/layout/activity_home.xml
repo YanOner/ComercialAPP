@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/trial"
-    tools:context="com.upc.gmt.comercialgb.LoginActivity">
+    tools:context="com.upc.gmt.comercialgb.HomeActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -67,16 +67,17 @@
                     android:orientation="vertical">
 
                     <Button
-                        style="@style/button_style"
                         android:id="@+id/btnLogin"
-                        android:text="INGRESAR"
-                        android:onClick="onLogin" />
+                        style="@style/button_style"
+                        android:onClick="onLogin"
+                        android:text="INGRESAR" />
 
                     <Button
-                        style="@style/button_style"
                         android:id="@+id/btnAbrirCatalogo"
+                        style="@style/button_style"
                         android:text="CATÁLOGO DE CALZADOS"
-                        android:onClick="onAbrirCatalogo" />
+                        android:onClick="onAbrirCatalogo"
+                        android:visibility="invisible" />
 
                 </LinearLayout>
 
@@ -96,7 +97,8 @@
                         android:id="@+id/textView"
                         style="@style/textView_style"
                         android:layout_height="match_parent"
-                        android:text="¡Gracias por su preferencia!" />
+                        android:text="¡Gracias por su preferencia!"
+                        android:visibility="invisible" />
 
 
                 </LinearLayout>

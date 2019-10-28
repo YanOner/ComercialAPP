@@ -2,7 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.upc.gmt.pedido.TipoPagoFragment">
+    tools:context="com.upc.gmt.pedido.TipoPagoFragment"
+    android:background="@drawable/trial">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -84,7 +85,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Linea de Crédito Disponible" />
+                    android:text="Linea de Crédito Disponible"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/txtCredito"
@@ -92,7 +94,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="S/.500" />
+                    android:text="S/.500"
+                    android:textColor="@android:color/black" />
 
             </LinearLayout>
 
@@ -108,7 +111,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Seleccione un Banco:" />
+                    android:text="Seleccione un Banco:"
+                    android:textColor="@android:color/black" />
 
                 <Spinner
                     android:id="@+id/spnBanco"
@@ -130,7 +134,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Cuenta Bancaria para el Deposito:" />
+                    android:text="Cuenta Bancaria para el Deposito:"
+                    android:textColor="@android:color/black" />
 
                 <TextView
                     android:id="@+id/txtCuentaBancaria"
@@ -138,7 +143,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -151,7 +157,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Celular:" />
+                    android:text="Celular:"
+                    android:textColor="@android:color/black" />
 
                 <EditText
                     android:id="@+id/txtCelularPedido"
@@ -160,7 +167,9 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="number"
-                    android:maxLength="9" />
+                    android:maxLength="9"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="center" />
             </LinearLayout>
 
 
@@ -177,7 +186,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawableRight="@drawable/ic_visa"
-                    android:text="Número de Tarjeta:" />
+                    android:text="Número de Tarjeta:"
+                    android:textColor="@android:color/black" />
 
                 <EditText
                     android:id="@+id/txtNroTarjetaVisa"
@@ -186,7 +196,9 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="number"
-                    android:maxLength="16" />
+                    android:maxLength="16"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="center" />
 
             </LinearLayout>
 
@@ -202,7 +214,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Nombre:" />
+                    android:text="Nombre:"
+                    android:textColor="@android:color/black" />
 
                 <EditText
                     android:id="@+id/txtNombreVisa"
@@ -210,7 +223,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -225,7 +240,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Apellido:" />
+                    android:text="Apellido:"
+                    android:textColor="@android:color/black" />
 
                 <EditText
                     android:id="@+id/txtApellidoVisa"
@@ -233,7 +249,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -248,7 +266,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Fecha de Caducidad (MM/AA):" />
+                    android:text="Fecha de Caducidad (MM/AA):"
+                    android:textColor="@android:color/black" />
 
                 <EditText
                     android:id="@+id/txtFechaVisa"
@@ -257,7 +276,9 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="date"
-                    android:maxLength="5" />
+                    android:maxLength="5"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="center" />
             </LinearLayout>
 
             <LinearLayout
@@ -272,7 +293,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="CSV:" />
+                    android:text="CVV:"
+                    android:textColor="@android:color/black" />
 
                 <EditText
                     android:id="@+id/txtVisaCSV"
@@ -281,7 +303,9 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="number"
-                    android:maxLength="3" />
+                    android:maxLength="3"
+                    android:textColor="@color/colorAccent"
+                    android:gravity="center" />
             </LinearLayout>
 
         </LinearLayout>

@@ -541,7 +541,7 @@ public class TipoPagoFragment extends Fragment {
         protected void onPostExecute(Cliente cliente) {
             if (null != cliente) {
                 Util.CLIENTE_SESSION = cliente;
-                txtCredito.setText("S/. " + String.format("%.2f", cliente.getSaldoLineaCredito()));
+                txtCredito.setText("S/. " + Util.formatearDecimales(cliente.getSaldoLineaCredito()));
             } else {
                 Util.CLIENTE_SESSION = new Cliente();
             }

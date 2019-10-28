@@ -73,13 +73,13 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
         txtTotalConsignacion = (EditText) findViewById(R.id.txtTotalConsignacion);
         spnCuotas = (Spinner) findViewById(R.id.spnCuotas);
 
-        txtCreditoTotal.setText("S/. " + String.format("%.2f", Util.CLIENTE_SESSION.getLineaCreditoActual()));
-        txtCreditoDisponible.setText("S/. " + String.format("%.2f", Util.CLIENTE_SESSION.getSaldoLineaCredito()));
+        txtCreditoTotal.setText("S/. " + Util.formatearDecimales(Util.CLIENTE_SESSION.getLineaCreditoActual()));
+        txtCreditoDisponible.setText("S/. " + Util.formatearDecimales(Util.CLIENTE_SESSION.getSaldoLineaCredito()));
 
-        txtCreditoDespues.setText("S/. " + String.format("%.2f", Util.CLIENTE_SESSION.getSaldoLineaCredito() - Util.PRECIO_TOTAL_PAGAR));
-        txtTotalConsignacion.setText("S/. " + String.format("%.2f", Util.PRECIO_TOTAL_PAGAR));
+        txtCreditoDespues.setText("S/. " + Util.formatearDecimales((Util.CLIENTE_SESSION.getSaldoLineaCredito() - Util.PRECIO_TOTAL_PAGAR)));
+        txtTotalConsignacion.setText("S/. " + Util.formatearDecimales(Util.PRECIO_TOTAL_PAGAR));
 
-        txtDeudaPendiente.setText("S/. " + String.format("%.2f", Util.CLIENTE_SESSION.getLineaCreditoActual() - Util.CLIENTE_SESSION.getSaldoLineaCredito()));
+        txtDeudaPendiente.setText("S/. " + Util.formatearDecimales((Util.CLIENTE_SESSION.getLineaCreditoActual() - Util.CLIENTE_SESSION.getSaldoLineaCredito())));
 
         //Lista Precios
         listaCuotas = new ArrayList<>();
@@ -112,7 +112,7 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
                     c.set(Calendar.DATE, c.get(Calendar.DATE) + 7 * i);
                     Date fechaVencimiento = c.getTime();
                     String formatoVencimiento = new SimpleDateFormat("dd/MM/yyyy").format(fechaVencimiento);
-                    textoDetalleCuota += "       " + i + "         " + String.format("%.2f", cuota) + "       " + formatoVencimiento + " " + System.getProperty("line.separator");
+                    textoDetalleCuota += "       " + i + "         " + Util.formatearDecimales(cuota) + "       " + formatoVencimiento + " " + System.getProperty("line.separator");
                 }
 
                 txtDetalleCuotas.setText(textoDetalleCuota);

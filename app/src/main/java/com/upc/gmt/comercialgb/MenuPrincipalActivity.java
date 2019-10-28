@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.upc.gmt.catalogo.CatalogoActivity;
-import com.upc.gmt.util.Util;
 
 public class MenuPrincipalActivity extends AppCompatActivity {
 
@@ -18,11 +17,11 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
         Button btnSolicitarAumento = (Button) findViewById(R.id.btnSolicitarAumento);
 
-        if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {//REVENDEDOR
+//        if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {//REVENDEDOR
             btnSolicitarAumento.setVisibility(View.VISIBLE);
-        } else {
-            btnSolicitarAumento.setVisibility(View.INVISIBLE);
-        }
+//        } else {
+//            btnSolicitarAumento.setVisibility(View.INVISIBLE);
+//        }
 
     }
 
