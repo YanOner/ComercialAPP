@@ -31,6 +31,14 @@ public class PedidoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedido);
 
+        if (Util.CLIENTE_SESSION != null) {
+            if (Util.CLIENTE_SESSION.getRUC() != null && !Util.CLIENTE_SESSION.getRUC().equals("")) {
+                setTitle("Ver Pedido (" + Util.CLIENTE_SESSION.getRUC() + ")");
+            } else {
+                setTitle("Ver Pedido (" + Util.CLIENTE_SESSION.getApellidoPaterno() + " - " + Util.CLIENTE_SESSION.getNroDocumentoIdentidad() + ")");
+            }
+        }
+
         lvPedidos = (ListView) findViewById(R.id.lvPedidos);
         Log.i("LISTA_PRODUCTOS_PEDIDO", "" + Util.LISTA_PRODUCTOS_PEDIDO.size());
         for (Producto p : Util.LISTA_PRODUCTOS_PEDIDO) {
@@ -97,8 +105,8 @@ public class PedidoActivity extends AppCompatActivity {
     public void onQuitarPedido(View v) {
         posicionItemPedido = (Integer) v.getTag();
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
-        ad.setMessage("¿DESEA REMOVER EL CALZADO DE LA LISTA?");
         ad.setTitle("CONFIRMACIÓN");
+        ad.setMessage("¿DESEA REMOVER EL CALZADO DE LA LISTA?");
         ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

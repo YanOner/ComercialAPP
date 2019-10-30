@@ -47,8 +47,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:enabled="false"
-                            android:text="cargando..." />
-
+                            android:text="cargando..."
+                            android:textColor="@android:color/black" />
 
                     </LinearLayout>
 
@@ -71,7 +71,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:enabled="false"
-                            android:text="cargando..." />
+                            android:text="cargando..."
+                            android:textColor="@android:color/black" />
 
                     </LinearLayout>
 
@@ -94,8 +95,8 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:enabled="false"
-                            android:text="cargando..." />
-
+                            android:text="cargando..."
+                            android:textColor="@android:color/black" />
 
                     </LinearLayout>
 
@@ -139,7 +140,8 @@
                                 android:gravity="top|center"
                                 android:text="Cuotas..."
                                 android:textSize="15sp"
-                                style="@style/txt_style" />
+                                style="@style/txt_style"
+                                android:textColor="@android:color/black" />
 
                         </TableRow>
 
@@ -202,7 +204,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:enabled="false"
-                                android:text="cargando..." />
+                                android:text="cargando..."
+                                android:textColor="@android:color/black" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -232,7 +235,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:enabled="false"
-                                android:text="cargando..." />
+                                android:text="cargando..."
+                                android:textColor="@android:color/black" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -258,7 +262,7 @@
                         android:layout_width="219dp"
                         android:layout_gravity="center"
                         android:onClick="onAceptarConsignacion"
-                        android:text="ACEPTAR" />
+                        android:text="CONSIGNAR" />
 
                     <Button
                         style="@style/button_style"

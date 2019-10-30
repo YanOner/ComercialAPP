@@ -17,7 +17,7 @@
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tipo  de documento:" />
+            android:text="Tipo de Documento:" />
 
         <Spinner
             android:id="@+id/spnTipoDoc"
@@ -35,7 +35,7 @@
             android:id="@+id/tvNumeroDoc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Número de documento:" />
+            android:text="Número de Documento:" />
 
         <EditText
             android:id="@+id/txtNumeroDoc"
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Número Documento"
+            android:imeOptions="actionDone"
             android:gravity="center"
             android:inputType="number"
             android:textColor="@color/colorAccent" />
@@ -53,12 +53,14 @@
         android:id="@+id/btnBuscar"
         style="@style/button_style_pedido"
         android:layout_height="wrap_content"
+        android:onClick="onClickBuscarCliente"
         android:text="       BUSCAR       " />
 
     <Button
         android:id="@+id/btnRegresar"
         style="@style/button_style_pedido"
         android:layout_height="wrap_content"
+        android:onClick="onClickRegresar"
         android:text="     REGRESAR     " />
 
 </LinearLayout>

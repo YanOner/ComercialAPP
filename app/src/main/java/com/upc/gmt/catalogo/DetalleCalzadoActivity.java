@@ -55,6 +55,7 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
     Spinner spnColores;
     Spinner spnTallas;
     TextView tvDetalleMaterial;
+    TextView tvDetalleCliente;
 
     ImageView imageView;
     String idProducto;
@@ -94,6 +95,7 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
         spnColores = (Spinner) findViewById(R.id.spnDetalleColores);
         spnTallas = (Spinner) findViewById(R.id.spnDetalleTallas);
         tvDetalleMaterial = (TextView) findViewById(R.id.tvDetalleMaterial);
+        tvDetalleCliente = (TextView) findViewById(R.id.tvDetalleCliente);
 
         spnColores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -215,6 +217,17 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
 //            }
 //        });
 
+        if (Util.CLIENTE_SESSION != null) {
+            if (Util.CLIENTE_SESSION.getRUC() != null && !Util.CLIENTE_SESSION.getRUC().equals("")) {
+                tvDetalleCliente.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + " (" + Util.CLIENTE_SESSION.getRUC() + ")");
+            } else {
+                tvDetalleCliente.setText("Cliente: " + Util.CLIENTE_SESSION.getApellidoPaterno() + " (" + Util.CLIENTE_SESSION.getNroDocumentoIdentidad() + ")");
+            }
+            tvDetalleCliente.setVisibility(View.VISIBLE);
+        } else {
+            tvDetalleCliente.setVisibility(View.INVISIBLE);
+        }
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Cargando Calzado...");
         progressDialog.show();
@@ -324,7 +337,7 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
                 tvDetalleNombre.setText(p.getDescripcion());
                 tvDetalleCodigo.setText(p.getSKU());
 //                if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
-                tvDetallePrecio.setText("" + p.getPrecioVendedor().doubleValue());
+                tvDetallePrecio.setText("S/ " + Util.formatearDecimales(p.getPrecioVendedor().doubleValue()));
 //                } else {
 //                    tvDetallePrecio.setText("Precio  :" + p.getPrecioUnitario());
 //                }

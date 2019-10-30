@@ -74,7 +74,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="DIRECCIÓN"
+                    android:imeOptions="actionDone"
+                    android:hint="INGRESAR DIRECCIÓN"
                     android:inputType="textPersonName"
                     android:maxLength="150" />
 

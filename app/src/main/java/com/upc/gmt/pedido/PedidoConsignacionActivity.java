@@ -73,13 +73,13 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
         txtTotalConsignacion = (EditText) findViewById(R.id.txtTotalConsignacion);
         spnCuotas = (Spinner) findViewById(R.id.spnCuotas);
 
-        txtCreditoTotal.setText("S/. " + Util.formatearDecimales(Util.CLIENTE_SESSION.getLineaCreditoActual()));
-        txtCreditoDisponible.setText("S/. " + Util.formatearDecimales(Util.CLIENTE_SESSION.getSaldoLineaCredito()));
+        txtCreditoTotal.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getLineaCreditoActual()));
+        txtCreditoDisponible.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getSaldoLineaCredito()));
 
-        txtCreditoDespues.setText("S/. " + Util.formatearDecimales((Util.CLIENTE_SESSION.getSaldoLineaCredito() - Util.PRECIO_TOTAL_PAGAR)));
-        txtTotalConsignacion.setText("S/. " + Util.formatearDecimales(Util.PRECIO_TOTAL_PAGAR));
+        txtCreditoDespues.setText("S/ " + Util.formatearDecimales((Util.CLIENTE_SESSION.getSaldoLineaCredito() - Util.PRECIO_TOTAL_PAGAR)));
+        txtTotalConsignacion.setText("S/ " + Util.formatearDecimales(Util.PRECIO_TOTAL_PAGAR));
 
-        txtDeudaPendiente.setText("S/. " + Util.formatearDecimales((Util.CLIENTE_SESSION.getLineaCreditoActual() - Util.CLIENTE_SESSION.getSaldoLineaCredito())));
+        txtDeudaPendiente.setText("S/ " + Util.formatearDecimales((Util.CLIENTE_SESSION.getLineaCreditoActual() - Util.CLIENTE_SESSION.getSaldoLineaCredito())));
 
         //Lista Precios
         listaCuotas = new ArrayList<>();

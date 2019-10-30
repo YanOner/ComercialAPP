@@ -28,7 +28,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="bottom">
+
+            <TextView
+                android:id="@+id/tvPedidoCliente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Cliente..."
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent" />
 
             <TextView
                 android:id="@+id/tvTotalPagar"

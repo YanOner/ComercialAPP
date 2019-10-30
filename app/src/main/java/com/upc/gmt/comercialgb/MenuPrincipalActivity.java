@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.upc.gmt.catalogo.CatalogoActivity;
+import com.upc.gmt.util.Util;
 
 public class MenuPrincipalActivity extends AppCompatActivity {
 
@@ -22,6 +23,8 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 //        } else {
 //            btnSolicitarAumento.setVisibility(View.INVISIBLE);
 //        }
+
+        setTitle("MENÚ PRINCIPAL (" + Util.USUARIO_SESSION.getCorreoElectronico().toUpperCase() + ")");
 
     }
 

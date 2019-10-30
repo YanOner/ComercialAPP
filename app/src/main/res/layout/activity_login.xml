@@ -45,10 +45,11 @@
                         android:layout_gravity="center" />
 
                     <TextView
-                        style="@style/textView_style"
                         android:id="@+id/textView2"
+                        style="@style/textView_style"
                         android:layout_weight="1"
-                        android:text="SISTEMA COMERCIAL GINO BIGIONI" />
+                        android:textColor="@android:color/black"
+                        android:text="GESTIÓN COMERCIAL DE ASESORES DE VENTAS" />
 
                 </LinearLayout>
 
@@ -86,7 +87,7 @@
                         android:layout_height="match_parent"
                         style="@style/button_style"
                         android:id="@+id/btnIngresar"
-                        android:text="INGRESAR"
+                        android:text="INICIAR SESIÓN"
                         android:onClick="onValidarIngreso" />
 
                     <EditText

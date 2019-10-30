@@ -66,6 +66,12 @@ public class Producto implements Cloneable {
 
     private boolean isChecked;
 
+    //DESCUENTO
+    private int tieneDescuento = 1;
+    private int descuentoMinimo = 5;
+    private int descuentoMaximo = 20;
+    private int descuentoSeleccionado = 0;
+
     public Producto(Integer idProducto, String SKU, String descripcion, Integer idTipoProducto, String genero, BigDecimal precioUnitario, BigDecimal precioVendedor, String estilo, String estado, Integer stockVenta, Integer stockObservado, Integer stockCritico, Date fechaUltimaCarga, Date fechaProximaCarga, String usuarioGenero, Date fechaGeneracion, String usuarioModifico, Date fechaModificacion, BigDecimal altoPaquete, BigDecimal anchoPaquete, BigDecimal largoPaquete, String observacion, Integer idTemporada, Integer idUMD, BigDecimal peso) {
         this.idProducto = idProducto;
         this.SKU = SKU;
@@ -416,4 +422,35 @@ public class Producto implements Cloneable {
         return super.clone();
     }
 
+    public int getTieneDescuento() {
+        return tieneDescuento;
+    }
+
+    public void setTieneDescuento(int tieneDescuento) {
+        this.tieneDescuento = tieneDescuento;
+    }
+
+    public int getDescuentoMinimo() {
+        return descuentoMinimo;
+    }
+
+    public void setDescuentoMinimo(int descuentoMinimo) {
+        this.descuentoMinimo = descuentoMinimo;
+    }
+
+    public int getDescuentoMaximo() {
+        return descuentoMaximo;
+    }
+
+    public void setDescuentoMaximo(int descuentoMaximo) {
+        this.descuentoMaximo = descuentoMaximo;
+    }
+
+    public int getDescuentoSeleccionado() {
+        return descuentoSeleccionado;
+    }
+
+    public void setDescuentoSeleccionado(int descuentoSeleccionado) {
+        this.descuentoSeleccionado = descuentoSeleccionado;
+    }
 }

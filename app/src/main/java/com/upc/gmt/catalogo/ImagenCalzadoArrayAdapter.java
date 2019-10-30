@@ -61,9 +61,9 @@ public class ImagenCalzadoArrayAdapter extends ArrayAdapter {
         TextView tvPrecio = (TextView) convertView.findViewById(R.id.grid_item_label_precio);
         int tipoUsuario = Util.USUARIO_SESSION.getIdTipoUsuario();
 //        if (tipoUsuario == 2) {//Revendedor
-//            tvPrecio.setText("S/. " + p.getPrecioVendedor().doubleValue());
+//            tvPrecio.setText("S/ " + p.getPrecioVendedor().doubleValue());
 //        } else {
-            tvPrecio.setText("S/. " + p.getPrecioUnitario().doubleValue());
+        tvPrecio.setText("S/ " + Util.formatearDecimales(p.getPrecioUnitario().doubleValue()));
 //        }
 
         // set image based on selected text

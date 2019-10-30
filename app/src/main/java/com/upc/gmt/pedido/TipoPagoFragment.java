@@ -429,10 +429,12 @@ public class TipoPagoFragment extends Fragment {
             lyCSV.setVisibility(View.INVISIBLE);
             new HttpRequestTaskBancos().execute();
         }
-        if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {//REVENDEDOR
-            rdConsignacion.setVisibility(View.VISIBLE);
+        if (Util.CLIENTE_SESSION.getSaldoLineaCredito() >= 500) {//REVENDEDOR
+//            rdConsignacion.setVisibility(View.VISIBLE);
+            rdConsignacion.setEnabled(true);
         } else {
-            rdConsignacion.setVisibility(View.INVISIBLE);
+//            rdConsignacion.setVisibility(View.INVISIBLE);
+            rdConsignacion.setEnabled(false);
         }
     }
 
@@ -541,9 +543,9 @@ public class TipoPagoFragment extends Fragment {
         protected void onPostExecute(Cliente cliente) {
             if (null != cliente) {
                 Util.CLIENTE_SESSION = cliente;
-                txtCredito.setText("S/. " + Util.formatearDecimales(cliente.getSaldoLineaCredito()));
+                txtCredito.setText("S/ " + Util.formatearDecimales(cliente.getSaldoLineaCredito()));
             } else {
-                Util.CLIENTE_SESSION = new Cliente();
+//                Util.CLIENTE_SESSION = new Cliente();
             }
 
         }

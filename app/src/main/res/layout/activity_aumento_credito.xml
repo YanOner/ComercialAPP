@@ -54,7 +54,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:enabled="false"
-                        android:text="cargando..." />
+                        android:text="cargando..."
+                        android:textColor="@android:color/black" />
 
 
                 </LinearLayout>
@@ -78,7 +79,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:enabled="false"
-                        android:text="cargando..." />
+                        android:text="cargando..."
+                        android:textColor="@android:color/black" />
 
                 </LinearLayout>
 
@@ -101,7 +103,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:enabled="false"
-                        android:text="cargando..." />
+                        android:text="cargando..."
+                        android:textColor="@android:color/black" />
 
 
                 </LinearLayout>
@@ -162,8 +165,10 @@
                         android:layout_gravity="center"
                         android:ems="10"
                         android:inputType="number"
+                        android:imeOptions="actionDone"
                         android:maxLength="7"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent" />
 
                     <!--</LinearLayout>-->
                     <!--</LinearLayout>-->
@@ -188,7 +193,7 @@
                         android:layout_width="wrap_content"
                         android:layout_gravity="center"
                         android:onClick="onSolicitarAumento"
-                        android:text="   SOLICITAR AUMENTO DE LÍNEA   " />
+                        android:text="   REGISTRAR   " />
 
                     <Button
                         android:id="@+id/btnRegresarAumento"
@@ -196,7 +201,7 @@
                         android:layout_width="wrap_content"
                         android:layout_gravity="center"
                         android:onClick="onRegresarMenu"
-                        android:text="          REGRESAR         " />
+                        android:text="   REGRESAR   " />
 
                     <!--</LinearLayout>-->
                 </LinearLayout>
@@ -241,7 +246,8 @@
                             android:text="Solicitudes..."
                             android:padding="3dip"
                             android:textSize="15sp"
-                            style="@style/txt_style" />
+                            style="@style/txt_style"
+                            android:textColor="@android:color/black" />
                     </TableRow>
 
                 </TableLayout>

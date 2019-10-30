@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.upc.gmt.comercialgb.R;
+import com.upc.gmt.util.Util;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,8 +33,8 @@ public class ComprobantePagoFragment extends Fragment {
     RadioButton rdBoleta;
     RadioButton rdFactura;
 
-    EditText txtPedidoRuc;
     EditText txtPedidoRS;
+    EditText txtPedidoRuc;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -194,9 +195,14 @@ public class ComprobantePagoFragment extends Fragment {
             }
         });
 
-        if (RegistrarPedidoActivity.tipoComprobante == 1) {
+        if (RegistrarPedidoActivity.tipoComprobante == 1 && Util.CLIENTE_SESSION.getRUC() != null) {
             txtPedidoRuc.setText(RegistrarPedidoActivity.RUC);
             txtPedidoRS.setText(RegistrarPedidoActivity.RS);
+        } else if (RegistrarPedidoActivity.tipoComprobante == 1 && Util.CLIENTE_SESSION != null) {
+            if (Util.CLIENTE_SESSION.getRUC() != null && !Util.CLIENTE_SESSION.getRUC().equals("")) {
+                txtPedidoRuc.setText(Util.CLIENTE_SESSION.getRUC());
+                txtPedidoRS.setText(Util.CLIENTE_SESSION.getNombres());
+            }
         }
 
         super.onViewCreated(view, savedInstanceState);

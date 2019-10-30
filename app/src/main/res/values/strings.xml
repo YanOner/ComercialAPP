@@ -1,17 +1,19 @@
 <resources>
     <string name="app_name">APPGINOBIGIONI</string>
-    <string name="app_menu_principal">MENU PRINCIPAL</string>
+    <string name="app_inicio">APLICACIÓN DE GESTIÓN COMERCIAL</string>
+    <string name="app_menu_principal">MENÚ PRINCIPAL</string>
     <string name="app_menu_mantenimiento">MANTENIMIENTO DE CALZADO</string>
     <string name="app_agregar_calzado">AGREGAR CALZADO</string>
     <string name="app_modificar_calzado">MODIFICAR CALZADO</string>
     <string name="app_eliminar_calzado">ELIMINAR CALZADO</string>
     <string name="app_registrar_pedido">REGISTRAR PEDIDO</string>
-    <string name="app_mostrar_catalogo">CATALOGO DE CALZADOS</string>
+    <string name="app_mostrar_catalogo">CATÁLOGO DE CALZADOS</string>
     <string name="app_mantenimiento_cliente">MANTENIMIENTO DE CLIENTE</string>
     <string name="app_agregar_cliente">AGREGAR CLIENTE</string>
     <string name="app_recupera_contraseña">RECUPERAR CONTRASEÑA</string>
     <string name="app_pedido">MIS CALZADOS</string>
     <string name="app_pedido_consignacion">PEDIDO POR CONSIGNACIÓN</string>
+    <string name="app_buscar_cliente">BUSCAR CLIENTE</string>
 
 
     <!-- Strings related to login -->

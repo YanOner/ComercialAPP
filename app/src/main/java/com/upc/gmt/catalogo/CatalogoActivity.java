@@ -88,10 +88,10 @@ public class CatalogoActivity extends AppCompatActivity {
         //Lista Precios
         listaPrecios = new ArrayList<>();
         listaPrecios.add("PRECIOS");
-        listaPrecios.add("De S/. 5 a 49 Soles");
-        listaPrecios.add("De S/. 50 a 99 Soles");
-        listaPrecios.add("De S/. 100 a 149 Soles");
-        listaPrecios.add("De S/. 150 a más");
+        listaPrecios.add("De S/ 5 a 49 Soles");
+        listaPrecios.add("De S/ 50 a 99 Soles");
+        listaPrecios.add("De S/ 100 a 149 Soles");
+        listaPrecios.add("De S/ 150 a más");
 
         ArrayAdapter<String> arrayPrecioCalzado = new ArrayAdapter<String>(getApplicationContext(), R.layout.simple_spinner_item, listaPrecios);
         arrayPrecioCalzado.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
@@ -288,7 +288,10 @@ public class CatalogoActivity extends AppCompatActivity {
                 Intent i = new Intent(this, PedidoActivity.class);
                 startActivity(i);
                 return true;
-
+            case R.id.action_carrito_ver_pedido:
+                Intent i2 = new Intent(this, PedidoActivity.class);
+                startActivity(i2);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

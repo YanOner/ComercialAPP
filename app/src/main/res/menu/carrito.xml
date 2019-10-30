@@ -4,6 +4,11 @@
 
     <!-- "Mark Favorite", should appear as action button if possible -->
     <item
+        android:id="@+id/action_carrito_ver_pedido"
+        android:title="Ver Pedido"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_carrito"
         android:icon="@drawable/lista"
         android:title="Ver Pedido"

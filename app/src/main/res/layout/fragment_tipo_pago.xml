@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Linea de Crédito Disponible"
+                    android:text="Linea de Crédito Disponible:"
                     android:textColor="@android:color/black" />
 
                 <TextView
@@ -94,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="S/.500"
+                    android:text="S/ 0.00"
                     android:textColor="@android:color/black" />
 
             </LinearLayout>

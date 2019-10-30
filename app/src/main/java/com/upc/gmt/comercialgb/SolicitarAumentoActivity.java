@@ -111,9 +111,9 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         protected void onPostExecute(Cliente cliente) {
             if (null != cliente) {
                 Util.CLIENTE_SESSION = cliente;
-                txtCreditoTotalAumento.setText("S/. " + Util.formatearDecimales(cliente.getLineaCreditoActual()));
-                txtCreditoDisponibleAumento.setText("S/. " + Util.formatearDecimales(cliente.getSaldoLineaCredito()));
-                txtDeudaPendienteAumento.setText("S/. " + Util.formatearDecimales((cliente.getLineaCreditoActual() - cliente.getSaldoLineaCredito())));
+                txtCreditoTotalAumento.setText("S/ " + Util.formatearDecimales(cliente.getLineaCreditoActual()));
+                txtCreditoDisponibleAumento.setText("S/ " + Util.formatearDecimales(cliente.getSaldoLineaCredito()));
+                txtDeudaPendienteAumento.setText("S/ " + Util.formatearDecimales((cliente.getLineaCreditoActual() - cliente.getSaldoLineaCredito())));
                 new HttpRequestTaskListaAumento().execute();
             } else {
                 Util.CLIENTE_SESSION = new Cliente();
@@ -207,8 +207,8 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
                     default:
                         estado = "APROBADO";
                 }
-//                textoDetalle += "" + s.getIdSolicitud() + ".       S/. " + s.getMontoIncrementoCredito().intValue() + "       " + fechaFMT + "   " + estado + System.getProperty("line.separator");
-                textoDetalle += "" + s.getIdSolicitud() + String.format("%20s", "S/. " + s.getMontoIncrementoCredito().intValue()) + String.format("%14s", fechaFMT) + String.format("%12s", estado) + System.getProperty("line.separator");
+//                textoDetalle += "" + s.getIdSolicitud() + ".       S/ " + s.getMontoIncrementoCredito().intValue() + "       " + fechaFMT + "   " + estado + System.getProperty("line.separator");
+                textoDetalle += "" + s.getIdSolicitud() + String.format("%20s", "S/ " + s.getMontoIncrementoCredito().intValue()) + String.format("%14s", fechaFMT) + String.format("%12s", estado) + System.getProperty("line.separator");
 
             }
             txtDetalleAumento.setText(textoDetalle);

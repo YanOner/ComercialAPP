@@ -162,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
             if (null != cliente) {
                 Util.CLIENTE_SESSION = cliente;
             } else {
-                Util.CLIENTE_SESSION = new Cliente();
+//                Util.CLIENTE_SESSION = new Cliente();
             }
 
         }

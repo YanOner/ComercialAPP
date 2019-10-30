@@ -95,6 +95,52 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvArticuloDescuento"
+                        style="@style/textView_stylePedido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="APLICAR DESCUENTO:" />
+
+                    <TextView
+                        android:id="@+id/tvArticuloPorcentaje"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        tools:text="0%"
+                        android:textColor="@color/colorAccent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <SeekBar
+                        android:id="@+id/sbArticuloDescuento"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:layout_gravity="center"
                     android:layout_weight="1">
@@ -105,17 +151,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_gravity="center"
                         android:text="CANTIDAD:" />
 
                     <EditText
                         android:id="@+id/txtCantidadPedido"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
+                        android:layout_gravity="bottom"
+                        tools:text="4"
                         android:gravity="center"
                         android:inputType="number"
                         android:maxLength="7"
                         android:textAlignment="gravity"
+                        android:imeOptions="actionDone"
                         android:textColor="@color/colorAccent" />
 
                 </LinearLayout>
@@ -145,17 +195,19 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/btnQuitar"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
+                        android:layout_gravity="center"
                         android:onClick="onQuitarPedido"
                         app:srcCompat="@android:drawable/ic_delete" />
 
                     <CheckBox
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:id="@+id/chbArticulo"
                         android:layout_weight="1"
+                        android:layout_gravity="center"
                         android:text="CONFIRMAR" />
 
                 </LinearLayout>

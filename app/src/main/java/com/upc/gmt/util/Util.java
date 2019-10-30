@@ -18,9 +18,14 @@ import java.util.Locale;
 
 public class Util {
 
-    //public static String URL_WEB_SERVICE = "http://192.168.43.172:8080/ComercialWEB";
-    public static String URL_WEB_SERVICE = "http://192.168.1.4:8080/ComercialWEB";
-//        public static String URL_WEB_SERVICE = "http://10.230.168.210:9090/ComercialWEB";
+    //    public static String URL_WEB_SERVICE = "http://192.168.43.191:8080/ComercialWEB";//CELL
+//    public static String URL_WEB_SERVICE = "http://192.168.1.156:8080/ComercialWEB";//ROUTER
+//      public static String URL_WEB_SERVICE = "http://192.168.137.1:8080/ComercialWEB";//LAPTOP
+    public static String URL_WEB_SERVICE = "http://10.0.2.2:8080/ComercialWEB";//EMULADOR
+//    public static String URL_WEB_SERVICE = "http://190.187.111.150:8080/ComercialWEB";//CONECTIFY
+
+
+    public static String URL_WEB_SERVICE_V2 = "http://192.168.1.156:8080/ComercialWEB";
 
     public static Usuario USUARIO_SESSION = new Usuario();
 

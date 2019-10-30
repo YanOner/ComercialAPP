@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +80,8 @@ public class PedidoArrayAdapter extends ArrayAdapter {
 //                        Log.i("viewPedido", "position: " + viewPedido.getTag());
                     EditText txtCantidadPedido = (EditText) viewPedido.findViewById(R.id.txtCantidadPedido);
                     CheckBox chbArticulo = (CheckBox) viewPedido.findViewById(R.id.chbArticulo);
+                    SeekBar sbArticuloDescuento = (SeekBar) viewPedido.findViewById(R.id.sbArticuloDescuento);
+
                     Producto p = Util.LISTA_PRODUCTOS_PEDIDO.get(i);
                     if (p.isChecked()) {
                         if (txtCantidadPedido.getText().toString().equals("")) {
@@ -105,11 +108,18 @@ public class PedidoArrayAdapter extends ArrayAdapter {
                         p.setCantidad(cantidad);
                         Util.LISTA_PRODUCTOS_PEDIDO.set(i, p);
                         txtCantidadPedido.setEnabled(false);
+                        sbArticuloDescuento.setEnabled(false);
                         TextView tvTotalArticulo = (TextView) viewPedido.findViewById(R.id.tvTotalArticulo);
 //                        if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
-                            double subTotal = (p.getCantidad() * p.getPrecioVendedor().doubleValue());
-                        tvTotalArticulo.setText("SubTotal del Calzado: S/ " + Util.formatearDecimales(subTotal));
-                            totalPrecio += (p.getCantidad() * p.getPrecioVendedor().doubleValue());
+                        //DESCUENTO
+                        double totalDescuento = 1;
+                        if (p.getTieneDescuento() == 1 && p.getDescuentoSeleccionado() != 0) {
+                            totalDescuento = 1 - p.getDescuentoSeleccionado() / 100.00;
+                        }
+
+                        double subTotal = (p.getCantidad() * p.getPrecioVendedor().doubleValue()) * totalDescuento;
+                        tvTotalArticulo.setText("Subtotal: S/ " + Util.formatearDecimales(subTotal));
+                        totalPrecio += (p.getCantidad() * p.getPrecioVendedor().doubleValue()) * totalDescuento;
 //                        } else {
 //                            double subTotal = (p.getCantidad() * p.getPrecioUnitario().doubleValue());
 //                            tvTotalArticulo.setText("SubTotal del Calzado: S/ " + Util.formatearDecimales(subTotal));
@@ -117,6 +127,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
 //                        }
                     } else {
                         txtCantidadPedido.setEnabled(true);
+                        sbArticuloDescuento.setEnabled(true);
                     }
                 }
                 TextView vTotalPedido = (TextView) buttonView.getRootView().findViewById(R.id.tvTotalPedido);
@@ -154,12 +165,65 @@ public class PedidoArrayAdapter extends ArrayAdapter {
         TextView tvTotalArticulo = (TextView) convertView.findViewById(R.id.tvTotalArticulo);
 
 //        if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
-        tvPrecio.setText("Precio: " + p.getPrecioVendedor());
-            tvTotalArticulo.setText("SubTotal del Calzado: S/ " + p.getCantidad() * p.getPrecioVendedor().doubleValue());
+        tvPrecio.setText("Precio: " + Util.formatearDecimales(p.getPrecioVendedor().doubleValue()));
+
+        double totalDescuento = 1;
+        if (p.getTieneDescuento() == 1 && p.getDescuentoSeleccionado() != 0) {
+            totalDescuento = 1 - p.getDescuentoSeleccionado() / 100.00;
+        }
+
+        double subtotal = p.getCantidad() * p.getPrecioVendedor().doubleValue() * totalDescuento;
+
+        tvTotalArticulo.setText("Subtotal: S/ " + Util.formatearDecimales(subtotal));
 //        } else {
 //            tvPrecio.setText("Precio: " + p.getPrecioUnitario());
 //            tvTotalArticulo.setText("SubTotal del Calzado: S/ " + p.getCantidad() * p.getPrecioUnitario().doubleValue());
 //        }
+
+        //DESCUENTO
+        TextView tvArticuloDescuento = (TextView) convertView.findViewById(R.id.tvArticuloDescuento);
+        final TextView tvArticuloPorcentaje = (TextView) convertView.findViewById(R.id.tvArticuloPorcentaje);
+        SeekBar sbArticuloDescuento = (SeekBar) convertView.findViewById(R.id.sbArticuloDescuento);
+        sbArticuloDescuento.setTag(position);
+
+        tvArticuloPorcentaje.setText(p.getDescuentoSeleccionado() + "%");
+
+        if (p.getTieneDescuento() == 1) {
+            tvArticuloDescuento.setVisibility(View.VISIBLE);
+            sbArticuloDescuento.setVisibility(View.VISIBLE);
+            tvArticuloPorcentaje.setVisibility(View.VISIBLE);
+            sbArticuloDescuento.setProgress(p.getDescuentoSeleccionado());
+            sbArticuloDescuento.setMax(p.getDescuentoMaximo());
+        } else {
+            tvArticuloDescuento.setVisibility(View.INVISIBLE);
+            sbArticuloDescuento.setVisibility(View.INVISIBLE);
+            tvArticuloPorcentaje.setVisibility(View.INVISIBLE);
+        }
+
+//        sbArticuloDescuento.setTag(0);
+        sbArticuloDescuento.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int pval = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                pval = progress;
+                tvArticuloPorcentaje.setText(progress + "%");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                ListView lvPedidos = (ListView) seekBar.getRootView().findViewById(R.id.lvPedidos);
+                int posicion = (int) seekBar.getTag();
+                Log.d("posicion en seekbar", "" + posicion);
+                Producto pp = Util.LISTA_PRODUCTOS_PEDIDO.get(posicion);
+                pp.setDescuentoSeleccionado(pval);
+            }
+        });
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.grid_pedido_image);
 

@@ -49,6 +49,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
     FrameLayout fragPedido;
 
     static TextView tvTotalPagar;
+    static TextView tvPedidoCliente;
 
     EditText txtPedidoRuc;
     EditText txtPedidoRS;
@@ -113,6 +114,16 @@ public class RegistrarPedidoActivity extends AppCompatActivity
         txtPedidoRS = (EditText) findViewById(R.id.txtPedidoRS);
 
         tvTotalPagar = (TextView) findViewById(R.id.tvTotalPagar);
+        tvPedidoCliente = (TextView) findViewById(R.id.tvPedidoCliente);
+
+        if (Util.CLIENTE_SESSION != null) {
+            if (Util.CLIENTE_SESSION.getRUC() != null && !Util.CLIENTE_SESSION.getRUC().equals("")) {
+                tvPedidoCliente.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + " (" + Util.CLIENTE_SESSION.getRUC() + ")");
+            } else {
+                tvPedidoCliente.setText("Cliente: " + Util.CLIENTE_SESSION.getApellidoPaterno() + " (" + Util.CLIENTE_SESSION.getNroDocumentoIdentidad() + ")");
+            }
+        }
+
         BigDecimal total = new BigDecimal(Util.PRECIO_TOTAL_CALZADOS);
         total.setScale(2, BigDecimal.ROUND_HALF_EVEN);
         tvTotalPagar.setText("TOTAL A PAGAR: S/ " + Util.formatearDecimales(total.doubleValue()));
