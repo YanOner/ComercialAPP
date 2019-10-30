@@ -253,7 +253,6 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
                 Intent i = new Intent(this, PedidoActivity.class);
                 startActivity(i);
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
