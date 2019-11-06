@@ -39,6 +39,4 @@
     <string name="titulo_actividad_detalle">Actividad De Detalle</string>
     <string name="nombre_transicion_imagen">imagen_compartida</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -5,8 +5,6 @@
     tools:context="com.upc.gmt.pedido.TipoEntregaFragment"
     android:background="@drawable/trial">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

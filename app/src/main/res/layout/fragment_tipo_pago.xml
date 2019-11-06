@@ -5,8 +5,6 @@
     tools:context="com.upc.gmt.pedido.TipoPagoFragment"
     android:background="@drawable/trial">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
