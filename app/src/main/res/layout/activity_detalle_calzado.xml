@@ -193,10 +193,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="Cliente..."
-                        android:textStyle="bold"
+                        android:text="Cliente: -"
                         android:textColor="@color/colorAccent"
-                        android:visibility="invisible" />
+                        android:textStyle="bold"
+                        android:visibility="visible" />
 
                 </LinearLayout>
 

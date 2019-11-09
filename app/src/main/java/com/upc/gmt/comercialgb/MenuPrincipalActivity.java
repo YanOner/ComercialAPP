@@ -18,13 +18,13 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
         Button btnSolicitarAumento = (Button) findViewById(R.id.btnSolicitarAumento);
 
-//        if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {//REVENDEDOR
+//        if (Util.EMPLEADO_SESSION.getIdTipoUsuario() == 2) {//REVENDEDOR
             btnSolicitarAumento.setVisibility(View.VISIBLE);
 //        } else {
 //            btnSolicitarAumento.setVisibility(View.INVISIBLE);
 //        }
 
-        setTitle("MENÚ PRINCIPAL (" + Util.USUARIO_SESSION.getCorreoElectronico().toUpperCase() + ")");
+        setTitle("MENÚ PRINCIPAL (" + Util.EMPLEADO_SESSION.getCorreoelectronico().toUpperCase() + ")");
 
     }
 

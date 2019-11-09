@@ -20,7 +20,6 @@ import com.upc.gmt.util.Util;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,19 +120,20 @@ public class BuscarClienteActivity extends AppCompatActivity {
         @Override
         protected Cliente doInBackground(Void... params) {
             try {
-                String URL = Util.URL_WEB_SERVICE_V2 + "/cliente/buscar";
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("tipoDocumento", tipoDocumento)
-                        .queryParam("numeroDocumento", numeroDocumento);
+                String tipoPersona = "N";
+                if (tipoDocumento.equals("RUC")) {
+                    tipoPersona = "J";
+                }
+                String url = Util.URL_SERVICE_BASE + "/cliente/" + numeroDocumento + "/" + tipoPersona;
+//                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+//                        .queryParam("tipoDocumento", tipoDocumento)
+//                        .queryParam("numeroDocumento", numeroDocumento);
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-//                Cliente cliente = restTemplate.getForObject(builder.build().encode().toUri(), Cliente.class);
-//                Log.i("Cliente", cliente.toString());
-
-                Cliente cliente = new Cliente();
-                cliente.setRUC(numeroDocumento);
+                Cliente cliente = restTemplate.getForObject(url, Cliente.class);
+                Log.i("Cliente", cliente.toString());
 
                 return cliente;
             } catch (Exception e) {
@@ -144,17 +144,19 @@ public class BuscarClienteActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Cliente cliente) {
-            //TEST
-            if (numeroDocumento.equals("00000000")) cliente = null;
             if (null != cliente) {
                 Util.CLIENTE_SESSION = cliente;
                 ad.setTitle("MENSAJE");
-                ad.setMessage("Cliente encontrado: " + cliente);
+                ad.setMessage("Cliente encontrado: " + cliente.getNombres());
                 ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
-                        buscarClienteActivity.finish();
+                        BuscarClienteActivity.this.finish();
+//                        Intent i = new Intent();
+//                        i.putExtra();
+//                        BuscarClienteActivity.this.setResult(1000,);
+
                     }
                 });
                 ad.show();

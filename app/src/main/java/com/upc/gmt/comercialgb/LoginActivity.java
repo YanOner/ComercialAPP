@@ -1,5 +1,7 @@
 package com.upc.gmt.comercialgb;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,8 +14,8 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.upc.gmt.bean.Empleado;
 import com.upc.gmt.model.Cliente;
-import com.upc.gmt.model.Usuario;
 import com.upc.gmt.util.Util;
 
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     String usuario;
     String password;
 
+    AlertDialog.Builder alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        alertDialog = new AlertDialog.Builder(this);
 
         txtUsuario = (EditText) findViewById(R.id.txtUsuario);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
@@ -83,21 +88,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private class HttpRequestTaskLogin extends AsyncTask<Void, Void, Usuario> {
+    private class HttpRequestTaskLogin extends AsyncTask<Void, Void, Empleado> {
         @Override
-        protected Usuario doInBackground(Void... params) {
+        protected Empleado doInBackground(Void... params) {
             try {
-                String URL = Util.URL_WEB_SERVICE + "/login";
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("codUsuario", usuario)
-                        .queryParam("password", password);
+                String URL = Util.URL_SERVICE_BASE + "/empleado/login/" + usuario + "/" + password;
+//                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+//                        .queryParam("codUsuario", usuario)
+//                        .queryParam("password", password);
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-                Log.i("Login URL", builder.build().encode().toUri().toString());
+                Log.i("Login URL", URL);
 //                Usuario usuario = restTemplate.getForObject(builder.build().encode().toUri(), Usuario.class);
-                ResponseEntity<Usuario> response = restTemplate.getForEntity(builder.build().encode().toUri(), Usuario.class);
-                Usuario usuario = response.getBody();
+                ResponseEntity<Empleado> response = restTemplate.getForEntity(URL, Empleado.class);
+                Empleado usuario = response.getBody();
                 Log.i("Usuario", usuario.toString());
                 Util.COOKIES_SESSION = response.getHeaders().get("Set-Cookie");
                 return usuario;
@@ -108,28 +113,38 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Usuario usuario) {
+        protected void onPostExecute(Empleado empleado) {
             //TEST
-//            usuario = new Usuario();
-//            usuario.setCodUsuario("00000");
-            if (null != usuario) {
-                Util.USUARIO_SESSION = usuario;
+//            empleado = new Usuario();
+//            empleado.setCodUsuario("00000");
+            if (null != empleado) {
+                Util.EMPLEADO_SESSION = empleado;
                 Toast.makeText(LoginActivity.this,
-                        "BIENVENIDO " + usuario.getCodUsuario()
+                        "BIENVENIDO " + empleado.getNombre().toUpperCase()
                         , Toast.LENGTH_SHORT).show();
-                new HttpRequestTaskCliente().execute();
-                if (Util.REGRESAR_A_CATALOGO) {
-                    finish();
-                } else {
+//                new HttpRequestTaskCliente().execute();
+//                if (Util.REGRESAR_A_CATALOGO) {
+//                    finish();
+//                } else {
                     Intent i = new Intent(getApplicationContext(), com.upc.gmt.comercialgb.MenuPrincipalActivity.class);
                     startActivity(i);
-                }
+//                }
             } else {
-                Util.USUARIO_SESSION = new Usuario();
-                Util.USUARIO_SESSION.setIdTipoUsuario(1);
-                Toast.makeText(LoginActivity.this,
-                        "CREDENCIALES INCORRECTAS"
-                        , Toast.LENGTH_LONG).show();
+//                Util.EMPLEADO_SESSION = new Usuario();
+//                Util.EMPLEADO_SESSION.setIdTipoUsuario(1);
+//                Toast.makeText(LoginActivity.this,
+//                        "CREDENCIALES INCORRECTAS"
+//                        , Toast.LENGTH_LONG).show();
+
+                alertDialog.setTitle("MENSAJE");
+                alertDialog.setMessage("CREDENCIALES INCORRECTAS");
+                alertDialog.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                alertDialog.show();
             }
 
         }
@@ -141,8 +156,8 @@ public class LoginActivity extends AppCompatActivity {
         protected Cliente doInBackground(Void... params) {
             try {
                 String URL = Util.URL_WEB_SERVICE + "/cliente";
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("idCliente", Util.USUARIO_SESSION.getIdCliente());
+                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+//                        .queryParam("idCliente", Util.EMPLEADO_SESSION.getIdCliente());
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());

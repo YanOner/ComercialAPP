@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.upc.gmt.bean.Producto;
 import com.upc.gmt.comercialgb.R;
-import com.upc.gmt.model.Producto;
 import com.upc.gmt.util.Util;
 
 import java.util.List;
@@ -59,11 +59,11 @@ public class ImagenCalzadoArrayAdapter extends ArrayAdapter {
         tvCodigo.setText("Talla: " + p.getNroTalla());
 
         TextView tvPrecio = (TextView) convertView.findViewById(R.id.grid_item_label_precio);
-        int tipoUsuario = Util.USUARIO_SESSION.getIdTipoUsuario();
+//        int tipoUsuario = Util.EMPLEADO_SESSION.getIdTipoUsuario();
 //        if (tipoUsuario == 2) {//Revendedor
 //            tvPrecio.setText("S/ " + p.getPrecioVendedor().doubleValue());
 //        } else {
-        tvPrecio.setText("S/ " + Util.formatearDecimales(p.getPrecioUnitario().doubleValue()));
+        tvPrecio.setText("S/ " + Util.formatearDecimales(p.getPreciounitario().doubleValue()));
 //        }
 
         // set image based on selected text
@@ -82,9 +82,10 @@ public class ImagenCalzadoArrayAdapter extends ArrayAdapter {
 //            picasso.setIndicatorsEnabled(true);
 //            picasso.setLoggingEnabled(true);
         try {
-            Log.d("DEBUG", p.getSKU() + "_" + p.getIdColor() + "_1.jpg");
+            Log.d("DEBUG", p.getSku() + "_" + p.getIdColor() + "_1.jpg");
 //                Picasso.with(context).load(Util.URL_WEB_SERVICE+"/verImagen?nombre="+p.getSKU()+"_"+p.getIdColor()+"_1.jpg").into(imageView);
-            int id = context.getResources().getIdentifier(p.getSKU().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
+//            int id = context.getResources().getIdentifier(p.getSku().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
+            int id = context.getResources().getIdentifier("acm19421_5_1", "mipmap", context.getPackageName());
             Picasso.with(context).load(id).resize(150, 150).centerCrop().into(imageView);
         } catch (Exception e) {
             e.printStackTrace();

@@ -152,7 +152,7 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("ParmIdCliente", Util.USUARIO_SESSION.getIdCliente())
+                        .queryParam("ParmIdCliente", Util.CLIENTE_SESSION.getIdCliente())
                         .queryParam("ParmTotal", Util.PRECIO_TOTAL_PAGAR)
                         .queryParam("ParmNroCuotas",
                                 cuotasSeleccionadas
@@ -178,7 +178,7 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
                         .queryParam("ParmTipoDocumento", tipoComprobante)
                         .queryParam("ParmRuc", RUC)
                         .queryParam("ParmRazonSocial", RS)
-                        .queryParam("ParmIdTipoUsuario", Util.USUARIO_SESSION.getIdTipoUsuario().intValue())
+                        .queryParam("ParmIdTipoUsuario", Util.EMPLEADO_SESSION.getIdtipousuario().intValue())
                         .queryParam("tramaPedido", tramaPedido);
 //                        .queryParam("ParmIdProducto", abc)
 //                        .queryParam("ParmIdColorProducto", abc)

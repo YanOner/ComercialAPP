@@ -3,9 +3,9 @@ package com.upc.gmt.util;
 import android.view.View;
 import android.widget.ListView;
 
+import com.upc.gmt.bean.Empleado;
+import com.upc.gmt.bean.Producto;
 import com.upc.gmt.model.Cliente;
-import com.upc.gmt.model.Producto;
-import com.upc.gmt.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -25,9 +25,13 @@ public class Util {
 //    public static String URL_WEB_SERVICE = "http://190.187.111.150:8080/ComercialWEB";//CONECTIFY
 
 
-    public static String URL_WEB_SERVICE_V2 = "http://192.168.1.156:8080/ComercialWEB";
+    public static String URL_SERVICE_BASE = "http://10.0.2.2:9090";
 
-    public static Usuario USUARIO_SESSION = new Usuario();
+    public static String URL_SERVICE_CATALOGO = "";//catalogo
+
+    public static String URL_SERVICE_PEDIDO = "";//catalogo
+
+    public static Empleado EMPLEADO_SESSION;
 
     public static Cliente CLIENTE_SESSION;
 

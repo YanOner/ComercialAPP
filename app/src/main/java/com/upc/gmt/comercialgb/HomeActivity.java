@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.upc.gmt.catalogo.CatalogoActivity;
-import com.upc.gmt.model.Usuario;
 import com.upc.gmt.util.Util;
 
 public class HomeActivity extends AppCompatActivity {
@@ -24,8 +23,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void onAbrirCatalogo(View v) {
-        Util.USUARIO_SESSION = new Usuario();
-        Util.USUARIO_SESSION.setIdTipoUsuario(1);
+//        Util.EMPLEADO_SESSION = new Usuario();
+//        Util.EMPLEADO_SESSION.setIdTipoUsuario(1);
         Intent i = new Intent(getApplicationContext(), CatalogoActivity.class);
         startActivity(i);
     }

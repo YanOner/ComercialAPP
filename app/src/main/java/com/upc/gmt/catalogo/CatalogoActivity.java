@@ -16,13 +16,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.upc.gmt.bean.Colorproducto;
+import com.upc.gmt.bean.Producto;
+import com.upc.gmt.bean.Talla;
+import com.upc.gmt.bean.Temporada;
+import com.upc.gmt.bean.Tipoproducto;
 import com.upc.gmt.comercialgb.R;
-import com.upc.gmt.model.Colorproducto;
 import com.upc.gmt.model.Material;
-import com.upc.gmt.model.Producto;
-import com.upc.gmt.model.Talla;
-import com.upc.gmt.model.Temporada;
-import com.upc.gmt.model.Tipoproducto;
 import com.upc.gmt.pedido.PedidoActivity;
 import com.upc.gmt.util.Util;
 
@@ -112,10 +112,10 @@ public class CatalogoActivity extends AppCompatActivity {
                 productoSeleccionado = listaProducto.get(position);
                 Toast.makeText(view.getContext().getApplicationContext(), productoSeleccionado.getDescripcion(), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(), DetalleCalzadoActivity.class);
-                i.putExtra("idProducto", productoSeleccionado.getIdProducto().toString());
+                i.putExtra("idProducto", productoSeleccionado.getIdproducto().toString());
                 i.putExtra("idColor", productoSeleccionado.getIdColor());
                 i.putExtra("nroTalla", productoSeleccionado.getNroTalla().toString());
-                i.putExtra("SKU", productoSeleccionado.getSKU());
+                i.putExtra("SKU", productoSeleccionado.getSku());
                 startActivity(i);
             }
         });
@@ -285,12 +285,9 @@ public class CatalogoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_carrito:
+            case R.id.action_carrito_ver_pedido:
                 Intent i = new Intent(this, PedidoActivity.class);
                 startActivity(i);
-                return true;
-            case R.id.action_carrito_ver_pedido:
-                Intent i2 = new Intent(this, PedidoActivity.class);
-                startActivity(i2);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -302,7 +299,9 @@ public class CatalogoActivity extends AppCompatActivity {
         protected List<Producto> doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskBuscar");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/buscarCatalogo";
+//                String URL = Util.URL_WEB_SERVICE + "/buscarCatalogo";
+                String URL = Util.URL_SERVICE_BASE + Util.URL_SERVICE_CATALOGO + "/producto/filtros";
+
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
@@ -348,7 +347,7 @@ public class CatalogoActivity extends AppCompatActivity {
         protected List<Talla> doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskTallas");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/verTallas";
+                String URL = Util.URL_SERVICE_BASE + Util.URL_SERVICE_CATALOGO + "/talla";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 ParameterizedTypeReference<List<Talla>> responseType = new ParameterizedTypeReference<List<Talla>>() {
@@ -370,9 +369,9 @@ public class CatalogoActivity extends AppCompatActivity {
             Log.i("LISTA", "Tamaño: " + lista.size());
             listaTalla = lista;
             List<String> items = new ArrayList<>();
-            items.add("TALLA");
+            items.add("TALLAS");
             for (Talla t : lista) {
-                items.add(t.getNroTalla().toString());
+                items.add(t.getNrotalla().toString());
             }
             ArrayAdapter<String> arrayTallaCalzado = new ArrayAdapter<String>(getApplicationContext(), R.layout.simple_spinner_item, items);
             arrayTallaCalzado.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
@@ -390,7 +389,7 @@ public class CatalogoActivity extends AppCompatActivity {
         protected List<Colorproducto> doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskColor");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/verColores";
+                String URL = Util.URL_SERVICE_BASE + Util.URL_SERVICE_CATALOGO + "/colorproducto";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 ParameterizedTypeReference<List<Colorproducto>> responseType = new ParameterizedTypeReference<List<Colorproducto>>() {
@@ -472,7 +471,7 @@ public class CatalogoActivity extends AppCompatActivity {
         protected List<Tipoproducto> doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskTiposCalzado");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/verTipoCalzados";
+                String URL = Util.URL_SERVICE_BASE + Util.URL_SERVICE_CATALOGO + "/tipoproducto";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 ParameterizedTypeReference<List<Tipoproducto>> responseType = new ParameterizedTypeReference<List<Tipoproducto>>() {
@@ -494,7 +493,7 @@ public class CatalogoActivity extends AppCompatActivity {
             Log.i("LISTA", "Tipo de Calzado: " + lista.size());
             listaTipoProducto = lista;
             List<String> items = new ArrayList<>();
-            items.add("TIPO DE CALZADO");
+            items.add("TIPOS DE CALZADO");
             for (Tipoproducto tp : lista) {
                 items.add(tp.getDescripcion());
             }
@@ -514,7 +513,7 @@ public class CatalogoActivity extends AppCompatActivity {
         protected List<Temporada> doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskTemporada");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/verTemporadas";
+                String URL = Util.URL_SERVICE_BASE + Util.URL_SERVICE_CATALOGO + "/temporada";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 ParameterizedTypeReference<List<Temporada>> responseType = new ParameterizedTypeReference<List<Temporada>>() {
@@ -536,7 +535,7 @@ public class CatalogoActivity extends AppCompatActivity {
             Log.i("LISTA", "Tipo de Taco: " + lista.size());
             listaTemporada = lista;
             List<String> items = new ArrayList<>();
-            items.add("TEMPORADA");
+            items.add("TEMPORADAS");
             for (Temporada t : lista) {
                 items.add(t.getDescripcion());
             }

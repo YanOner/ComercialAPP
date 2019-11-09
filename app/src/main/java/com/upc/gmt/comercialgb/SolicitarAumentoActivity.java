@@ -92,7 +92,7 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
             try {
                 String URL = Util.URL_WEB_SERVICE + "/cliente";
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("idCliente", Util.USUARIO_SESSION.getIdCliente());
+                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente());
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -128,8 +128,8 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
             try {
                 String URL = Util.URL_WEB_SERVICE + "/registrarSolicitud";
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("idCliente", Util.USUARIO_SESSION.getIdCliente())
-                        .queryParam("codUsuario", Util.USUARIO_SESSION.getCodUsuario())
+                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente())
+                        .queryParam("codUsuario", Util.EMPLEADO_SESSION.getCodusuario())
                         .queryParam("montoIncrementoCredito", cantidadINT);
 
                 RestTemplate restTemplate = new RestTemplate();
@@ -164,8 +164,8 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
             try {
                 String URL = Util.URL_WEB_SERVICE + "/listaSolicitudes";
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("idCliente", Util.USUARIO_SESSION.getIdCliente())
-                        .queryParam("codUsuario", Util.USUARIO_SESSION.getCodUsuario());
+                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente())
+                        .queryParam("codUsuario", Util.EMPLEADO_SESSION.getCodusuario());
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());

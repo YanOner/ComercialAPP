@@ -11,8 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.upc.gmt.bean.Producto;
 import com.upc.gmt.comercialgb.R;
-import com.upc.gmt.model.Producto;
 import com.upc.gmt.util.Util;
 
 import static com.upc.gmt.util.Util.LISTA_PRODUCTOS_PEDIDO;
@@ -89,7 +89,7 @@ public class PedidoActivity extends AppCompatActivity {
         }
 
 //        for (Producto p : Util.LISTA_PRODUCTOS_PEDIDO){
-//            if(Util.USUARIO_SESSION.getIdTipoUsuario() == 2){
+//            if(Util.EMPLEADO_SESSION.getIdTipoUsuario() == 2){
 //                totalPrecio += (p.getCantidad()*p.getPrecioVendedor().doubleValue());
 //            }else{
 //                totalPrecio += (p.getCantidad()*p.getPrecioUnitario().doubleValue());
@@ -133,11 +133,11 @@ public class PedidoActivity extends AppCompatActivity {
             double totalPrecio = 0.00;
             for (Producto p : Util.LISTA_PRODUCTOS_PEDIDO) {
                 if (p.isChecked()) {
-                    if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
-                        totalPrecio += (p.getCantidad() * p.getPrecioVendedor().doubleValue());
-                    } else {
-                        totalPrecio += (p.getCantidad() * p.getPrecioUnitario().doubleValue());
-                    }
+//                    if (Util.EMPLEADO_SESSION.getIdtipousuario() == 2) {
+//                        totalPrecio += (p.getCantidad() * p.getPrecioVendedor().doubleValue());
+//                    } else {
+                    totalPrecio += (p.getCantidad() * p.getPreciounitario().doubleValue());
+//                    }
                 }
             }
 

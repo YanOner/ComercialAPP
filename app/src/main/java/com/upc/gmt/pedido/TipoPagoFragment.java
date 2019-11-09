@@ -478,7 +478,7 @@ public class TipoPagoFragment extends Fragment {
         protected List<Bancos> doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskBancos");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/bancos";
+                String URL = Util.URL_SERVICE_BASE + "/bancos";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 ParameterizedTypeReference<List<Bancos>> responseType = new ParameterizedTypeReference<List<Bancos>>() {
@@ -518,7 +518,7 @@ public class TipoPagoFragment extends Fragment {
             try {
                 String URL = Util.URL_WEB_SERVICE + "/cliente";
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("idCliente", Util.USUARIO_SESSION.getIdCliente());
+                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente());
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());

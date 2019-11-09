@@ -17,8 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.upc.gmt.bean.Producto;
 import com.upc.gmt.comercialgb.R;
-import com.upc.gmt.model.Producto;
 import com.upc.gmt.util.Util;
 
 import java.util.List;
@@ -95,7 +95,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
                             chbArticulo.setChecked(false);
                             return;
                         }
-//                        if (Util.USUARIO_SESSION.getIdTipoUsuario() != 2 && cantidad > 3) {
+//                        if (Util.EMPLEADO_SESSION.getIdTipoUsuario() != 2 && cantidad > 3) {
 //                            Toast.makeText(getContext().getApplicationContext(), "SOLO PUEDE COMPRAR HASTA 3 PARES DEL MISMO CALZADO", Toast.LENGTH_LONG).show();
 //                            chbArticulo.setChecked(false);
 //                            return;
@@ -110,16 +110,16 @@ public class PedidoArrayAdapter extends ArrayAdapter {
                         txtCantidadPedido.setEnabled(false);
                         sbArticuloDescuento.setEnabled(false);
                         TextView tvTotalArticulo = (TextView) viewPedido.findViewById(R.id.tvTotalArticulo);
-//                        if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
+//                        if (Util.EMPLEADO_SESSION.getIdTipoUsuario() == 2) {
                         //DESCUENTO
                         double totalDescuento = 1;
-                        if (p.getTieneDescuento() == 1 && p.getDescuentoSeleccionado() != 0) {
+                        if (p.getDescuentoMaximo() > 0 && p.getDescuentoSeleccionado() != 0) {
                             totalDescuento = 1 - p.getDescuentoSeleccionado() / 100.00;
                         }
 
-                        double subTotal = (p.getCantidad() * p.getPrecioVendedor().doubleValue()) * totalDescuento;
+                        double subTotal = (p.getCantidad() * p.getPreciounitario().doubleValue()) * totalDescuento;
                         tvTotalArticulo.setText("Subtotal: S/ " + Util.formatearDecimales(subTotal));
-                        totalPrecio += (p.getCantidad() * p.getPrecioVendedor().doubleValue()) * totalDescuento;
+                        totalPrecio += (p.getCantidad() * p.getPreciounitario().doubleValue()) * totalDescuento;
 //                        } else {
 //                            double subTotal = (p.getCantidad() * p.getPrecioUnitario().doubleValue());
 //                            tvTotalArticulo.setText("SubTotal del Calzado: S/ " + Util.formatearDecimales(subTotal));
@@ -150,7 +150,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
         tvNombre.setText("Nombre: " + p.getDescripcion());
 
         TextView tvCodigo = (TextView) convertView.findViewById(R.id.grid_pedido_label_codigo);
-        tvCodigo.setText("Codigo: " + p.getSKU());
+        tvCodigo.setText("Codigo: " + p.getSku());
 
         TextView tvColor = (TextView) convertView.findViewById(R.id.grid_pedido_label_color);
         tvColor.setText("Color: " + p.getColor());
@@ -164,15 +164,15 @@ public class PedidoArrayAdapter extends ArrayAdapter {
         TextView tvPrecio = (TextView) convertView.findViewById(R.id.grid_pedido_label_precio);
         TextView tvTotalArticulo = (TextView) convertView.findViewById(R.id.tvTotalArticulo);
 
-//        if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
-        tvPrecio.setText("Precio: " + Util.formatearDecimales(p.getPrecioVendedor().doubleValue()));
+//        if (Util.EMPLEADO_SESSION.getIdTipoUsuario() == 2) {
+        tvPrecio.setText("Precio: " + Util.formatearDecimales(p.getPreciounitario().doubleValue()));
 
         double totalDescuento = 1;
-        if (p.getTieneDescuento() == 1 && p.getDescuentoSeleccionado() != 0) {
+        if (p.getDescuentoMaximo() > 0 && p.getDescuentoSeleccionado() != 0) {
             totalDescuento = 1 - p.getDescuentoSeleccionado() / 100.00;
         }
 
-        double subtotal = p.getCantidad() * p.getPrecioVendedor().doubleValue() * totalDescuento;
+        double subtotal = p.getCantidad() * p.getPreciounitario().doubleValue() * totalDescuento;
 
         tvTotalArticulo.setText("Subtotal: S/ " + Util.formatearDecimales(subtotal));
 //        } else {
@@ -188,7 +188,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
 
         tvArticuloPorcentaje.setText(p.getDescuentoSeleccionado() + "%");
 
-        if (p.getTieneDescuento() == 1) {
+        if (p.getDescuentoMaximo() > 0) {
             tvArticuloDescuento.setVisibility(View.VISIBLE);
             sbArticuloDescuento.setVisibility(View.VISIBLE);
             tvArticuloPorcentaje.setVisibility(View.VISIBLE);
@@ -233,7 +233,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
         try {
 //                Log.d("PedidoArrayAdapter", p.getSKU()+"_"+p.getIdColor()+"_1.jpg");
 //                Picasso.with(context).load(Util.URL_WEB_SERVICE+"/verImagen?nombre="+p.getSKU()+"_"+p.getIdColor()+"_1.jpg").resize(100, 100).into(imageView);
-            int id = context.getResources().getIdentifier(p.getSKU().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
+            int id = context.getResources().getIdentifier(p.getSku().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
             Picasso.with(context).load(id).resize(150, 150).into(imageView);
         } catch (Exception e) {
             e.printStackTrace();

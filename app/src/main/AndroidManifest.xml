@@ -39,6 +39,7 @@
         <activity
             android:name="com.upc.gmt.catalogo.CatalogoActivity"
             android:label="@string/app_mostrar_catalogo"
+            android:parentActivityName="com.upc.gmt.comercialgb.MenuPrincipalActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".MantenimientoUsuarioActivity"

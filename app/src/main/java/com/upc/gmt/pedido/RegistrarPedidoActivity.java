@@ -17,9 +17,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.upc.gmt.bean.Producto;
 import com.upc.gmt.comercialgb.MenuPrincipalActivity;
 import com.upc.gmt.comercialgb.R;
-import com.upc.gmt.model.Producto;
 import com.upc.gmt.util.Util;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -256,7 +256,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
 
         tramaPedido = "";
         for (Producto p : Util.LISTA_PRODUCTOS_PEDIDO) {
-            tramaPedido += p.getIdProducto() + "," + p.getIdColor() + "," + p.getNroTalla() + "," + p.getCantidad() + ";";
+            tramaPedido += p.getIdproducto() + "," + p.getIdColor() + "," + p.getNroTalla() + "," + p.getCantidad() + ";";
         }
         if (tramaPedido.length() > 0) {
             tramaPedido = tramaPedido.substring(0, tramaPedido.length() - 1);
@@ -297,7 +297,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("ParmIdCliente", Util.USUARIO_SESSION.getIdCliente())
+                        .queryParam("ParmIdCliente", Util.CLIENTE_SESSION.getIdCliente())
                         .queryParam("ParmTotal", Util.PRECIO_TOTAL_PAGAR)
                         .queryParam("ParmNroCuotas",//DEV
                                 (tipoPago == 2) ? nroCuotas : 0
@@ -323,7 +323,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
                         .queryParam("ParmTipoDocumento", tipoComprobante)
                         .queryParam("ParmRuc", RUC)
                         .queryParam("ParmRazonSocial", RS)
-                        .queryParam("ParmIdTipoUsuario", Util.USUARIO_SESSION.getIdTipoUsuario().intValue())
+                        .queryParam("ParmIdTipoUsuario", Util.EMPLEADO_SESSION.getIdtipousuario().intValue())
                         .queryParam("tramaPedido", tramaPedido);
 //                        .queryParam("ParmIdProducto", abc)
 //                        .queryParam("ParmIdColorProducto", abc)

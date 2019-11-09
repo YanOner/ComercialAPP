@@ -1,6 +1,8 @@
 package com.upc.gmt.catalogo;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -24,8 +26,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+import com.upc.gmt.bean.Producto;
 import com.upc.gmt.comercialgb.R;
-import com.upc.gmt.model.Producto;
 import com.upc.gmt.model.Venta;
 import com.upc.gmt.pedido.PedidoActivity;
 import com.upc.gmt.util.Util;
@@ -46,6 +48,7 @@ import java.util.Map;
 public class DetalleCalzadoActivity extends AppCompatActivity {
 
     ProgressDialog progressDialog;
+    AlertDialog.Builder alertDialog;
 
     LinearLayout lyDetalleCalzado;
 
@@ -77,6 +80,8 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_calzado);
+
+        alertDialog = new AlertDialog.Builder(this);
 
         Bundle extras = getIntent().getExtras();
 
@@ -217,21 +222,24 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
 //            }
 //        });
 
+        mostrarCliente();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando Calzado...");
+        progressDialog.show();
+        new HttpRequestTaskDetalleCalzado().execute();
+    }
+
+    public void mostrarCliente() {
         if (Util.CLIENTE_SESSION != null) {
             if (Util.CLIENTE_SESSION.getRUC() != null && !Util.CLIENTE_SESSION.getRUC().equals("")) {
                 tvDetalleCliente.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + " (" + Util.CLIENTE_SESSION.getRUC() + ")");
             } else {
                 tvDetalleCliente.setText("Cliente: " + Util.CLIENTE_SESSION.getApellidoPaterno() + " (" + Util.CLIENTE_SESSION.getNroDocumentoIdentidad() + ")");
             }
-            tvDetalleCliente.setVisibility(View.VISIBLE);
         } else {
-            tvDetalleCliente.setVisibility(View.INVISIBLE);
+            tvDetalleCliente.setText("Cliente: - ");
         }
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Cargando Calzado...");
-        progressDialog.show();
-        new HttpRequestTaskDetalleCalzado().execute();
     }
 
     @Override
@@ -259,12 +267,26 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
     }
 
     public void onClickAgregarPedido(View v) {
-        if (Util.USUARIO_SESSION.getCodUsuario() == null || Util.USUARIO_SESSION.getCodUsuario().equals("")) {
-            Util.REGRESAR_A_CATALOGO = true;
-            Intent i = new Intent(getApplicationContext(), com.upc.gmt.comercialgb.LoginActivity.class);
-            startActivity(i);
+//        if (Util.EMPLEADO_SESSION.getCodUsuario() == null || Util.EMPLEADO_SESSION.getCodUsuario().equals("")) {
+//            Util.REGRESAR_A_CATALOGO = true;
+//            Intent i = new Intent(getApplicationContext(), com.upc.gmt.comercialgb.LoginActivity.class);
+//            startActivity(i);
+//            return;
+//        }
+
+        if (Util.CLIENTE_SESSION == null) {
+            alertDialog.setTitle("MENSAJE");
+            alertDialog.setMessage("DEBE BUSCAR UN CLIENTE");
+            alertDialog.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            alertDialog.show();
             return;
         }
+
         progressDialog.setMessage("Validando Cliente...");
         progressDialog.show();
         new HttpRequestTaskPedido().execute();
@@ -273,8 +295,17 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
     public void onClickBuscarCliente(View v){
         Util.REGRESAR_A_CATALOGO = true;
         Intent i = new Intent(getApplicationContext(), BuscarClienteActivity.class);
-        startActivity(i);
+        startActivityForResult(i, 1000);
         return;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("onActivityResult", requestCode + "-" + resultCode);
+        if (requestCode == 1000) {
+            mostrarCliente();
+        }
     }
 
     public void onRegresarMenu(View v) {
@@ -286,12 +317,13 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
         protected Producto doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskDetalleCalzado");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/verDetalleCalzado";
+//                String URL = Util.URL_WEB_SERVICE + "/verDetalleCalzado";
+                String URL = Util.URL_SERVICE_BASE + Util.URL_SERVICE_CATALOGO + "/producto/detalle/" + idProducto;
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("idProducto", idProducto);
+                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+//                        .queryParam("idProducto", idProducto);
                 Log.i("URL", builder.toUriString());
                 ParameterizedTypeReference<Map<String, Object>> responseType = new ParameterizedTypeReference<Map<String, Object>>() {
                 };
@@ -332,11 +364,11 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
         protected void onPostExecute(Producto p) {
             Log.i("onPostExecute", "HttpRequestTaskDetalleCalzado");
             Log.i("Producto", p.toString());
-            if (p.getIdProducto() != null) {
+            if (p.getIdproducto() != null) {
                 tvDetalleNombre.setText(p.getDescripcion());
-                tvDetalleCodigo.setText(p.getSKU());
-//                if (Util.USUARIO_SESSION.getIdTipoUsuario() == 2) {
-                tvDetallePrecio.setText("S/ " + Util.formatearDecimales(p.getPrecioVendedor().doubleValue()));
+                tvDetalleCodigo.setText(p.getSku());
+//                if (Util.EMPLEADO_SESSION.getIdTipoUsuario() == 2) {
+                tvDetallePrecio.setText("S/ " + Util.formatearDecimales(p.getPreciounitario().doubleValue()));
 //                } else {
 //                    tvDetallePrecio.setText("Precio  :" + p.getPrecioUnitario());
 //                }
@@ -378,13 +410,14 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
         protected List<Producto> doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskTallas");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/verDetalleCalzadoTallas";
+//                String URL = Util.URL_WEB_SERVICE + "/verDetalleCalzadoTallas";
+                String URL = Util.URL_SERVICE_BASE + Util.URL_SERVICE_CATALOGO + "/producto/detalle/tallas/" + idProducto + "/" + idColor;
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("idProducto", idProducto)
-                        .queryParam("idColor", idColor);
+                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+//                        .queryParam("idProducto", idProducto)
+//                        .queryParam("idColor", idColor);
                 Log.i("URL", builder.toUriString());
                 ParameterizedTypeReference<List<Producto>> responseType = new ParameterizedTypeReference<List<Producto>>() {
                 };
@@ -432,20 +465,21 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
         protected List<Venta> doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskPedido");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/pedidosXestado";
-                RestTemplate restTemplate = new RestTemplate();
-                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente())
-                        .queryParam("idEstadoVenta", 1);//Pendiente
-                Log.i("URL", builder.toUriString());
-                ParameterizedTypeReference<List<Venta>> responseType = new ParameterizedTypeReference<List<Venta>>() {
-                };
-                ResponseEntity<List<Venta>> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, null, responseType);
-                List<Venta> lista = respuesta.getBody();
-                Log.i("respuesta", lista.toString());
-                return lista;
+//                String URL = Util.URL_WEB_SERVICE + "/pedidosXestado";
+//                RestTemplate restTemplate = new RestTemplate();
+//                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+//
+//                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+//                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente())
+//                        .queryParam("idEstadoVenta", 1);//Pendiente
+//                Log.i("URL", builder.toUriString());
+//                ParameterizedTypeReference<List<Venta>> responseType = new ParameterizedTypeReference<List<Venta>>() {
+//                };
+//                ResponseEntity<List<Venta>> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, null, responseType);
+//                List<Venta> lista = respuesta.getBody();
+//                Log.i("respuesta", lista.toString());
+//                return lista;
+                return new ArrayList<>();
             } catch (Exception e) {
                 Log.i("Exception", "ERROR");
                 Log.e("HttpRequestTask", e.getMessage(), e);
@@ -468,14 +502,14 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e("ERROR", e.getMessage());
                 }
-                p.setIdProducto(Integer.parseInt(idProducto));
+                p.setIdproducto(Integer.parseInt(idProducto));
                 p.setIdColor(idColor);
                 p.setNroTalla(Integer.parseInt(nroTalla.substring(0, 2)));
                 p.setColor(spnColores.getSelectedItem().toString());
 //                p.setCantidad(1);
                 boolean existe = false;
                 for (Producto ps : Util.LISTA_PRODUCTOS_PEDIDO) {
-                    if (p.getIdProducto() == ps.getIdProducto() &&
+                    if (p.getIdproducto() == ps.getIdproducto() &&
                             p.getIdColor().equals(ps.getIdColor()) &&
                             p.getNroTalla().equals(ps.getNroTalla())) {
                         existe = true;
@@ -488,7 +522,16 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
                     Toast.makeText(DetalleCalzadoActivity.this, "EL CALZADO " + p.getDescripcion() + " FUE AGREGADO AL PEDIDO", Toast.LENGTH_LONG).show();
                     finish();
                 } else {
-                    Toast.makeText(DetalleCalzadoActivity.this, "ESTE CALZADO YA EXISTE EN EL PEDIDO", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(DetalleCalzadoActivity.this, "ESTE CALZADO YA EXISTE EN EL PEDIDO", Toast.LENGTH_LONG).show();
+                    alertDialog.setTitle("MENSAJE");
+                    alertDialog.setMessage("EL CALZADO YA EXISTE EN EL PEDIDO");
+                    alertDialog.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    alertDialog.show();
                 }
             }
             progressDialog.dismiss();
