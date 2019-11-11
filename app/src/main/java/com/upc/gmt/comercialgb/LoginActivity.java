@@ -15,13 +15,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.upc.gmt.bean.Empleado;
-import com.upc.gmt.model.Cliente;
 import com.upc.gmt.util.Util;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -52,18 +50,18 @@ public class LoginActivity extends AppCompatActivity {
         txtIP.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.d("beforeTextChanged", s.toString());
+                Log.i("beforeTextChanged", s.toString());
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.d("onTextChanged", s.toString());
+                Log.i("onTextChanged", s.toString());
                 Util.URL_WEB_SERVICE = s.toString();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.d("afterTextChanged", s.toString());
+                Log.i("afterTextChanged", s.toString());
             }
         });
 
@@ -150,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
-
+/*
     private class HttpRequestTaskCliente extends AsyncTask<Void, Void, Cliente> {
         @Override
         protected Cliente doInBackground(Void... params) {
@@ -163,7 +161,8 @@ public class LoginActivity extends AppCompatActivity {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 Cliente cliente = restTemplate.getForObject(builder.build().encode().toUri(), Cliente.class);
-                Log.i("Cliente", cliente.toString());
+                if(cliente != null)
+                    Log.i("Cliente", cliente.toString());
 
                 return cliente;
             } catch (Exception e) {
@@ -183,6 +182,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+*/
 }
 
 

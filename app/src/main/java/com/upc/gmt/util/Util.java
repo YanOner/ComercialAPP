@@ -3,9 +3,9 @@ package com.upc.gmt.util;
 import android.view.View;
 import android.widget.ListView;
 
+import com.upc.gmt.bean.Cliente;
 import com.upc.gmt.bean.Empleado;
 import com.upc.gmt.bean.Producto;
-import com.upc.gmt.model.Cliente;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -19,23 +19,26 @@ import java.util.Locale;
 public class Util {
 
     //    public static String URL_WEB_SERVICE = "http://192.168.43.191:8080/ComercialWEB";//CELL
-//    public static String URL_WEB_SERVICE = "http://192.168.1.156:8080/ComercialWEB";//ROUTER
+    public static String URL_WEB_SERVICE = "http://192.168.1.2:8080/ComercialWEB";//ROUTER
 //      public static String URL_WEB_SERVICE = "http://192.168.137.1:8080/ComercialWEB";//LAPTOP
-    public static String URL_WEB_SERVICE = "http://10.0.2.2:8080/ComercialWEB";//EMULADOR
+//    public static String URL_WEB_SERVICE = "http://10.0.2.2:8080/ComercialWEB";//EMULADOR
 //    public static String URL_WEB_SERVICE = "http://190.187.111.150:8080/ComercialWEB";//CONECTIFY
 
 
-    public static String URL_SERVICE_BASE = "http://10.0.2.2:9090";
+    //    public static String URL_SERVICE_BASE = "http://10.0.2.2:9090";
+    public static String URL_SERVICE_BASE = "http://192.168.1.2:9090";
 
     public static String URL_SERVICE_CATALOGO = "";//catalogo
 
-    public static String URL_SERVICE_PEDIDO = "";//catalogo
+    public static String URL_SERVICE_PEDIDO = "";//pedido
 
     public static Empleado EMPLEADO_SESSION;
 
     public static Cliente CLIENTE_SESSION;
 
     public static List<Producto> LISTA_PRODUCTOS_PEDIDO = new ArrayList<>();
+
+    public static double PRECIO_TOTAL_DESCUENTO = 0.00;
 
     public static double PRECIO_TOTAL_CALZADOS = 0.00;
 

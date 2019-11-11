@@ -14,8 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.upc.gmt.bean.Cliente;
 import com.upc.gmt.comercialgb.R;
-import com.upc.gmt.model.Cliente;
 import com.upc.gmt.util.Util;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -133,7 +133,8 @@ public class BuscarClienteActivity extends AppCompatActivity {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 Cliente cliente = restTemplate.getForObject(url, Cliente.class);
-                Log.i("Cliente", cliente.toString());
+                if (cliente != null)
+                    Log.i("Cliente", cliente + "");
 
                 return cliente;
             } catch (Exception e) {
@@ -159,6 +160,7 @@ public class BuscarClienteActivity extends AppCompatActivity {
 
                     }
                 });
+                ad.setNegativeButton(null, null);
                 ad.show();
             } else {
 //                Util.CLIENTE_SESSION = new Cliente();

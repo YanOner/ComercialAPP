@@ -232,11 +232,7 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
 
     public void mostrarCliente() {
         if (Util.CLIENTE_SESSION != null) {
-            if (Util.CLIENTE_SESSION.getRUC() != null && !Util.CLIENTE_SESSION.getRUC().equals("")) {
-                tvDetalleCliente.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + " (" + Util.CLIENTE_SESSION.getRUC() + ")");
-            } else {
-                tvDetalleCliente.setText("Cliente: " + Util.CLIENTE_SESSION.getApellidoPaterno() + " (" + Util.CLIENTE_SESSION.getNroDocumentoIdentidad() + ")");
-            }
+            tvDetalleCliente.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + " (" + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
         } else {
             tvDetalleCliente.setText("Cliente: - ");
         }

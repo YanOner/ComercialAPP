@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.upc.gmt.comercialgb.R;
+import com.upc.gmt.util.Constantes;
 import com.upc.gmt.util.Util;
 
 /**
@@ -136,6 +137,8 @@ public class ComprobantePagoFragment extends Fragment {
                     lyRUC.setVisibility(View.INVISIBLE);
                     lyRS.setVisibility(View.INVISIBLE);
                     RegistrarPedidoActivity.tipoComprobante = 0;
+                    RegistrarPedidoActivity.RUC = "";
+                    RegistrarPedidoActivity.RS = "";
                 } else if (id == R.id.rdFactura) {
                     lyRUC.setVisibility(View.VISIBLE);
                     lyRS.setVisibility(View.VISIBLE);
@@ -190,15 +193,16 @@ public class ComprobantePagoFragment extends Fragment {
             }
         });
 
-        if (RegistrarPedidoActivity.tipoComprobante == 1 && Util.CLIENTE_SESSION.getRUC() != null) {
+        if (RegistrarPedidoActivity.tipoComprobante == 1 && RegistrarPedidoActivity.RUC.equals("")) {
+            if (Util.CLIENTE_SESSION.getTipopersona().equals(Constantes.TIPO_PERSONA_JURIDICA)) {
+                txtPedidoRuc.setText(Util.CLIENTE_SESSION.getNrodocumentocli());
+            }
+            RegistrarPedidoActivity.RS = Util.CLIENTE_SESSION.getNombres();
+            txtPedidoRS.setText(RegistrarPedidoActivity.RS);
+        } else if (RegistrarPedidoActivity.tipoComprobante == 1) {
             txtPedidoRuc.setText(RegistrarPedidoActivity.RUC);
             txtPedidoRS.setText(RegistrarPedidoActivity.RS);
-        } else if (RegistrarPedidoActivity.tipoComprobante == 1 && Util.CLIENTE_SESSION != null) {
-            if (Util.CLIENTE_SESSION.getRUC() != null && !Util.CLIENTE_SESSION.getRUC().equals("")) {
-                txtPedidoRuc.setText(Util.CLIENTE_SESSION.getRUC());
-                txtPedidoRS.setText(Util.CLIENTE_SESSION.getNombres());
-            }
-        }
+        }//Util.CLIENTE_SESSION.getTipopersona().equals(Constantes.TIPO_PERSONA_JURIDICA)
 
         super.onViewCreated(view, savedInstanceState);
     }

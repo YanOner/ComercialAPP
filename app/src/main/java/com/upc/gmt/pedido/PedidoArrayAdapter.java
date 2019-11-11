@@ -63,7 +63,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
                 double totalPrecio = 0.00;
                 ListView lvPedidos = (ListView) buttonView.getRootView().findViewById(R.id.lvPedidos);
                 int posicion = (int) buttonView.getTag();
-                Log.d("posicion", "" + posicion);
+                Log.i("posicion", "" + posicion);
                 Producto pp = Util.LISTA_PRODUCTOS_PEDIDO.get(posicion);
                 pp.setChecked(isChecked);
 //                    Util.LISTA_PRODUCTOS_PEDIDO.set(posicion, pp);
@@ -113,8 +113,8 @@ public class PedidoArrayAdapter extends ArrayAdapter {
 //                        if (Util.EMPLEADO_SESSION.getIdTipoUsuario() == 2) {
                         //DESCUENTO
                         double totalDescuento = 1;
-                        if (p.getDescuentoMaximo() > 0 && p.getDescuentoSeleccionado() != 0) {
-                            totalDescuento = 1 - p.getDescuentoSeleccionado() / 100.00;
+                        if (p.getDescuentomaximo().doubleValue() > 0 && p.getDescuentoSeleccionado() != 0) {
+                            totalDescuento = 1 - p.getDescuentoSeleccionado() * 1 / 100.00;
                         }
 
                         double subTotal = (p.getCantidad() * p.getPreciounitario().doubleValue()) * totalDescuento;
@@ -137,7 +137,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
         });
 
         Producto p = lista.get(position);
-
+        Log.i("PedidoArrayAdapter Producto", p.toString());
 //            chbArticulo.setChecked(p.isChecked());
 
 //            Log.i("Producto "+position, p.toString());
@@ -168,7 +168,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
         tvPrecio.setText("Precio: " + Util.formatearDecimales(p.getPreciounitario().doubleValue()));
 
         double totalDescuento = 1;
-        if (p.getDescuentoMaximo() > 0 && p.getDescuentoSeleccionado() != 0) {
+        if (p.getDescuentomaximo().doubleValue() > 0 && p.getDescuentoSeleccionado() != 0) {
             totalDescuento = 1 - p.getDescuentoSeleccionado() / 100.00;
         }
 
@@ -188,12 +188,13 @@ public class PedidoArrayAdapter extends ArrayAdapter {
 
         tvArticuloPorcentaje.setText(p.getDescuentoSeleccionado() + "%");
 
-        if (p.getDescuentoMaximo() > 0) {
+        if (p.getDescuentomaximo().doubleValue() > 0) {
             tvArticuloDescuento.setVisibility(View.VISIBLE);
             sbArticuloDescuento.setVisibility(View.VISIBLE);
             tvArticuloPorcentaje.setVisibility(View.VISIBLE);
             sbArticuloDescuento.setProgress(p.getDescuentoSeleccionado());
-            sbArticuloDescuento.setMax(p.getDescuentoMaximo());
+            int descuento = (int) (p.getDescuentomaximo().doubleValue() * 100);
+            sbArticuloDescuento.setMax(descuento);
         } else {
             tvArticuloDescuento.setVisibility(View.INVISIBLE);
             sbArticuloDescuento.setVisibility(View.INVISIBLE);
@@ -219,7 +220,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 ListView lvPedidos = (ListView) seekBar.getRootView().findViewById(R.id.lvPedidos);
                 int posicion = (int) seekBar.getTag();
-                Log.d("posicion en seekbar", "" + posicion);
+                Log.i("posicion en seekbar", "" + posicion);
                 Producto pp = Util.LISTA_PRODUCTOS_PEDIDO.get(posicion);
                 pp.setDescuentoSeleccionado(pval);
             }
@@ -231,7 +232,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
 //            picasso.setIndicatorsEnabled(true);
 //            picasso.setLoggingEnabled(true);
         try {
-//                Log.d("PedidoArrayAdapter", p.getSKU()+"_"+p.getIdColor()+"_1.jpg");
+//                Log.i("PedidoArrayAdapter", p.getSKU()+"_"+p.getIdColor()+"_1.jpg");
 //                Picasso.with(context).load(Util.URL_WEB_SERVICE+"/verImagen?nombre="+p.getSKU()+"_"+p.getIdColor()+"_1.jpg").resize(100, 100).into(imageView);
             int id = context.getResources().getIdentifier(p.getSku().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
             Picasso.with(context).load(id).resize(150, 150).into(imageView);

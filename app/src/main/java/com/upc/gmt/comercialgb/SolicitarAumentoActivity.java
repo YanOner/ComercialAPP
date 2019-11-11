@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.upc.gmt.model.Cliente;
+import com.upc.gmt.bean.Cliente;
 import com.upc.gmt.model.Solicitud;
 import com.upc.gmt.util.Util;
 
@@ -90,15 +90,16 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         @Override
         protected Cliente doInBackground(Void... params) {
             try {
-                String URL = Util.URL_WEB_SERVICE + "/cliente";
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente());
+                String URL = Util.URL_WEB_SERVICE + "/cliente/" + Util.CLIENTE_SESSION.getNrodocumentocli();
+                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+//                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente());
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 Cliente cliente = restTemplate.getForObject(builder.build().encode().toUri(), Cliente.class);
-                Log.i("Cliente", cliente.toString());
+                if (cliente != null)
+                    Log.i("Cliente", cliente.toString());
 
                 return cliente;
             } catch (Exception e) {
@@ -111,9 +112,9 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         protected void onPostExecute(Cliente cliente) {
             if (null != cliente) {
                 Util.CLIENTE_SESSION = cliente;
-                txtCreditoTotalAumento.setText("S/ " + Util.formatearDecimales(cliente.getLineaCreditoActual()));
-                txtCreditoDisponibleAumento.setText("S/ " + Util.formatearDecimales(cliente.getSaldoLineaCredito()));
-                txtDeudaPendienteAumento.setText("S/ " + Util.formatearDecimales((cliente.getLineaCreditoActual() - cliente.getSaldoLineaCredito())));
+                txtCreditoTotalAumento.setText("S/ " + Util.formatearDecimales(cliente.getLineacreditoactual()));
+                txtCreditoDisponibleAumento.setText("S/ " + Util.formatearDecimales(cliente.getSaldolineacredito()));
+                txtDeudaPendienteAumento.setText("S/ " + Util.formatearDecimales((cliente.getLineacreditoactual() - cliente.getSaldolineacredito())));
                 new HttpRequestTaskListaAumento().execute();
             } else {
                 Util.CLIENTE_SESSION = new Cliente();
@@ -128,7 +129,7 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
             try {
                 String URL = Util.URL_WEB_SERVICE + "/registrarSolicitud";
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente())
+//                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente())
                         .queryParam("codUsuario", Util.EMPLEADO_SESSION.getCodusuario())
                         .queryParam("montoIncrementoCredito", cantidadINT);
 
@@ -164,7 +165,7 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
             try {
                 String URL = Util.URL_WEB_SERVICE + "/listaSolicitudes";
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente())
+//                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente())
                         .queryParam("codUsuario", Util.EMPLEADO_SESSION.getCodusuario());
 
                 RestTemplate restTemplate = new RestTemplate();

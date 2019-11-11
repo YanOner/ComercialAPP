@@ -32,11 +32,7 @@ public class PedidoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pedido);
 
         if (Util.CLIENTE_SESSION != null) {
-            if (Util.CLIENTE_SESSION.getRUC() != null && !Util.CLIENTE_SESSION.getRUC().equals("")) {
-                setTitle("Ver Pedido (" + Util.CLIENTE_SESSION.getRUC() + ")");
-            } else {
-                setTitle("Ver Pedido (" + Util.CLIENTE_SESSION.getApellidoPaterno() + " - " + Util.CLIENTE_SESSION.getNroDocumentoIdentidad() + ")");
-            }
+            setTitle("Ver Pedido (" + Util.CLIENTE_SESSION.getNombres() + " - " + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
         }
 
         lvPedidos = (ListView) findViewById(R.id.lvPedidos);
@@ -51,7 +47,7 @@ public class PedidoActivity extends AppCompatActivity {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                if(view.getId() == R.id.chbArticulo){
-//                    Log.d("getId", ""+view.getId());
+//                    Log.i("getId", ""+view.getId());
 //                }
 //            }
 //        });
@@ -106,7 +102,7 @@ public class PedidoActivity extends AppCompatActivity {
         posicionItemPedido = (Integer) v.getTag();
         AlertDialog.Builder ad = new AlertDialog.Builder(this);
         ad.setTitle("CONFIRMACIÓN");
-        ad.setMessage("¿DESEA REMOVER EL CALZADO DE LA LISTA?");
+        ad.setMessage("¿DESEA REMOVER EL CALZADO DEL PEDIDO?");
         ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

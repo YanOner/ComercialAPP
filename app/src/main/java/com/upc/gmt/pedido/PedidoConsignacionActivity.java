@@ -21,9 +21,14 @@ import com.upc.gmt.comercialgb.SolicitarAumentoActivity;
 import com.upc.gmt.util.Util;
 
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -35,10 +40,7 @@ import java.util.List;
 
 import static com.upc.gmt.pedido.RegistrarPedidoActivity.RS;
 import static com.upc.gmt.pedido.RegistrarPedidoActivity.RUC;
-import static com.upc.gmt.pedido.RegistrarPedidoActivity.codigoUbigeo;
-import static com.upc.gmt.pedido.RegistrarPedidoActivity.direccionEntrega;
 import static com.upc.gmt.pedido.RegistrarPedidoActivity.tipoComprobante;
-import static com.upc.gmt.pedido.RegistrarPedidoActivity.tipoEntrega;
 import static com.upc.gmt.pedido.RegistrarPedidoActivity.tipoPago;
 import static com.upc.gmt.pedido.RegistrarPedidoActivity.tramaPedido;
 
@@ -73,13 +75,13 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
         txtTotalConsignacion = (EditText) findViewById(R.id.txtTotalConsignacion);
         spnCuotas = (Spinner) findViewById(R.id.spnCuotas);
 
-        txtCreditoTotal.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getLineaCreditoActual()));
-        txtCreditoDisponible.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getSaldoLineaCredito()));
+        txtCreditoTotal.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getLineacreditoactual()));
+        txtCreditoDisponible.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getSaldolineacredito()));
 
-        txtCreditoDespues.setText("S/ " + Util.formatearDecimales((Util.CLIENTE_SESSION.getSaldoLineaCredito() - Util.PRECIO_TOTAL_PAGAR)));
+        txtCreditoDespues.setText("S/ " + Util.formatearDecimales((Util.CLIENTE_SESSION.getSaldolineacredito() - Util.PRECIO_TOTAL_PAGAR)));
         txtTotalConsignacion.setText("S/ " + Util.formatearDecimales(Util.PRECIO_TOTAL_PAGAR));
 
-        txtDeudaPendiente.setText("S/ " + Util.formatearDecimales((Util.CLIENTE_SESSION.getLineaCreditoActual() - Util.CLIENTE_SESSION.getSaldoLineaCredito())));
+        txtDeudaPendiente.setText("S/ " + Util.formatearDecimales((Util.CLIENTE_SESSION.getLineacreditoactual() - Util.CLIENTE_SESSION.getSaldolineacredito())));
 
         //Lista Precios
         listaCuotas = new ArrayList<>();
@@ -147,49 +149,73 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
         protected Integer doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskRegistrarPedidoConsignacion");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/registrarPedido";
+                String URL = Util.URL_SERVICE_BASE + Util.URL_SERVICE_PEDIDO + "/venta/registrar";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("ParmIdCliente", Util.CLIENTE_SESSION.getIdCliente())
-                        .queryParam("ParmTotal", Util.PRECIO_TOTAL_PAGAR)
-                        .queryParam("ParmNroCuotas",
-                                cuotasSeleccionadas
-                        )
-                        .queryParam("ParmTipoRecojo", tipoEntrega)
-                        .queryParam("ParmNumOperaBancaria",
-                                0
-                        )
-                        .queryParam("ParmCodTrxTarjeta",
-                                ""
-                        )
-                        .queryParam("ParmCodUbigeoCosto",
-                                (tipoEntrega == 1) ? codigoUbigeo : ""
-                        )
-                        .queryParam("ParmIdFomaPago", tipoPago)
-                        .queryParam("ParmDireccionEntrega",
-                                (tipoEntrega == 1) ? direccionEntrega : ""
-                        )
-                        .queryParam("ParmIdBanco",
-                                0
-                        )
-                        .queryParam("ParmNroCuenta", "")
-                        .queryParam("ParmTipoDocumento", tipoComprobante)
-                        .queryParam("ParmRuc", RUC)
-                        .queryParam("ParmRazonSocial", RS)
-                        .queryParam("ParmIdTipoUsuario", Util.EMPLEADO_SESSION.getIdtipousuario().intValue())
-                        .queryParam("tramaPedido", tramaPedido);
-//                        .queryParam("ParmIdProducto", abc)
-//                        .queryParam("ParmIdColorProducto", abc)
-//                        .queryParam("ParmNroTalla", abc)
-//                        .queryParam("ParmCantidad", abc);
+                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+//                        .queryParam("ParmTotal", Util.PRECIO_TOTAL_PAGAR)
+//                        .queryParam("ParmNroCuotas",
+//                                cuotasSeleccionadas
+//                        )
+//                        .queryParam("ParmTipoRecojo", tipoEntrega)
+//                        .queryParam("ParmNumOperaBancaria",
+//                                0
+//                        )
+//                        .queryParam("ParmCodTrxTarjeta",
+//                                ""
+//                        )
+//                        .queryParam("ParmCodUbigeoCosto",
+//                                (tipoEntrega == 1) ? codigoUbigeo : ""
+//                        )
+//                        .queryParam("ParmIdFomaPago", tipoPago)
+//                        .queryParam("ParmDireccionEntrega",
+//                                (tipoEntrega == 1) ? direccionEntrega : ""
+//                        )
+//                        .queryParam("ParmIdBanco",
+//                                0
+//                        )
+//                        .queryParam("ParmNroCuenta", "")
+//                        .queryParam("ParmTipoDocumento", tipoComprobante)
+//                        .queryParam("ParmRuc", RUC)
+//                        .queryParam("ParmRazonSocial", RS)
+//                        .queryParam("ParmIdTipoUsuario", Util.EMPLEADO_SESSION.getIdtipousuario().intValue())
+//                        .queryParam("tramaPedido", tramaPedido);
 
                 Log.i("URL", builder.toUriString());
 
                 ParameterizedTypeReference<Integer> responseType = new ParameterizedTypeReference<Integer>() {
                 };
-                ResponseEntity<Integer> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.POST, null, responseType);
+
+//                HttpAuthentication httpAuthentication = new HttpBasicAuthentication("username", "password");
+                HttpHeaders requestHeaders = new HttpHeaders();
+//                requestHeaders.setAuthorization(httpAuthentication);
+                requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+                MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
+                //SP_GrabarVenta
+                body.add("PARMNroDocumentoCli", Util.CLIENTE_SESSION.getNrodocumentocli());
+                body.add("PARMDescuentoTotal", Util.PRECIO_TOTAL_DESCUENTO);
+                body.add("PARMTotal", Util.PRECIO_TOTAL_CALZADOS);
+                body.add("PARMTotalCostoEnvio", Util.PRECIO_COSTO_ENVIO);
+                body.add("PARMTotalVenta", Util.PRECIO_TOTAL_PAGAR);
+                body.add("PARMNroCuotas", cuotasSeleccionadas);
+                body.add("PARMIdFomaPago", tipoPago);
+                body.add("PARMTipoDocumento", tipoComprobante);
+                body.add("PARMCodUsuario", Util.EMPLEADO_SESSION.getCodusuario());
+                body.add("PARMRuc", RUC);//
+                body.add("PARMRazonSocial", RS);//
+                body.add("PARMIdBanco", null);//
+                body.add("PARMCodTrxTarjeta", null);//
+                body.add("PARMComentarioConsignacion", null);
+                //SP_MantDetalleVenta
+                body.add("tramaPedidoDetalle", tramaPedido);
+                //SP_MantDetalleRepartoVenta
+//                body.add("tramaPedidoDetalle", tramaPedido);
+
+                HttpEntity<?> httpEntity = new HttpEntity<Object>(body, requestHeaders);
+
+                ResponseEntity<Integer> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.POST, httpEntity, responseType);
                 Integer codRespuesta = respuesta.getBody();
                 Log.i("respuesta", "" + codRespuesta);
                 return codRespuesta;

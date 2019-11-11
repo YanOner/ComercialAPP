@@ -23,8 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.upc.gmt.bean.Costoubigeo;
 import com.upc.gmt.comercialgb.R;
-import com.upc.gmt.model.Costoubigeo;
 import com.upc.gmt.util.Util;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -240,7 +240,7 @@ public class TipoEntregaFragment extends Fragment {
                 idUbigeoDepartamento = "";
                 for (Costoubigeo cu : listaDepartamento) {
                     if (desDepartamento.equals(cu.getDepartamento())) {
-                        idUbigeoDepartamento = cu.getCodUbigeoCosto().substring(0, 2);
+                        idUbigeoDepartamento = cu.getCodubigeocosto().substring(0, 2);
                         break;
                     }
                 }
@@ -266,7 +266,7 @@ public class TipoEntregaFragment extends Fragment {
                 idUbigeoProvincia = "";
                 for (Costoubigeo cu : listaProvincia) {
                     if (desProvincia.equals(cu.getProvincia())) {
-                        idUbigeoProvincia = cu.getCodUbigeoCosto().substring(0, 4);
+                        idUbigeoProvincia = cu.getCodubigeocosto().substring(0, 4);
                         break;
                     }
                 }
@@ -293,8 +293,8 @@ public class TipoEntregaFragment extends Fragment {
                 idUbigeoDistrito = "";
                 for (Costoubigeo cu : listaDistrito) {
                     if (desDistritro.equals(cu.getDistrito())) {
-                        idUbigeoDistrito = cu.getCodUbigeoCosto().substring(0, 6);
-                        costoEnvio = cu.getCostoEnvio().doubleValue();
+                        idUbigeoDistrito = cu.getCodubigeocosto().substring(0, 6);
+                        costoEnvio = cu.getCostoenvio().doubleValue();
                         break;
                     }
                 }
@@ -368,7 +368,8 @@ public class TipoEntregaFragment extends Fragment {
         protected List<Costoubigeo> doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskCostoUbigeo");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/departamentos";
+                String URL = Util.URL_SERVICE_BASE + "/costoubigeo/departamentos";
+                Log.i("URL", URL);
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 ParameterizedTypeReference<List<Costoubigeo>> responseType = new ParameterizedTypeReference<List<Costoubigeo>>() {
@@ -407,12 +408,13 @@ public class TipoEntregaFragment extends Fragment {
         protected List<Costoubigeo> doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskProvincias");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/provincias";
+                String URL = Util.URL_SERVICE_BASE + "/costoubigeo/provincias/" + idUbigeoDepartamento;
+
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("codUbigeoCosto", idUbigeoDepartamento);
+                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+//                        .queryParam("codUbigeoCosto", idUbigeoDepartamento);
                 Log.i("URL", builder.toUriString());
                 ParameterizedTypeReference<List<Costoubigeo>> responseType = new ParameterizedTypeReference<List<Costoubigeo>>() {
                 };
@@ -451,12 +453,12 @@ public class TipoEntregaFragment extends Fragment {
         protected List<Costoubigeo> doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskDistrito");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/distritos";
+                String URL = Util.URL_SERVICE_BASE + "/costoubigeo/distritos/" + idUbigeoProvincia;
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("codUbigeoCosto", idUbigeoProvincia);
+                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+//                        .queryParam("codUbigeoCosto", idUbigeoProvincia);
                 Log.i("URL", builder.toUriString());
                 ParameterizedTypeReference<List<Costoubigeo>> responseType = new ParameterizedTypeReference<List<Costoubigeo>>() {
                 };

@@ -65,7 +65,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
     static int indexProvincia;
     static int indexDistrito;
     static int nroCuotas;
-    static int codigoBanco;
+    static String codigoBanco;
     static String nroCuenta;
     static int indexBanco;
     static String direccionEntrega;
@@ -97,7 +97,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
         indexProvincia = 0;
         indexDistrito = 0;
         nroCuotas = 5;
-        codigoBanco = 0;
+        codigoBanco = "";
         nroCuenta = "";
         indexBanco = 0;
         direccionEntrega = "";
@@ -117,11 +117,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
         tvPedidoCliente = (TextView) findViewById(R.id.tvPedidoCliente);
 
         if (Util.CLIENTE_SESSION != null) {
-            if (Util.CLIENTE_SESSION.getRUC() != null && !Util.CLIENTE_SESSION.getRUC().equals("")) {
-                tvPedidoCliente.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + " (" + Util.CLIENTE_SESSION.getRUC() + ")");
-            } else {
-                tvPedidoCliente.setText("Cliente: " + Util.CLIENTE_SESSION.getApellidoPaterno() + " (" + Util.CLIENTE_SESSION.getNroDocumentoIdentidad() + ")");
-            }
+            tvPedidoCliente.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + " (" + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
         }
 
         BigDecimal total = new BigDecimal(Util.PRECIO_TOTAL_CALZADOS);
@@ -248,7 +244,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
         Util.PRECIO_TOTAL_PAGAR = Util.PRECIO_COSTO_ENVIO + Util.PRECIO_TOTAL_CALZADOS;
 
         if (tipoPago == 2) {
-            if (Util.CLIENTE_SESSION.getSaldoLineaCredito() < Util.PRECIO_TOTAL_PAGAR) {
+            if (Util.CLIENTE_SESSION.getSaldolineacredito() < Util.PRECIO_TOTAL_PAGAR) {
                 Toast.makeText(getApplicationContext(), "NO TIENE SUFICIENTE LÍNEA DE CRÉDITO PARA COMPRAR POR CONSIGNACIÓN", Toast.LENGTH_LONG).show();
                 return;
             }
@@ -256,12 +252,12 @@ public class RegistrarPedidoActivity extends AppCompatActivity
 
         tramaPedido = "";
         for (Producto p : Util.LISTA_PRODUCTOS_PEDIDO) {
-            tramaPedido += p.getIdproducto() + "," + p.getIdColor() + "," + p.getNroTalla() + "," + p.getCantidad() + ";";
+            tramaPedido += p.getIdproducto() + "," + p.getIdColor() + "," + p.getNroTalla() + "," + p.getCantidad() + "," + p.getPreciounitario() + "," + p.getDescuentoSeleccionado() + ";";
         }
         if (tramaPedido.length() > 0) {
             tramaPedido = tramaPedido.substring(0, tramaPedido.length() - 1);
         }
-//        Log.i("tramaPedido", tramaPedido);
+        Log.i("tramaPedido", tramaPedido);
         if (tipoPago == 2) {
             Intent i = new Intent(getApplicationContext(), PedidoConsignacionActivity.class);
             startActivity(i);
@@ -297,7 +293,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("ParmIdCliente", Util.CLIENTE_SESSION.getIdCliente())
+//                        .queryParam("ParmIdCliente", Util.CLIENTE_SESSION.getIdCliente())
                         .queryParam("ParmTotal", Util.PRECIO_TOTAL_PAGAR)
                         .queryParam("ParmNroCuotas",//DEV
                                 (tipoPago == 2) ? nroCuotas : 0

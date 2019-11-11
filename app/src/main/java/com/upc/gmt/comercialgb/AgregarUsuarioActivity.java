@@ -1,7 +1,6 @@
 package com.upc.gmt.comercialgb;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -83,19 +82,6 @@ public class AgregarUsuarioActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case 0:
-                return new DatePickerDialog(this, onSelectorFecha, año, mes, dia);
-        }
-        return null;
-    }
-
-    public void onMostrarCalendario(View control) {
-        showDialog(TIPO_DIALOGO);
     }
 
     public void mostrarFecha() {

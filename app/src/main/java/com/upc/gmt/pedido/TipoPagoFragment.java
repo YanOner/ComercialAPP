@@ -21,9 +21,9 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.upc.gmt.bean.Bancos;
+import com.upc.gmt.bean.Cliente;
 import com.upc.gmt.comercialgb.R;
-import com.upc.gmt.model.Bancos;
-import com.upc.gmt.model.Cliente;
 import com.upc.gmt.util.Util;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -156,9 +156,9 @@ public class TipoPagoFragment extends Fragment {
                 for (Bancos b : listaBancos) {
                     String banco = (String) parent.getItemAtPosition(position);
                     if (banco.equals(b.getDescripcion())) {
-                        txtCuentaBancaria.setText(b.getNroCuenta());
-                        RegistrarPedidoActivity.codigoBanco = b.getIdBancos();
-                        RegistrarPedidoActivity.nroCuenta = b.getNroCuenta();
+                        txtCuentaBancaria.setText(b.getNrocuenta());
+                        RegistrarPedidoActivity.codigoBanco = b.getIdbancos();
+                        RegistrarPedidoActivity.nroCuenta = b.getNrocuenta();
                         RegistrarPedidoActivity.indexBanco = position;
                         break;
                     }
@@ -426,7 +426,7 @@ public class TipoPagoFragment extends Fragment {
             lyCSV.setVisibility(View.INVISIBLE);
             new HttpRequestTaskBancos().execute();
         }
-        if (Util.CLIENTE_SESSION.getSaldoLineaCredito() >= 500) {//REVENDEDOR
+        if (Util.CLIENTE_SESSION.getSaldolineacredito() >= 500) {//REVENDEDOR
 //            rdConsignacion.setVisibility(View.VISIBLE);
             rdConsignacion.setEnabled(true);
         } else {
@@ -516,15 +516,16 @@ public class TipoPagoFragment extends Fragment {
         @Override
         protected Cliente doInBackground(Void... params) {
             try {
-                String URL = Util.URL_WEB_SERVICE + "/cliente";
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente());
+                String URL = Util.URL_SERVICE_BASE + "/cliente/" + Util.CLIENTE_SESSION.getNrodocumentocli();
+                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+//                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente());
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 Cliente cliente = restTemplate.getForObject(builder.build().encode().toUri(), Cliente.class);
-                Log.i("Cliente", cliente.toString());
+                if (cliente != null)
+                    Log.i("Cliente", cliente.toString());
 
                 return cliente;
             } catch (Exception e) {
@@ -537,7 +538,7 @@ public class TipoPagoFragment extends Fragment {
         protected void onPostExecute(Cliente cliente) {
             if (null != cliente) {
                 Util.CLIENTE_SESSION = cliente;
-                txtCredito.setText("S/ " + Util.formatearDecimales(cliente.getSaldoLineaCredito()));
+                txtCredito.setText("S/ " + Util.formatearDecimales(cliente.getSaldolineacredito()));
             } else {
 //                Util.CLIENTE_SESSION = new Cliente();
             }

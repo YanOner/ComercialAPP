@@ -110,6 +110,7 @@ public class CatalogoActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i("CATALOGO POSICION", "" + position);
                 productoSeleccionado = listaProducto.get(position);
+                Log.i("productoSeleccionado", productoSeleccionado.toString());
                 Toast.makeText(view.getContext().getApplicationContext(), productoSeleccionado.getDescripcion(), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(), DetalleCalzadoActivity.class);
                 i.putExtra("idProducto", productoSeleccionado.getIdproducto().toString());

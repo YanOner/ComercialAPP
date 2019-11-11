@@ -82,7 +82,7 @@ public class ImagenCalzadoArrayAdapter extends ArrayAdapter {
 //            picasso.setIndicatorsEnabled(true);
 //            picasso.setLoggingEnabled(true);
         try {
-            Log.d("DEBUG", p.getSku() + "_" + p.getIdColor() + "_1.jpg");
+            Log.i("DEBUG", p.getSku() + "_" + p.getIdColor() + "_1.jpg");
 //                Picasso.with(context).load(Util.URL_WEB_SERVICE+"/verImagen?nombre="+p.getSKU()+"_"+p.getIdColor()+"_1.jpg").into(imageView);
 //            int id = context.getResources().getIdentifier(p.getSku().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
             int id = context.getResources().getIdentifier("acm19421_5_1", "mipmap", context.getPackageName());

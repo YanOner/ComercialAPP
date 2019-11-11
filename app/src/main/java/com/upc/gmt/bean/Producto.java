@@ -50,7 +50,6 @@ public class Producto implements Cloneable {
     private Integer nroTalla;
     private String componente;
     private String material;
-    private Integer descuentoMaximo;
     private Integer stockVenta;
     private boolean isChecked;
     private int cantidad;
@@ -110,14 +109,6 @@ public class Producto implements Cloneable {
 
     public void setMaterial(String material) {
         this.material = material;
-    }
-
-    public Integer getDescuentoMaximo() {
-        return descuentoMaximo;
-    }
-
-    public void setDescuentoMaximo(Integer descuentoMaximo) {
-        this.descuentoMaximo = descuentoMaximo;
     }
 
     /**
