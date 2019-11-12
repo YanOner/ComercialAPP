@@ -194,20 +194,20 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
 
                 MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
                 //SP_GrabarVenta
-                body.add("PARMNroDocumentoCli", Util.CLIENTE_SESSION.getNrodocumentocli());
-                body.add("PARMDescuentoTotal", Util.PRECIO_TOTAL_DESCUENTO);
-                body.add("PARMTotal", Util.PRECIO_TOTAL_CALZADOS);
-                body.add("PARMTotalCostoEnvio", Util.PRECIO_COSTO_ENVIO);
-                body.add("PARMTotalVenta", Util.PRECIO_TOTAL_PAGAR);
-                body.add("PARMNroCuotas", cuotasSeleccionadas);
-                body.add("PARMIdFomaPago", tipoPago);
-                body.add("PARMTipoDocumento", tipoComprobante);
-                body.add("PARMCodUsuario", Util.EMPLEADO_SESSION.getCodusuario());
-                body.add("PARMRuc", RUC);//
-                body.add("PARMRazonSocial", RS);//
-                body.add("PARMIdBanco", null);//
-                body.add("PARMCodTrxTarjeta", null);//
-                body.add("PARMComentarioConsignacion", null);
+                body.add("parmNroDocumentoCli", Util.CLIENTE_SESSION.getNrodocumentocli());
+                body.add("parmDescuentoTotal", Util.PRECIO_TOTAL_DESCUENTO);
+                body.add("parmTotal", Util.PRECIO_TOTAL_CALZADOS);
+                body.add("parmTotalCostoEnvio", Util.PRECIO_COSTO_ENVIO);
+                body.add("parmTotalVenta", Util.PRECIO_TOTAL_PAGAR);
+                body.add("parmNroCuotas", cuotasSeleccionadas);
+                body.add("parmIdFomaPago", tipoPago);
+                body.add("parmTipoDocumento", tipoComprobante);
+                body.add("parmCodUsuario", Util.EMPLEADO_SESSION.getCodusuario());
+                body.add("parmRuc", RUC);//
+                body.add("parmRazonSocial", RS);//
+                body.add("parmIdBanco", null);//
+                body.add("parmCodTrxTarjeta", null);//
+                body.add("parmComentarioConsignacion", null);
                 //SP_MantDetalleVenta
                 body.add("tramaPedidoDetalle", tramaPedido);
                 //SP_MantDetalleRepartoVenta

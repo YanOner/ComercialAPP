@@ -32,7 +32,7 @@ public class PedidoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pedido);
 
         if (Util.CLIENTE_SESSION != null) {
-            setTitle("Ver Pedido (" + Util.CLIENTE_SESSION.getNombres() + " - " + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
+            setTitle("VER PEDIDO (" + Util.CLIENTE_SESSION.getNombres() + " - " + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
         }
 
         lvPedidos = (ListView) findViewById(R.id.lvPedidos);
@@ -126,16 +126,25 @@ public class PedidoActivity extends AppCompatActivity {
             pedidoArrayAdapter.notifyDataSetChanged();
             LISTA_PRODUCTOS_PEDIDO.remove(posicionItemPedido);
 
+            double totalDescuento = 0.00;
             double totalPrecio = 0.00;
             for (Producto p : Util.LISTA_PRODUCTOS_PEDIDO) {
                 if (p.isChecked()) {
-//                    if (Util.EMPLEADO_SESSION.getIdtipousuario() == 2) {
-//                        totalPrecio += (p.getCantidad() * p.getPrecioVendedor().doubleValue());
-//                    } else {
-                    totalPrecio += (p.getCantidad() * p.getPreciounitario().doubleValue());
-//                    }
+                    double aplicarDescuento = 1;
+                    double tasaDescuento = 1;
+                    if (p.getDescuentomaximo().doubleValue() > 0 && p.getDescuentoSeleccionado() != 0) {
+                        tasaDescuento = p.getDescuentoSeleccionado() / 100.00;
+                        aplicarDescuento = 1 - tasaDescuento;
+                    }
+                    totalDescuento += (p.getCantidad() * p.getPreciounitario().doubleValue()) * tasaDescuento;
+                    totalPrecio += (p.getCantidad() * p.getPreciounitario().doubleValue()) * aplicarDescuento;
                 }
             }
+
+            TextView vTotalPedidoDescuento = (TextView) findViewById(R.id.tvTotalPedidoDescuento);
+            vTotalPedidoDescuento.setText("TOTAL DESCUENTO APLICADO: S/ " + Util.formatearDecimales(totalDescuento));
+            Util.PRECIO_TOTAL_DESCUENTO = totalDescuento;
+
 
             TextView vTotalPedido = (TextView) findViewById(R.id.tvTotalPedido);
             vTotalPedido.setText("PRECIO TOTAL DE CALZADOS: S/ " + Util.formatearDecimales(totalPrecio));

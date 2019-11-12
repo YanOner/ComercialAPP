@@ -104,10 +104,10 @@
                         style="@style/textView_stylePedido"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:text="APLICAR DESCUENTO:" />
+                        android:text="Porcentaje Descuento:" />
 
                     <TextView
                         android:id="@+id/tvArticuloPorcentaje"
@@ -150,22 +150,21 @@
                         style="@style/textView_stylePedido"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
-                        android:text="CANTIDAD:" />
+                        android:layout_weight="1"
+                        android:text="Cantidad:" />
 
                     <EditText
                         android:id="@+id/txtCantidadPedido"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_weight="1"
                         android:layout_gravity="bottom"
-                        tools:text="4"
+                        android:layout_weight="1"
                         android:gravity="center"
+                        android:imeOptions="actionDone"
                         android:inputType="number"
                         android:maxLength="7"
                         android:textAlignment="gravity"
-                        android:imeOptions="actionDone"
                         android:textColor="@color/colorAccent" />
 
                 </LinearLayout>
@@ -176,13 +175,25 @@
                     android:layout_weight="1">
 
                     <TextView
+                        android:id="@+id/tvTotalArticuloDescuento"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        tools:text="Descuento S/ "
+                        android:textColor="@color/colorAccent" />
+
+                    <TextView
                         android:id="@+id/tvTotalArticulo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textStyle="bold"
-                        tools:text="S/ "
+                        android:layout_weight="1"
+                        tools:text="Subtotal S/ "
                         android:textColor="@color/colorAccent" />
 
                 </LinearLayout>
@@ -193,22 +204,35 @@
                     android:orientation="horizontal"
                     android:layout_weight="1">
 
-                    <ImageView
+                    <TextView
+                        android:id="@+id/textView32"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/btnQuitar"
-                        android:layout_weight="2"
                         android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        tools:text="Eliminar"
                         android:onClick="onQuitarPedido"
-                        app:srcCompat="@android:drawable/ic_delete" />
+                        style="@style/textView_stylePedido" />
+
+                    <ImageView
+                        android:id="@+id/btnQuitar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:onClick="onQuitarPedido"
+                        app:srcCompat="@drawable/remove_item" />
 
                     <CheckBox
+                        android:id="@+id/chbArticulo"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/chbArticulo"
-                        android:layout_weight="1"
                         android:layout_gravity="center"
-                        android:text="CONFIRMAR" />
+                        android:layout_weight="1"
+                        android:gravity="center|right"
+                        android:layoutDirection="rtl"
+                        android:text="Confirmar" />
 
                 </LinearLayout>
 

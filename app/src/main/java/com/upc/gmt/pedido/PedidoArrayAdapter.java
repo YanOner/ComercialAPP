@@ -60,6 +60,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
         chbArticulo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                double totalDescuento = 0.00;
                 double totalPrecio = 0.00;
                 ListView lvPedidos = (ListView) buttonView.getRootView().findViewById(R.id.lvPedidos);
                 int posicion = (int) buttonView.getTag();
@@ -109,17 +110,24 @@ public class PedidoArrayAdapter extends ArrayAdapter {
                         Util.LISTA_PRODUCTOS_PEDIDO.set(i, p);
                         txtCantidadPedido.setEnabled(false);
                         sbArticuloDescuento.setEnabled(false);
+                        TextView tvTotalArticuloDescuento = (TextView) viewPedido.findViewById(R.id.tvTotalArticuloDescuento);
                         TextView tvTotalArticulo = (TextView) viewPedido.findViewById(R.id.tvTotalArticulo);
 //                        if (Util.EMPLEADO_SESSION.getIdTipoUsuario() == 2) {
                         //DESCUENTO
-                        double totalDescuento = 1;
+                        double aplicarDescuento = 1;
+                        double tasaDescuento = 1;
                         if (p.getDescuentomaximo().doubleValue() > 0 && p.getDescuentoSeleccionado() != 0) {
-                            totalDescuento = 1 - p.getDescuentoSeleccionado() * 1 / 100.00;
+                            tasaDescuento = p.getDescuentoSeleccionado() / 100.00;
+                            aplicarDescuento = 1 - tasaDescuento;
                         }
 
-                        double subTotal = (p.getCantidad() * p.getPreciounitario().doubleValue()) * totalDescuento;
+                        double descuento = (p.getCantidad() * p.getPreciounitario().doubleValue()) * tasaDescuento;
+                        tvTotalArticuloDescuento.setText("Descuento: S/ " + Util.formatearDecimales(descuento));
+                        totalDescuento += descuento;
+
+                        double subTotal = (p.getCantidad() * p.getPreciounitario().doubleValue()) * aplicarDescuento;
                         tvTotalArticulo.setText("Subtotal: S/ " + Util.formatearDecimales(subTotal));
-                        totalPrecio += (p.getCantidad() * p.getPreciounitario().doubleValue()) * totalDescuento;
+                        totalPrecio += subTotal;
 //                        } else {
 //                            double subTotal = (p.getCantidad() * p.getPrecioUnitario().doubleValue());
 //                            tvTotalArticulo.setText("SubTotal del Calzado: S/ " + Util.formatearDecimales(subTotal));
@@ -130,6 +138,11 @@ public class PedidoArrayAdapter extends ArrayAdapter {
                         sbArticuloDescuento.setEnabled(true);
                     }
                 }
+
+                TextView vTotalPedidoDescuento = (TextView) buttonView.getRootView().findViewById(R.id.tvTotalPedidoDescuento);
+                vTotalPedidoDescuento.setText("TOTAL DESCUENTO APLICADO: S/ " + Util.formatearDecimales(totalDescuento));
+                Util.PRECIO_TOTAL_DESCUENTO = totalDescuento;
+
                 TextView vTotalPedido = (TextView) buttonView.getRootView().findViewById(R.id.tvTotalPedido);
                 vTotalPedido.setText("PRECIO TOTAL DE CALZADOS: S/ " + Util.formatearDecimales(totalPrecio));
                 Util.PRECIO_TOTAL_CALZADOS = totalPrecio;

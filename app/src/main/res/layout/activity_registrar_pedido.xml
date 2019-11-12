@@ -36,12 +36,12 @@
             <TextView
                 android:id="@+id/tvPedidoCliente"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="32dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Cliente..."
-                android:textStyle="bold"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvTotalPagar"

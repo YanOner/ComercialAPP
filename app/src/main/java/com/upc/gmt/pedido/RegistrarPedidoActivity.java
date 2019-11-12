@@ -82,6 +82,8 @@ public class RegistrarPedidoActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrar_pedido);
 
+        setTitle("REGISTRAR PEDIDO (" + Util.CLIENTE_SESSION.getNombres() + " - " + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
+
         objeto = this;
 
         progressDialog = new ProgressDialog(this);
