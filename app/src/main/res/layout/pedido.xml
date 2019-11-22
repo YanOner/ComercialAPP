@@ -209,9 +209,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_weight="1"
-                        tools:text="Eliminar"
+                        android:gravity="center|right"
+                        android:text="Eliminar"
                         android:onClick="onQuitarPedido"
                         style="@style/textView_stylePedido" />
 
@@ -219,7 +219,7 @@
                         android:id="@+id/btnQuitar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_gravity="center"
+                        android:layout_gravity="center|left"
                         android:layout_weight="1"
                         android:onClick="onQuitarPedido"
                         app:srcCompat="@drawable/remove_item" />
