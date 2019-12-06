@@ -19,9 +19,9 @@ import java.util.Locale;
 public class Util {
 
     //    public static String URL_WEB_SERVICE = "http://192.168.43.191:8080/ComercialWEB";//CELL
-    public static String URL_WEB_SERVICE = "http://192.168.1.2:8080/ComercialWEB";//ROUTER
+//    public static String URL_WEB_SERVICE = "http://192.168.1.2:8080/ComercialWEB";//ROUTER
 //      public static String URL_WEB_SERVICE = "http://192.168.137.1:8080/ComercialWEB";//LAPTOP
-//    public static String URL_WEB_SERVICE = "http://10.0.2.2:8080/ComercialWEB";//EMULADOR
+    public static String URL_WEB_SERVICE = "http://10.0.2.2:8080/ComercialWEB";//EMULADOR
 //    public static String URL_WEB_SERVICE = "http://190.187.111.150:8080/ComercialWEB";//CONECTIFY
 
 

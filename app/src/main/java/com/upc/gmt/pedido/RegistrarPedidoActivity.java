@@ -37,7 +37,8 @@ import java.util.ArrayList;
 import static java.lang.System.currentTimeMillis;
 
 public class RegistrarPedidoActivity extends AppCompatActivity
-        implements TipoEntregaFragment.OnFragmentInteractionListener,
+        implements TipoEnvioFragment.OnFragmentInteractionListener,
+//        TipoEntregaFragment.OnFragmentInteractionListener,
         TipoPagoFragment.OnFragmentInteractionListener,
         ComprobantePagoFragment.OnFragmentInteractionListener {
 
@@ -138,7 +139,8 @@ public class RegistrarPedidoActivity extends AppCompatActivity
                 if (item.equals("TIPO DE ENTREGA")) {
                     getSupportFragmentManager()
                             .beginTransaction()
-                            .replace(R.id.fragPedido, new TipoEntregaFragment())
+//                            .replace(R.id.fragPedido, new TipoEntregaFragment())
+                            .replace(R.id.fragPedido, new TipoEnvioFragment())
                             .commit();
                 } else if (item.equals("TIPO DE PAGO")) {
                     getSupportFragmentManager()
@@ -158,7 +160,8 @@ public class RegistrarPedidoActivity extends AppCompatActivity
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.fragPedido, new TipoEntregaFragment())
+//                .add(R.id.fragPedido, new TipoEntregaFragment())
+                .add(R.id.fragPedido, new TipoEnvioFragment())
                 .disallowAddToBackStack()
                 .commit();
 
@@ -190,12 +193,14 @@ public class RegistrarPedidoActivity extends AppCompatActivity
     public void onClickRealizarPedido(View v) {
         if (tipoEntrega == 1 && direccionEntrega.equals("")) {//DOMICILIO
             Toast.makeText(getApplicationContext(), "INGRESAR UNA DIRECCIÓN", Toast.LENGTH_LONG).show();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEntregaFragment()).commit();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEntregaFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEnvioFragment()).commit();
             return;
         }
         if (tipoEntrega == 1 && !flagCostoAceptado) {
             Toast.makeText(getApplicationContext(), "POR FAVOR ACEPTAR EL COSTO DE ENVIO", Toast.LENGTH_LONG).show();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEntregaFragment()).commit();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEntregaFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEnvioFragment()).commit();
             return;
         }
         if (celular.equals("")) {
