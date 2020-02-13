@@ -1,7 +1,6 @@
 package com.upc.gmt.catalogo;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.upc.gmt.comercialgb.R;
 import com.upc.gmt.model.ProductoBean;
-import com.upc.gmt.util.Util;
 
 import java.util.List;
 
@@ -89,10 +86,10 @@ public class ImagenCalzadoAdapter extends BaseAdapter {
 //            picasso.setIndicatorsEnabled(true);
 //            picasso.setLoggingEnabled(true);
             try {
-                Picasso.with(context).load(Util.URL_WEB_SERVICE + "/imagen?nombre=" + p.getNombreImagen()).into(imageView);
+//                Picasso.with(context).load(Util.URL_SERVICE_BASE+"/imagen/ver?nombre="+p.get+"_"+p.getIdColor()+"_1.jpg").resize(100, 100).into(imageView);
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("ERROR", e.getMessage());
+//                Log.e("ERROR", e.getMessage());
             }
 
         } else {

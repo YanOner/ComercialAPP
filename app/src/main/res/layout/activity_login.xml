@@ -97,7 +97,8 @@
                         style="@style/editText_style"
                         android:layout_height="match_parent"
                         android:hint="IP BACKEND"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:visibility="invisible" />
 
                 </LinearLayout>
 

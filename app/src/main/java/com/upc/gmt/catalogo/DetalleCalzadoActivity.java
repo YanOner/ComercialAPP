@@ -5,7 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -155,6 +155,13 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
 //                imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.calzado_rojo));
 //            }
 //            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            int id = getApplicationContext().getResources().getIdentifier(SKU.toLowerCase() + "_" + idColor + "_" + i, "mipmap", getApplicationContext().getPackageName());
+            if (id == 0) {
+                id = getApplicationContext().getResources().getIdentifier("calzado_generico", "mipmap", getApplicationContext().getPackageName());
+            }
+            Log.d("ID-DCA", id + "");
+//            imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), id));
+            imageView.setTag(BitmapFactory.decodeResource(getResources(), id));
             imageView.setMaxWidth(300);
             imageView.setMaxHeight(300);
 
@@ -166,8 +173,10 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
 //                    imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 //                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     Intent i = new Intent(getApplicationContext(), FullScreenImageActivity.class);
-                    BitmapDrawable d = (BitmapDrawable) v.getTag();
-                    Bitmap bmp = d.getBitmap();
+                    //12.02.2020
+//                    BitmapDrawable d = (BitmapDrawable) v.getTag();
+//                    Bitmap bmp = d.getBitmap();
+                    Bitmap bmp = (Bitmap) v.getTag();
 //                    Bitmap bmp = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -197,8 +206,14 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
             };
             Log.i("DETALLE IMG", SKU + "_" + idColor + "_" + i + ".jpg");
             try {
-                int id = getResources().getIdentifier(SKU.toLowerCase() + "_" + idColor + "_" + i, "mipmap", getPackageName());
-                Picasso.with(getApplicationContext()).load(id).resize(150, 150).centerCrop().into(target);
+                int idIMG = getResources().getIdentifier(SKU.toLowerCase() + "_" + idColor + "_" + i, "mipmap", getPackageName());
+                if (idIMG == 0 && i == 1) {
+//                    Picasso.with(getApplicationContext()).load(id).resize(150, 150).centerCrop().into(imageView);
+                    Picasso.with(getApplicationContext()).load(Util.URL_SERVICE_BASE + "/imagen/ver?nombre=calzado_generico.jpg").resize(100, 100).into(imageView);
+                } else {
+                    Picasso.with(getApplicationContext()).load(Util.URL_SERVICE_BASE + "/imagen/ver?nombre=" + SKU + "_" + idColor + "_" + i + ".jpg").resize(100, 100).into(imageView);
+                }
+//                Picasso.with(getApplicationContext()).load(id).resize(150, 150).centerCrop().into(target);
 //                Picasso.with(getApplicationContext()).load(Util.URL_WEB_SERVICE + "/verImagen?nombre=" + SKU + "_" + idColorImg + "_" + i + ".jpg").into(imageView);
 //                imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), id));
 //                imageView.setDrawingCacheEnabled(true);

@@ -19,8 +19,11 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -90,7 +93,7 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         @Override
         protected Cliente doInBackground(Void... params) {
             try {
-                String URL = Util.URL_WEB_SERVICE + "/cliente/" + Util.CLIENTE_SESSION.getNrodocumentocli();
+                String URL = Util.URL_SERVICE_BASE + "/cliente/" + Util.CLIENTE_SESSION.getNrodocumentocli();
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
 //                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente());
 
@@ -127,18 +130,36 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Void... params) {
             try {
-                String URL = Util.URL_WEB_SERVICE + "/registrarSolicitud";
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+                String URL = Util.URL_SERVICE_BASE + "/solicitud/registrar";
+                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
 //                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente())
-                        .queryParam("codUsuario", Util.EMPLEADO_SESSION.getCodusuario())
-                        .queryParam("montoIncrementoCredito", cantidadINT);
+//                        .queryParam("codUsuario", Util.EMPLEADO_SESSION.getCodusuario())
+//                        .queryParam("montoIncrementoCredito", cantidadINT);
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
                 Log.i("URL", builder.toUriString());
-                Integer i = restTemplate.getForObject(builder.build().encode().toUri(), Integer.class);
-                Log.i("Resultado", i.toString());
-                return i;
+
+                ParameterizedTypeReference<Integer> responseType = new ParameterizedTypeReference<Integer>() {
+                };
+
+//                HttpAuthentication httpAuthentication = new HttpBasicAuthentication("username", "password");
+                HttpHeaders requestHeaders = new HttpHeaders();
+//                requestHeaders.setAuthorization(httpAuthentication);
+                requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+                MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
+                //SP_GrabarVenta
+                body.add("parmNroDocumentoCli", Util.CLIENTE_SESSION.getNrodocumentocli());
+                body.add("parmCodUsuario", Util.EMPLEADO_SESSION.getCodusuario());
+                body.add("cantidadINT", cantidadINT);
+
+                HttpEntity<?> httpEntity = new HttpEntity<Object>(body, requestHeaders);
+
+                ResponseEntity<Integer> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.POST, httpEntity, responseType);
+                Integer codRespuesta = respuesta.getBody();
+                Log.i("respuesta", "" + codRespuesta);
+                return codRespuesta;
             } catch (Exception e) {
                 Log.e(this.getClass().getName(), e.getMessage(), e);
             }
@@ -163,24 +184,31 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         @Override
         protected List<Solicitud> doInBackground(Void... params) {
             try {
-                String URL = Util.URL_WEB_SERVICE + "/listaSolicitudes";
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-//                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente())
-                        .queryParam("codUsuario", Util.EMPLEADO_SESSION.getCodusuario());
-
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+                String URL = Util.URL_SERVICE_BASE + "/solicitud/estado";
+                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+//                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente())
+//                        .queryParam("codUsuario", Util.EMPLEADO_SESSION.getCodusuario());
+
                 Log.i("URL", builder.toUriString());
-                HttpHeaders headers = new HttpHeaders();
-                String cookies = "";
-                for (String cook : Util.COOKIES_SESSION) {
-                    cookies += cook + ";";
-                }
-                headers.set("Cookie", cookies);
-                HttpEntity<String> entity = new HttpEntity<String>(headers);
+
                 ParameterizedTypeReference<List<Solicitud>> responseType = new ParameterizedTypeReference<List<Solicitud>>() {
                 };
-                ResponseEntity<List<Solicitud>> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, responseType);
+
+//                HttpAuthentication httpAuthentication = new HttpBasicAuthentication("username", "password");
+                HttpHeaders requestHeaders = new HttpHeaders();
+//                requestHeaders.setAuthorization(httpAuthentication);
+                requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+                MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
+                //SP_GrabarVenta
+                body.add("parmNroDocumentoCli", Util.CLIENTE_SESSION.getNrodocumentocli());
+                body.add("parmCodUsuario", Util.EMPLEADO_SESSION.getCodusuario());
+
+                HttpEntity<?> httpEntity = new HttpEntity<Object>(body, requestHeaders);
+                ResponseEntity<List<Solicitud>> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, httpEntity, responseType);
                 List<Solicitud> lista = respuesta.getBody();
                 Log.i("lista", lista.toString());
                 return lista;

@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         txtIP = (EditText) findViewById(R.id.txtIP);
 
-        txtIP.setText(Util.URL_WEB_SERVICE);
+//        txtIP.setText(Util.URL_WEB_SERVICE);
 
         txtIP.addTextChangedListener(new TextWatcher() {
             @Override
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 Log.i("onTextChanged", s.toString());
-                Util.URL_WEB_SERVICE = s.toString();
+//                Util.URL_WEB_SERVICE = s.toString();
             }
 
             @Override

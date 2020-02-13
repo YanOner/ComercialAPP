@@ -23,7 +23,6 @@
         android:id="@+id/btnModificarUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onMantenimientoModificarUsuario"
         android:text="ModificarUsuario"
         style="?android:textAppearanceSmall"
         android:textStyle="bold" />
@@ -32,7 +31,6 @@
         android:id="@+id/btnEliminarUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="onMantenimientoEliminarUsuario"
         android:text="ELIMINAR USUARIO"
         style="?android:textAppearanceSmall"
         android:textStyle="bold" />

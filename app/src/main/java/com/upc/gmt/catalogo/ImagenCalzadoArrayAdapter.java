@@ -83,15 +83,38 @@ public class ImagenCalzadoArrayAdapter extends ArrayAdapter {
 //            picasso.setLoggingEnabled(true);
         try {
             Log.i("DEBUG", p.getSku() + "_" + p.getIdColor() + "_1.jpg");
+//            if(validarSKU(p.getSku())!=0){
+//                int id = context.getResources().getIdentifier("calzado_generico", "mipmap", context.getPackageName());
+//                Picasso.with(context).load(id).resize(150, 150).centerCrop().into(imageView);
+//            }else{
+//                Picasso.with(context).load(Util.URL_SERVICE_BASE+"/imagen/ver?nombre="+p.getSku()+"_"+p.getIdColor()+"_1.jpg").resize(100, 100).into(imageView);
+            int id = context.getResources().getIdentifier(p.getSku().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
+            Log.i("ID", "" + id);
+            if (id == 0) {
+                id = context.getResources().getIdentifier("calzado_generico", "mipmap", context.getPackageName());
+            }
+
+            Picasso.with(context).load(id).resize(150, 150).centerCrop().into(imageView);
+
+//            }
 //                Picasso.with(context).load(Util.URL_WEB_SERVICE+"/verImagen?nombre="+p.getSKU()+"_"+p.getIdColor()+"_1.jpg").into(imageView);
 //            int id = context.getResources().getIdentifier(p.getSku().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
-            int id = context.getResources().getIdentifier("acm19421_5_1", "mipmap", context.getPackageName());
-            Picasso.with(context).load(id).resize(150, 150).centerCrop().into(imageView);
+//            int id = context.getResources().getIdentifier("acm19421_5_1", "mipmap", context.getPackageName());
+//            Picasso.with(context).load(id).resize(150, 150).centerCrop().into(imageView);
+//            Picasso.with(context).load(Util.URL_SERVICE_BASE+"/imagen/ver?nombre="+p.getSku()+"_"+p.getIdColor()+"_1.jpg").resize(100, 100).into(imageView);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("ERROR", e.getMessage());
         }
 
         return convertView;
+    }
+
+    private int validarSKU(String sku) {
+        try {
+            return Integer.parseInt(sku);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

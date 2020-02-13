@@ -119,6 +119,8 @@ public class PedidoArrayAdapter extends ArrayAdapter {
                         if (p.getDescuentomaximo().doubleValue() > 0 && p.getDescuentoSeleccionado() != 0) {
                             tasaDescuento = p.getDescuentoSeleccionado() / 100.00;
                             aplicarDescuento = 1 - tasaDescuento;
+                        } else {
+                            tasaDescuento = 0;
                         }
 
                         double descuento = (p.getCantidad() * p.getPreciounitario().doubleValue()) * tasaDescuento;
@@ -194,7 +196,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
 //        }
 
         //DESCUENTO
-        TextView tvArticuloDescuento = (TextView) convertView.findViewById(R.id.tvArticuloDescuento);
+//        TextView tvArticuloDescuento = (TextView) convertView.findViewById(R.id.tvArticuloDescuento);
         final TextView tvArticuloPorcentaje = (TextView) convertView.findViewById(R.id.tvArticuloPorcentaje);
         SeekBar sbArticuloDescuento = (SeekBar) convertView.findViewById(R.id.sbArticuloDescuento);
         sbArticuloDescuento.setTag(position);
@@ -202,14 +204,14 @@ public class PedidoArrayAdapter extends ArrayAdapter {
         tvArticuloPorcentaje.setText(p.getDescuentoSeleccionado() + "%");
 
         if (p.getDescuentomaximo().doubleValue() > 0) {
-            tvArticuloDescuento.setVisibility(View.VISIBLE);
+//            tvArticuloDescuento.setVisibility(View.VISIBLE);
             sbArticuloDescuento.setVisibility(View.VISIBLE);
             tvArticuloPorcentaje.setVisibility(View.VISIBLE);
             sbArticuloDescuento.setProgress(p.getDescuentoSeleccionado());
             int descuento = (int) (p.getDescuentomaximo().doubleValue() * 100);
             sbArticuloDescuento.setMax(descuento);
         } else {
-            tvArticuloDescuento.setVisibility(View.INVISIBLE);
+//            tvArticuloDescuento.setVisibility(View.INVISIBLE);
             sbArticuloDescuento.setVisibility(View.INVISIBLE);
             tvArticuloPorcentaje.setVisibility(View.INVISIBLE);
         }
@@ -246,9 +248,16 @@ public class PedidoArrayAdapter extends ArrayAdapter {
 //            picasso.setLoggingEnabled(true);
         try {
 //                Log.i("PedidoArrayAdapter", p.getSKU()+"_"+p.getIdColor()+"_1.jpg");
-//                Picasso.with(context).load(Util.URL_WEB_SERVICE+"/verImagen?nombre="+p.getSKU()+"_"+p.getIdColor()+"_1.jpg").resize(100, 100).into(imageView);
-            int id = context.getResources().getIdentifier(p.getSku().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
-            Picasso.with(context).load(id).resize(150, 150).into(imageView);
+            int idIMG = context.getResources().getIdentifier(p.getSku().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
+            if (idIMG == 0) {
+//                    Picasso.with(getApplicationContext()).load(id).resize(150, 150).centerCrop().into(imageView);
+                Picasso.with(context).load(Util.URL_SERVICE_BASE + "/imagen/ver?nombre=calzado_generico.jpg").resize(100, 100).into(imageView);
+            } else {
+                Picasso.with(context).load(Util.URL_SERVICE_BASE + "/imagen/ver?nombre=" + p.getSku() + "_" + p.getIdColor() + "_1.jpg").resize(100, 100).into(imageView);
+            }
+
+//            int id = context.getResources().getIdentifier(p.getSku().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
+//            Picasso.with(context).load(id).resize(150, 150).into(imageView);
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("PedidoArrayAdapter", e.getMessage());

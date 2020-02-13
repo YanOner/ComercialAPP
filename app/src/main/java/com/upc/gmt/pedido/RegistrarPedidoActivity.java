@@ -26,19 +26,20 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import static java.lang.System.currentTimeMillis;
-
 public class RegistrarPedidoActivity extends AppCompatActivity
         implements TipoEnvioFragment.OnFragmentInteractionListener,
-//        TipoEntregaFragment.OnFragmentInteractionListener,
+        TipoEntregaFragment.OnFragmentInteractionListener,
         TipoPagoFragment.OnFragmentInteractionListener,
         ComprobantePagoFragment.OnFragmentInteractionListener {
 
@@ -139,8 +140,8 @@ public class RegistrarPedidoActivity extends AppCompatActivity
                 if (item.equals("TIPO DE ENTREGA")) {
                     getSupportFragmentManager()
                             .beginTransaction()
-//                            .replace(R.id.fragPedido, new TipoEntregaFragment())
-                            .replace(R.id.fragPedido, new TipoEnvioFragment())
+                            .replace(R.id.fragPedido, new TipoEntregaFragment())
+//                            .replace(R.id.fragPedido, new TipoEnvioFragment())
                             .commit();
                 } else if (item.equals("TIPO DE PAGO")) {
                     getSupportFragmentManager()
@@ -160,8 +161,8 @@ public class RegistrarPedidoActivity extends AppCompatActivity
 
         getSupportFragmentManager()
                 .beginTransaction()
-//                .add(R.id.fragPedido, new TipoEntregaFragment())
-                .add(R.id.fragPedido, new TipoEnvioFragment())
+                .add(R.id.fragPedido, new TipoEntregaFragment())
+//                .add(R.id.fragPedido, new TipoEnvioFragment())
                 .disallowAddToBackStack()
                 .commit();
 
@@ -193,14 +194,14 @@ public class RegistrarPedidoActivity extends AppCompatActivity
     public void onClickRealizarPedido(View v) {
         if (tipoEntrega == 1 && direccionEntrega.equals("")) {//DOMICILIO
             Toast.makeText(getApplicationContext(), "INGRESAR UNA DIRECCIÓN", Toast.LENGTH_LONG).show();
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEntregaFragment()).commit();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEnvioFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEntregaFragment()).commit();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEnvioFragment()).commit();
             return;
         }
         if (tipoEntrega == 1 && !flagCostoAceptado) {
             Toast.makeText(getApplicationContext(), "POR FAVOR ACEPTAR EL COSTO DE ENVIO", Toast.LENGTH_LONG).show();
-//            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEntregaFragment()).commit();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEnvioFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEntregaFragment()).commit();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEnvioFragment()).commit();
             return;
         }
         if (celular.equals("")) {
@@ -295,57 +296,74 @@ public class RegistrarPedidoActivity extends AppCompatActivity
         protected Integer doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskRegistrarPedido");
             try {
-                String URL = Util.URL_WEB_SERVICE + "/registrarPedido";
+                String URL = Util.URL_SERVICE_BASE + "/venta/registrar";//TEST
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
 //                        .queryParam("ParmIdCliente", Util.CLIENTE_SESSION.getIdCliente())
-                        .queryParam("ParmTotal", Util.PRECIO_TOTAL_PAGAR)
-                        .queryParam("ParmNroCuotas",//DEV
-                                (tipoPago == 2) ? nroCuotas : 0
-                        )
-                        .queryParam("ParmTipoRecojo", tipoEntrega)
-                        .queryParam("ParmNumOperaBancaria",//DEV
-                                (tipoPago == 4) ? 0 : 0
-                        )
-                        .queryParam("ParmCodTrxTarjeta",//DEV
-                                (tipoPago == 3) ? String.valueOf(currentTimeMillis()) : ""
-                        )
-                        .queryParam("ParmCodUbigeoCosto",//DEV
-                                (tipoEntrega == 1) ? codigoUbigeo : ""
-                        )
-                        .queryParam("ParmIdFomaPago", tipoPago)
-                        .queryParam("ParmDireccionEntrega",
-                                (tipoEntrega == 1) ? direccionEntrega : ""
-                        )
-                        .queryParam("ParmIdBanco",//DEV
-                                (tipoPago == 4) ? codigoBanco : 0
-                        )
-                        .queryParam("ParmNroCuenta", "")
-                        .queryParam("ParmTipoDocumento", tipoComprobante)
-                        .queryParam("ParmRuc", RUC)
-                        .queryParam("ParmRazonSocial", RS)
-                        .queryParam("ParmIdTipoUsuario", Util.EMPLEADO_SESSION.getIdtipousuario().intValue())
-                        .queryParam("tramaPedido", tramaPedido);
-//                        .queryParam("ParmIdProducto", abc)
-//                        .queryParam("ParmIdColorProducto", abc)
-//                        .queryParam("ParmNroTalla", abc)
-//                        .queryParam("ParmCantidad", abc);
+//                        .queryParam("ParmTotal", Util.PRECIO_TOTAL_PAGAR)
+//                        .queryParam("ParmNroCuotas",//DEV
+//                                (tipoPago == 2) ? nroCuotas : 0
+//                        )
+//                        .queryParam("ParmTipoRecojo", tipoEntrega)
+//                        .queryParam("ParmNumOperaBancaria",//DEV
+//                                (tipoPago == 4) ? 0 : 0
+//                        )
+//                        .queryParam("ParmCodTrxTarjeta",//DEV
+//                                (tipoPago == 3) ? String.valueOf(currentTimeMillis()) : ""
+//                        )
+//                        .queryParam("ParmCodUbigeoCosto",//DEV
+//                                (tipoEntrega == 1) ? codigoUbigeo : ""
+//                        )
+//                        .queryParam("ParmIdFomaPago", tipoPago)
+//                        .queryParam("ParmDireccionEntrega",
+//                                (tipoEntrega == 1) ? direccionEntrega : ""
+//                        )
+//                        .queryParam("ParmIdBanco",//DEV
+//                                (tipoPago == 4) ? codigoBanco : 0
+//                        )
+//                        .queryParam("ParmNroCuenta", "")
+//                        .queryParam("ParmTipoDocumento", tipoComprobante)
+//                        .queryParam("ParmRuc", RUC)
+//                        .queryParam("ParmRazonSocial", RS)
+//                        .queryParam("ParmIdTipoUsuario", Util.EMPLEADO_SESSION.getIdtipousuario().intValue())
+//                        .queryParam("tramaPedido", tramaPedido);
 
                 Log.i("URL", builder.toUriString());
 
-                HttpHeaders headers = new HttpHeaders();
-                String cookies = "";
-                for (String cook : Util.COOKIES_SESSION) {
-                    cookies += cook + ";";
-                }
-                headers.set("Cookie", cookies);
-                HttpEntity<String> entity = new HttpEntity<String>(headers);
-
                 ParameterizedTypeReference<Integer> responseType = new ParameterizedTypeReference<Integer>() {
                 };
-                ResponseEntity<Integer> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.POST, entity, responseType);
+
+//                HttpAuthentication httpAuthentication = new HttpBasicAuthentication("username", "password");
+                HttpHeaders requestHeaders = new HttpHeaders();
+//                requestHeaders.setAuthorization(httpAuthentication);
+                requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+                MultiValueMap<String, Object> body = new LinkedMultiValueMap<String, Object>();
+                //SP_GrabarVenta
+                body.add("parmNroDocumentoCli", Util.CLIENTE_SESSION.getNrodocumentocli());
+                body.add("parmDescuentoTotal", Util.PRECIO_TOTAL_DESCUENTO);
+                body.add("parmTotal", Util.PRECIO_TOTAL_CALZADOS);
+                body.add("parmTotalCostoEnvio", Util.PRECIO_COSTO_ENVIO);
+                body.add("parmTotalVenta", Util.PRECIO_TOTAL_PAGAR);
+                body.add("parmNroCuotas", 0);
+                body.add("parmIdFomaPago", tipoPago);
+                body.add("parmTipoDocumento", tipoComprobante);
+                body.add("parmCodUsuario", Util.EMPLEADO_SESSION.getCodusuario());
+                body.add("parmRuc", RUC);//
+                body.add("parmRazonSocial", RS);//
+                body.add("parmIdBanco", codigoBanco);//
+                body.add("parmCodTrxTarjeta", null);//
+                body.add("parmComentarioConsignacion", null);
+                //SP_MantDetalleVenta
+                body.add("tramaPedidoDetalle", tramaPedido);
+                //SP_MantDetalleRepartoVenta
+//                body.add("tramaPedidoDetalle", tramaPedido);
+
+                HttpEntity<?> httpEntity = new HttpEntity<Object>(body, requestHeaders);
+
+                ResponseEntity<Integer> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.POST, httpEntity, responseType);
                 Integer codRespuesta = respuesta.getBody();
                 Log.i("respuesta", "" + codRespuesta);
                 return codRespuesta;
