@@ -18,10 +18,10 @@
         android:id="@+id/grid_item_label_nombre"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="cursive"
+        android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:textColor="@android:color/black"
-        android:textSize="25dp"
+        android:textSize="15dp"
         android:textStyle="bold" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:gravity="center"
         android:textColor="@android:color/black"
         android:textStyle="bold"
-        android:textSize="15dp" />
+        android:textSize="10dp" />
 
     <TextView
         android:id="@+id/grid_item_label_precio"
@@ -40,6 +40,6 @@
         android:gravity="center"
         android:textColor="@android:color/black"
         android:textStyle="bold"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:layout_marginBottom="5dp" />
 </LinearLayout>

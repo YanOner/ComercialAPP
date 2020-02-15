@@ -136,7 +136,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = parent.getItemAtPosition(position).toString();
-                Log.i("ITEM", item);
+//                Log.i("ITEM", item);
                 if (item.equals("TIPO DE ENTREGA")) {
                     getSupportFragmentManager()
                             .beginTransaction()

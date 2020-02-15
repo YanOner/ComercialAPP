@@ -182,7 +182,7 @@
                         android:gravity="center"
                         android:textStyle="bold"
                         android:layout_weight="1"
-                        tools:text="Descuento S/ "
+                        tools:text="Descuento S/ 0.00"
                         android:textColor="@color/colorAccent" />
 
                     <TextView

@@ -162,7 +162,7 @@ public class PedidoArrayAdapter extends ArrayAdapter {
             txtCantidadPedido.setText("" + p.getCantidad());
 
         TextView tvNombre = (TextView) convertView.findViewById(R.id.grid_pedido_label_nombre);
-        tvNombre.setText("Nombre: " + p.getDescripcion());
+        tvNombre.setText(1 + position + ") Nombre: " + p.getDescripcion());
 
         TextView tvCodigo = (TextView) convertView.findViewById(R.id.grid_pedido_label_codigo);
         tvCodigo.setText("Codigo: " + p.getSku());

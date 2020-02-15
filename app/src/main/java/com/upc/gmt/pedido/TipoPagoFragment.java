@@ -2,6 +2,7 @@ package com.upc.gmt.pedido;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -144,7 +145,7 @@ public class TipoPagoFragment extends Fragment {
         lyFechaCaducidad = (LinearLayout) getView().findViewById(R.id.lyFechaCaducidad);
         lyCSV = (LinearLayout) getView().findViewById(R.id.lyCSV);
         txtCuentaBancaria = (TextView) getView().findViewById(R.id.txtCuentaBancaria);
-        lyLineaCredito = (LinearLayout) getView().findViewById(R.id.lyLineaCredito);
+//        lyLineaCredito = (LinearLayout) getView().findViewById(R.id.lyLineaCredito);
         txtCredito = (TextView) getView().findViewById(R.id.txtCredito);
 
         spnBanco.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simple_spinner_item, new String[]{"BANCOS"}));
@@ -170,48 +171,6 @@ public class TipoPagoFragment extends Fragment {
             }
         });
 
-        /*listaBancos = new ArrayList<>();
-        listaBancos.add("BANCOS");
-        listaBancos.add("BCP");
-        listaBancos.add("BBVA");
-        listaBancos.add("BANBIF");
-        listaBancos.add("INTERBANK");
-        listaBancos.add("SCOTIABANK");
-        ArrayAdapter<String> arrayBanco = new ArrayAdapter<String>(getContext(),R.layout.simple_spinner_item,listaBancos);
-        arrayBanco.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-        spnBanco.setAdapter(arrayBanco);*/
-
-        /*spnBanco.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String banco = (String) parent.getItemAtPosition(position);
-                int contador = 0;
-                for(int i=0; i<listaBancos.size()&& position !=0; i++){
-                    String item = listaBancos.get(i);
-                    if(banco.equals(item)){
-                        contador=i;
-                        break;
-                    }
-                }
-                if (contador == 5 ){
-                    txtCuentaBancaria.setText("1025486394");
-                } else if (contador == 4){
-                    txtCuentaBancaria.setText("6477988012");
-                }else if (contador == 3){
-                    txtCuentaBancaria.setText("5544113067");
-                }else if (contador == 2) {
-                    txtCuentaBancaria.setText("8874336901");
-                }else if (contador == 1){
-                    txtCuentaBancaria.setText("5201144269");
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
-
         View.OnClickListener ocl = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,7 +183,7 @@ public class TipoPagoFragment extends Fragment {
                 if (id == R.id.rdConsignacion) {
                     rdConsignacion.setChecked(true);
                     RegistrarPedidoActivity.tipoPago = 2;
-                    lyLineaCredito.setVisibility(View.VISIBLE);
+//                    lyLineaCredito.setVisibility(View.VISIBLE);
                     lyBanco.setVisibility(View.INVISIBLE);
                     lyCuentaBancaria.setVisibility(View.INVISIBLE);
                     lyNumeroTarjeta.setVisibility(View.INVISIBLE);
@@ -232,11 +191,11 @@ public class TipoPagoFragment extends Fragment {
                     lyApellido.setVisibility(View.INVISIBLE);
                     lyFechaCaducidad.setVisibility(View.INVISIBLE);
                     lyCSV.setVisibility(View.INVISIBLE);
-                    new HttpRequestTaskCliente().execute();
+//                    new HttpRequestTaskCliente().execute();
                 } else if (id == R.id.rdEfectivo) {
                     rdEfectivo.setChecked(true);
                     RegistrarPedidoActivity.tipoPago = 1;
-                    lyLineaCredito.setVisibility(View.INVISIBLE);
+//                    lyLineaCredito.setVisibility(View.INVISIBLE);
                     lyBanco.setVisibility(View.INVISIBLE);
                     lyCuentaBancaria.setVisibility(View.INVISIBLE);
                     lyNumeroTarjeta.setVisibility(View.INVISIBLE);
@@ -248,7 +207,7 @@ public class TipoPagoFragment extends Fragment {
                     rdTarjeta.setChecked(true);
                     RegistrarPedidoActivity.tipoPago = 3;
                     lyBanco.setVisibility(View.INVISIBLE);
-                    lyLineaCredito.setVisibility(View.INVISIBLE);
+//                    lyLineaCredito.setVisibility(View.INVISIBLE);
                     lyCuentaBancaria.setVisibility(View.INVISIBLE);
                     lyNumeroTarjeta.setVisibility(View.VISIBLE);
                     lyNombre.setVisibility(View.VISIBLE);
@@ -259,7 +218,7 @@ public class TipoPagoFragment extends Fragment {
                     new HttpRequestTaskBancos().execute();
                     rdTransferencia.setChecked(true);
                     RegistrarPedidoActivity.tipoPago = 4;
-                    lyLineaCredito.setVisibility(View.INVISIBLE);
+//                    lyLineaCredito.setVisibility(View.INVISIBLE);
                     lyBanco.setVisibility(View.VISIBLE);
                     spnBanco.setVisibility(View.VISIBLE);
                     lyCuentaBancaria.setVisibility(View.VISIBLE);
@@ -387,7 +346,7 @@ public class TipoPagoFragment extends Fragment {
         int id = RegistrarPedidoActivity.tipoPago;
         if (id == 2) {
             rdConsignacion.setChecked(true);
-            lyLineaCredito.setVisibility(View.VISIBLE);
+//            lyLineaCredito.setVisibility(View.VISIBLE);
             lyBanco.setVisibility(View.INVISIBLE);
             lyCuentaBancaria.setVisibility(View.INVISIBLE);
             lyNumeroTarjeta.setVisibility(View.INVISIBLE);
@@ -395,7 +354,6 @@ public class TipoPagoFragment extends Fragment {
             lyApellido.setVisibility(View.INVISIBLE);
             lyFechaCaducidad.setVisibility(View.INVISIBLE);
             lyCSV.setVisibility(View.INVISIBLE);
-            new HttpRequestTaskCliente().execute();
         } else if (id == 1) {
             rdEfectivo.setChecked(true);
             lyBanco.setVisibility(View.INVISIBLE);
@@ -426,13 +384,15 @@ public class TipoPagoFragment extends Fragment {
             lyCSV.setVisibility(View.INVISIBLE);
             new HttpRequestTaskBancos().execute();
         }
+        new HttpRequestTaskCliente().execute();
         if (Util.CLIENTE_SESSION.getSaldolineacredito() >= 500) {//REVENDEDOR
-//            rdConsignacion.setVisibility(View.VISIBLE);
+            txtCredito.setTextColor(Color.WHITE);
             rdConsignacion.setEnabled(true);
         } else {
-//            rdConsignacion.setVisibility(View.INVISIBLE);
+            txtCredito.setTextColor(Color.RED);
             rdConsignacion.setEnabled(false);
         }
+        Log.i("getSaldolineacredito", "" + Util.CLIENTE_SESSION.getSaldolineacredito());
     }
 
     public void onButtonPressed(Uri uri) {
@@ -518,7 +478,6 @@ public class TipoPagoFragment extends Fragment {
             try {
                 String URL = Util.URL_SERVICE_BASE + "/cliente/" + Util.CLIENTE_SESSION.getNrodocumentocli();
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
-//                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente());
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -536,13 +495,8 @@ public class TipoPagoFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Cliente cliente) {
-            if (null != cliente) {
-                Util.CLIENTE_SESSION = cliente;
-                txtCredito.setText("S/ " + Util.formatearDecimales(cliente.getSaldolineacredito()));
-            } else {
-//                Util.CLIENTE_SESSION = new Cliente();
-            }
-
+            Util.CLIENTE_SESSION = cliente;
+            txtCredito.setText("S/ " + Util.formatearDecimales(cliente.getSaldolineacredito()));
         }
 
     }

@@ -16,6 +16,7 @@ import android.widget.Spinner;
 
 import com.upc.gmt.bean.Cliente;
 import com.upc.gmt.comercialgb.R;
+import com.upc.gmt.util.Constantes;
 import com.upc.gmt.util.Util;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -56,8 +57,9 @@ public class BuscarClienteActivity extends AppCompatActivity {
         txtNumeroDocumento.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
 
         List<String> listaTipoDoc = new ArrayList<>();
-        listaTipoDoc.add("DNI");
-        listaTipoDoc.add("RUC");
+        listaTipoDoc.add(Constantes.TIPO_DOC_DNI);
+        listaTipoDoc.add(Constantes.TIPO_DOC_RUC);
+        listaTipoDoc.add(Constantes.TIPO_DOC_OTRO);
         ArrayAdapter arrayTipoDoc = new ArrayAdapter<>(getApplicationContext(), R.layout.simple_spinner_item, listaTipoDoc);
         arrayTipoDoc.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
         spnTipoDococumento.setAdapter(arrayTipoDoc);
@@ -125,9 +127,6 @@ public class BuscarClienteActivity extends AppCompatActivity {
                     tipoPersona = "J";
                 }
                 String url = Util.URL_SERVICE_BASE + "/cliente/" + numeroDocumento + "/" + tipoPersona;
-//                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-//                        .queryParam("tipoDocumento", tipoDocumento)
-//                        .queryParam("numeroDocumento", numeroDocumento);
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -147,6 +146,7 @@ public class BuscarClienteActivity extends AppCompatActivity {
         protected void onPostExecute(Cliente cliente) {
             if (null != cliente) {
                 Util.CLIENTE_SESSION = cliente;
+                Util.LISTA_PRODUCTOS_PEDIDO = new ArrayList<>();
                 ad.setTitle("MENSAJE");
                 ad.setMessage("Cliente encontrado: " + cliente.getNombres());
                 ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
@@ -162,6 +162,7 @@ public class BuscarClienteActivity extends AppCompatActivity {
                 });
                 ad.setNegativeButton(null, null);
                 ad.show();
+
             } else {
 //                Util.CLIENTE_SESSION = new Cliente();
                 ad.setTitle("MENSAJE");

@@ -71,6 +71,8 @@ public class CatalogoActivity extends AppCompatActivity {
 
     static Producto productoSeleccionado;
 
+    MenuItem menuItemCarrito;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,11 +115,12 @@ public class CatalogoActivity extends AppCompatActivity {
                 Log.i("productoSeleccionado", productoSeleccionado.toString());
                 Toast.makeText(view.getContext().getApplicationContext(), productoSeleccionado.getDescripcion(), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getApplicationContext(), DetalleCalzadoActivity.class);
+
                 i.putExtra("idProducto", productoSeleccionado.getIdproducto().toString());
                 i.putExtra("idColor", productoSeleccionado.getIdColor());
                 i.putExtra("nroTalla", productoSeleccionado.getNroTalla().toString());
                 i.putExtra("SKU", productoSeleccionado.getSku());
-                startActivity(i);
+                startActivityForResult(i, 1000);
             }
         });
 
@@ -279,7 +282,18 @@ public class CatalogoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.carrito, menu);
+        menuItemCarrito = menu.findItem(R.id.action_carrito_ver_pedido);
+        menuItemCarrito.setTitle("Ver Pedido (" + Util.LISTA_PRODUCTOS_PEDIDO.size() + ")");
         return true;
+    }
+
+    private void actulizarMenuCantidadPedido() {
+        menuItemCarrito.setTitle("Ver Pedido (" + Util.LISTA_PRODUCTOS_PEDIDO.size() + ")");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        actulizarMenuCantidadPedido();
     }
 
     @Override
