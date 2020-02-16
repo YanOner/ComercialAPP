@@ -13,4 +13,11 @@ public class Constantes {
     public static final String TIPO_DOC_RUC = "RUC";
     public static final String TIPO_DOC_OTRO = "OTRO";
 
+    public static int ID_FORMA_PAGO_EFECTIVO = 1;
+    public static int ID_FORMA_PAGO_VISA = 2;
+    public static int ID_FORMA_PAGO_CONSIGNACION = 3;
+    public static int ID_FORMA_PAGO_TRANSFERENCIA_BANCARIA = 4;
+
+    public static int CODIGO_SERVICIO_ERROR = -1;
+
 }

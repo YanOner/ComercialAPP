@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.upc.gmt.comercialgb.MenuPrincipalActivity;
 import com.upc.gmt.comercialgb.R;
 import com.upc.gmt.comercialgb.SolicitarAumentoActivity;
+import com.upc.gmt.util.Constantes;
 import com.upc.gmt.util.Util;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -231,8 +232,8 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
         protected void onPostExecute(Integer respuesta) {
             Log.i("onPostExecute", "HttpRequestTaskRegistrarPedidoConsignacion");
             progressDialog.dismiss();
-            if (respuesta != null && respuesta.intValue() != 0) {
-                Toast.makeText(getApplicationContext(), "SE HA REGISTRADO SU PEDIDO N° " + respuesta.intValue(), Toast.LENGTH_LONG).show();
+            if (respuesta != null && respuesta.intValue() != Constantes.CODIGO_SERVICIO_ERROR) {
+                Toast.makeText(getApplicationContext(), "SE HA REGISTRADO EL PEDIDO N° " + respuesta.intValue(), Toast.LENGTH_LONG).show();
                 Util.LISTA_PRODUCTOS_PEDIDO = new ArrayList<>();
                 Intent i = new Intent(getApplicationContext(), MenuPrincipalActivity.class);
                 startActivity(i);

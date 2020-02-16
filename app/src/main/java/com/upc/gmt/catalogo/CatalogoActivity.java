@@ -9,9 +9,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,10 +75,16 @@ public class CatalogoActivity extends AppCompatActivity {
 
     MenuItem menuItemCarrito;
 
+    int myLastVisiblePos;
+
+    LinearLayout lyCatalogo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalogo);
+
+        lyCatalogo = (LinearLayout) findViewById(R.id.lyCatalogo);
 
         spnTallaCalzado = (Spinner) findViewById(R.id.spnCatalogoTaC);
         spnColor = (Spinner) findViewById(R.id.spnCatalogoColor);
@@ -106,6 +114,26 @@ public class CatalogoActivity extends AppCompatActivity {
         //GRILLA DE CALZADOS
         gvCalzados = (GridView) findViewById(R.id.gvCatalogo);
         gvCalzados.setAdapter(new ImagenCalzadoArrayAdapter(getApplicationContext(), new ArrayList<Producto>()));
+        gvCalzados.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                int currentFirstVisPos = view.getFirstVisiblePosition();
+                Long tsLong = System.currentTimeMillis() / 1000;
+                int currentSec = tsLong.intValue();
+//                Log.d("currentFirstVisPos",""+currentFirstVisPos);
+//                Log.d("currentSec",""+currentSec);
+                if (currentFirstVisPos < 10) {
+                    lyCatalogo.setVisibility(View.VISIBLE);
+                } else {
+                    lyCatalogo.setVisibility(View.GONE);
+                }
+                myLastVisiblePos = currentFirstVisPos;
+            }
+        });
         //EVENTO DE LA GRILLA
         gvCalzados.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -426,7 +454,7 @@ public class CatalogoActivity extends AppCompatActivity {
             Log.i("LISTA", "Tamaño: " + lista.size());
             listaColor = lista;
             List<String> items = new ArrayList<>();
-            items.add("COLOR");
+            items.add("COLORES");
             for (Colorproducto cp : lista) {
                 items.add(cp.getColor());
             }

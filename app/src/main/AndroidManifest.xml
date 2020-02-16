@@ -41,14 +41,14 @@
             android:label="@string/app_mostrar_catalogo"
             android:parentActivityName="com.upc.gmt.comercialgb.MenuPrincipalActivity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".MantenimientoUsuarioActivity"
-            android:label="MANTEMIENTO DE USUARIO"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".AgregarUsuarioActivity"
-            android:label="REGISTRAR USUARIO"
-            android:screenOrientation="landscape" />
+        <!--        <activity-->
+        <!--            android:name=".MantenimientoUsuarioActivity"-->
+        <!--            android:label="MANTEMIENTO DE USUARIO"-->
+        <!--            android:screenOrientation="landscape" />-->
+        <!--        <activity-->
+        <!--            android:name=".AgregarUsuarioActivity"-->
+        <!--            android:label="REGISTRAR USUARIO"-->
+        <!--            android:screenOrientation="landscape" />-->
         <activity
             android:name="com.upc.gmt.catalogo.DetalleCalzadoActivity"
             android:label="DETALLE DEL CALZADO"
@@ -67,33 +67,32 @@
             android:name=".SolicitarAumentoActivity"
             android:label="AUMENTO DE LÍNEA DE CRÉDITO"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".RecuperarClaveActivity"
-            android:label="RECUPERAR CONTRASEÑA"
-            android:screenOrientation="landscape" />
+        <!--        <activity-->
+        <!--            android:name=".RecuperarClaveActivity"-->
+        <!--            android:label="RECUPERAR CONTRASEÑA"-->
+        <!--            android:screenOrientation="landscape" />-->
         <activity
             android:name="com.upc.gmt.pedido.PedidoConsignacionActivity"
             android:label="PEDIDO POR CONSIGNACIÓN"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".MantenimientoCalzadoActivity"
-            android:label="MANTENIMIENTO DE CALZADO"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".AgregarCalzadoActivity"
-            android:label="AGREGAR CALZADO"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".ModificarCalzadoActivity"
-            android:label="MODIFICAR CALZADO"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".EliminarCalzadoActivity"
-            android:label="ELIMINAR CALZADO"
-            android:screenOrientation="landscape" />
+        <!--        <activity-->
+        <!--            android:name=".MantenimientoCalzadoActivity"-->
+        <!--            android:label="MANTENIMIENTO DE CALZADO"-->
+        <!--            android:screenOrientation="landscape" />-->
+        <!--        <activity-->
+        <!--            android:name=".AgregarCalzadoActivity"-->
+        <!--            android:label="AGREGAR CALZADO"-->
+        <!--            android:screenOrientation="landscape" />-->
+        <!--        <activity-->
+        <!--            android:name=".ModificarCalzadoActivity"-->
+        <!--            android:label="MODIFICAR CALZADO"-->
+        <!--            android:screenOrientation="landscape" />-->
+        <!--        <activity-->
+        <!--            android:name=".EliminarCalzadoActivity"-->
+        <!--            android:label="ELIMINAR CALZADO"-->
+        <!--            android:screenOrientation="landscape" />-->
         <activity
             android:name=".HomeActivity"
-            android:label="@string/app_inicio"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,6 +1,5 @@
 package com.upc.gmt.pedido;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
@@ -25,6 +24,7 @@ import android.widget.TextView;
 import com.upc.gmt.bean.Bancos;
 import com.upc.gmt.bean.Cliente;
 import com.upc.gmt.comercialgb.R;
+import com.upc.gmt.util.Constantes;
 import com.upc.gmt.util.Util;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -47,7 +47,7 @@ import java.util.List;
  */
 public class TipoPagoFragment extends Fragment {
 
-    ProgressDialog progressDialog;
+//    ProgressDialog progressDialog;
 
     LinearLayout lyBanco;
     LinearLayout lyCuentaBancaria;
@@ -182,7 +182,7 @@ public class TipoPagoFragment extends Fragment {
 //                Log.i("ID",""+id);
                 if (id == R.id.rdConsignacion) {
                     rdConsignacion.setChecked(true);
-                    RegistrarPedidoActivity.tipoPago = 2;
+                    RegistrarPedidoActivity.tipoPago = Constantes.ID_FORMA_PAGO_CONSIGNACION;
 //                    lyLineaCredito.setVisibility(View.VISIBLE);
                     lyBanco.setVisibility(View.INVISIBLE);
                     lyCuentaBancaria.setVisibility(View.INVISIBLE);
@@ -194,7 +194,7 @@ public class TipoPagoFragment extends Fragment {
 //                    new HttpRequestTaskCliente().execute();
                 } else if (id == R.id.rdEfectivo) {
                     rdEfectivo.setChecked(true);
-                    RegistrarPedidoActivity.tipoPago = 1;
+                    RegistrarPedidoActivity.tipoPago = Constantes.ID_FORMA_PAGO_EFECTIVO;
 //                    lyLineaCredito.setVisibility(View.INVISIBLE);
                     lyBanco.setVisibility(View.INVISIBLE);
                     lyCuentaBancaria.setVisibility(View.INVISIBLE);
@@ -205,7 +205,7 @@ public class TipoPagoFragment extends Fragment {
                     lyCSV.setVisibility(View.INVISIBLE);
                 } else if (id == R.id.rdTarjeta) {
                     rdTarjeta.setChecked(true);
-                    RegistrarPedidoActivity.tipoPago = 3;
+                    RegistrarPedidoActivity.tipoPago = Constantes.ID_FORMA_PAGO_VISA;
                     lyBanco.setVisibility(View.INVISIBLE);
 //                    lyLineaCredito.setVisibility(View.INVISIBLE);
                     lyCuentaBancaria.setVisibility(View.INVISIBLE);
@@ -217,7 +217,7 @@ public class TipoPagoFragment extends Fragment {
                 } else if (id == R.id.rdTransferencia) {
                     new HttpRequestTaskBancos().execute();
                     rdTransferencia.setChecked(true);
-                    RegistrarPedidoActivity.tipoPago = 4;
+                    RegistrarPedidoActivity.tipoPago = Constantes.ID_FORMA_PAGO_TRANSFERENCIA_BANCARIA;
 //                    lyLineaCredito.setVisibility(View.INVISIBLE);
                     lyBanco.setVisibility(View.VISIBLE);
                     spnBanco.setVisibility(View.VISIBLE);
@@ -329,7 +329,7 @@ public class TipoPagoFragment extends Fragment {
             txtCelularPedido.setText(RegistrarPedidoActivity.celular);
         }
 
-        if (RegistrarPedidoActivity.tipoPago == 3) {
+        if (RegistrarPedidoActivity.tipoPago == Constantes.ID_FORMA_PAGO_VISA) {
             txtNroTarjetaVisa.setText(RegistrarPedidoActivity.txtNroTarjetaVisa);
             txtNombreVisa.setText(RegistrarPedidoActivity.txtNombreVisa);
             txtApellidoVisa.setText(RegistrarPedidoActivity.txtApellidoVisa);
@@ -344,7 +344,7 @@ public class TipoPagoFragment extends Fragment {
 
     private void cargarPantalla() {
         int id = RegistrarPedidoActivity.tipoPago;
-        if (id == 2) {
+        if (id == Constantes.ID_FORMA_PAGO_CONSIGNACION) {
             rdConsignacion.setChecked(true);
 //            lyLineaCredito.setVisibility(View.VISIBLE);
             lyBanco.setVisibility(View.INVISIBLE);
@@ -354,7 +354,7 @@ public class TipoPagoFragment extends Fragment {
             lyApellido.setVisibility(View.INVISIBLE);
             lyFechaCaducidad.setVisibility(View.INVISIBLE);
             lyCSV.setVisibility(View.INVISIBLE);
-        } else if (id == 1) {
+        } else if (id == Constantes.ID_FORMA_PAGO_EFECTIVO) {
             rdEfectivo.setChecked(true);
             lyBanco.setVisibility(View.INVISIBLE);
             lyCuentaBancaria.setVisibility(View.INVISIBLE);
@@ -363,7 +363,7 @@ public class TipoPagoFragment extends Fragment {
             lyApellido.setVisibility(View.INVISIBLE);
             lyFechaCaducidad.setVisibility(View.INVISIBLE);
             lyCSV.setVisibility(View.INVISIBLE);
-        } else if (id == 3) {
+        } else if (id == Constantes.ID_FORMA_PAGO_VISA) {
             rdTarjeta.setChecked(true);
             lyBanco.setVisibility(View.INVISIBLE);
             lyCuentaBancaria.setVisibility(View.INVISIBLE);
@@ -372,7 +372,7 @@ public class TipoPagoFragment extends Fragment {
             lyApellido.setVisibility(View.VISIBLE);
             lyFechaCaducidad.setVisibility(View.VISIBLE);
             lyCSV.setVisibility(View.VISIBLE);
-        } else if (id == 4) {
+        } else if (id == Constantes.ID_FORMA_PAGO_TRANSFERENCIA_BANCARIA) {
             rdTransferencia.setChecked(true);
             lyBanco.setVisibility(View.VISIBLE);
             spnBanco.setVisibility(View.VISIBLE);
@@ -385,14 +385,14 @@ public class TipoPagoFragment extends Fragment {
             new HttpRequestTaskBancos().execute();
         }
         new HttpRequestTaskCliente().execute();
-        if (Util.CLIENTE_SESSION.getSaldolineacredito() >= 500) {//REVENDEDOR
-            txtCredito.setTextColor(Color.WHITE);
+        if (Util.CLIENTE_SESSION.getSaldolineacredito() >= 500) {
+            txtCredito.setTextColor(Color.BLACK);
             rdConsignacion.setEnabled(true);
         } else {
             txtCredito.setTextColor(Color.RED);
             rdConsignacion.setEnabled(false);
         }
-        Log.i("getSaldolineacredito", "" + Util.CLIENTE_SESSION.getSaldolineacredito());
+//        Log.i("getSaldolineacredito", "" + Util.CLIENTE_SESSION.getSaldolineacredito());
     }
 
     public void onButtonPressed(Uri uri) {

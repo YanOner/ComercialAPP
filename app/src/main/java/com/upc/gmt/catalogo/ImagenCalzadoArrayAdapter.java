@@ -82,14 +82,14 @@ public class ImagenCalzadoArrayAdapter extends ArrayAdapter {
 //            picasso.setIndicatorsEnabled(true);
 //            picasso.setLoggingEnabled(true);
         try {
-            Log.i("DEBUG", p.getSku() + "_" + p.getIdColor() + "_1.jpg");
+//            Log.i("DEBUG", p.getSku() + "_" + p.getIdColor() + "_1.jpg");
 //            if(validarSKU(p.getSku())!=0){
 //                int id = context.getResources().getIdentifier("calzado_generico", "mipmap", context.getPackageName());
 //                Picasso.with(context).load(id).resize(150, 150).centerCrop().into(imageView);
 //            }else{
 //                Picasso.with(context).load(Util.URL_SERVICE_BASE+"/imagen/ver?nombre="+p.getSku()+"_"+p.getIdColor()+"_1.jpg").resize(100, 100).into(imageView);
             int id = context.getResources().getIdentifier(p.getSku().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
-            Log.i("ID", "" + id);
+//            Log.i("ID", "" + id);
             if (id == 0) {
                 id = context.getResources().getIdentifier("calzado_generico", "mipmap", context.getPackageName());
             }

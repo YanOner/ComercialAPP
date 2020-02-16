@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.upc.gmt.bean.Producto;
 import com.upc.gmt.comercialgb.MenuPrincipalActivity;
 import com.upc.gmt.comercialgb.R;
+import com.upc.gmt.util.Constantes;
 import com.upc.gmt.util.Util;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -91,7 +92,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
         progressDialog = new ProgressDialog(this);
 
         tipoEntrega = 0;
-        tipoPago = 1;
+        tipoPago = Constantes.ID_FORMA_PAGO_EFECTIVO;
         tipoComprobante = 0;
         RUC = "";
         RS = "";
@@ -209,7 +210,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoPagoFragment()).commit();
             return;
         }
-        if (tipoPago == 3) {//VISA
+        if (tipoPago == Constantes.ID_FORMA_PAGO_VISA) {//VISA
             if (txtNroTarjetaVisa.equals("") || txtNroTarjetaVisa.length() != 16) {
                 Toast.makeText(getApplicationContext(), "NÚMERO DE TARJETA INCORRECTO", Toast.LENGTH_LONG).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoPagoFragment()).commit();
@@ -251,7 +252,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
 
         Util.PRECIO_TOTAL_PAGAR = Util.PRECIO_COSTO_ENVIO + Util.PRECIO_TOTAL_CALZADOS;
 
-        if (tipoPago == 2) {
+        if (tipoPago == Constantes.ID_FORMA_PAGO_CONSIGNACION) {
             if (Util.CLIENTE_SESSION.getSaldolineacredito() < Util.PRECIO_TOTAL_PAGAR) {
                 Toast.makeText(getApplicationContext(), "NO TIENE SUFICIENTE LÍNEA DE CRÉDITO PARA COMPRAR POR CONSIGNACIÓN", Toast.LENGTH_LONG).show();
                 return;
@@ -266,7 +267,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
             tramaPedido = tramaPedido.substring(0, tramaPedido.length() - 1);
         }
         Log.i("tramaPedido", tramaPedido);
-        if (tipoPago == 2) {
+        if (tipoPago == Constantes.ID_FORMA_PAGO_CONSIGNACION) {
             Intent i = new Intent(getApplicationContext(), PedidoConsignacionActivity.class);
             startActivity(i);
 //        }else if(tipoPago == 3){
