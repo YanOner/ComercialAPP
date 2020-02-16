@@ -116,7 +116,7 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
                 Log.i("idColor", idColorNuevo);
                 if (!idColorNuevo.equals("")) {
                     idColor = idColorNuevo;
-                    progressDialog.setMessage("Cargando Calzado...");
+                    progressDialog.setMessage("CARGANDO CALZADO...");
                     progressDialog.show();
                     new HttpRequestTaskTallas().execute();
                 }
@@ -240,7 +240,7 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
         mostrarCliente();
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Cargando Calzado...");
+        progressDialog.setMessage("CARGANDO CALZADO...");
         progressDialog.show();
         new HttpRequestTaskDetalleCalzado().execute();
     }
@@ -287,7 +287,7 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
 
         if (Util.CLIENTE_SESSION == null) {
             alertDialog.setTitle("MENSAJE");
-            alertDialog.setMessage("DEBE BUSCAR UN CLIENTE");
+            alertDialog.setMessage("DEBE BUSCAR UN CLIENTE.");
             alertDialog.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -298,7 +298,7 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
             return;
         }
 
-        progressDialog.setMessage("Validando Cliente...");
+        progressDialog.setMessage("VALIDANDO CLIENTE...");
         progressDialog.show();
         new HttpRequestTaskPedido().execute();
     }
@@ -504,7 +504,7 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
             Log.i("onPostExecute", "HttpRequestTaskPedido");
             Log.i("LISTA", "Tamaño: " + lista.size());
             if (lista != null && lista.size() > 3) {
-                Toast.makeText(DetalleCalzadoActivity.this, "USTED CUENTA CON MÁS DE 3 PEDIDOS EN PENDIENTE DE PAGO Y NO PUEDE REALIZAR OTRO PEDIDO", Toast.LENGTH_LONG).show();
+//                Toast.makeText(DetalleCalzadoActivity.this, "USTED CUENTA CON MÁS DE 3 PEDIDOS EN PENDIENTE DE PAGO Y NO PUEDE REALIZAR OTRO PEDIDO", Toast.LENGTH_LONG).show();
             } else {
                 Log.i("DATOS PEDIDO", idProducto + "-" + idColor + "-" + nroTalla.substring(0, 2));
                 Producto p = new Producto();
@@ -531,11 +531,20 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
                     Log.i("Producto al Pedido", p.toString());
                     Util.LISTA_PRODUCTOS_PEDIDO.add(p);
                     Toast.makeText(DetalleCalzadoActivity.this, "EL CALZADO " + p.getDescripcion() + " FUE AGREGADO AL PEDIDO", Toast.LENGTH_LONG).show();
+//                    alertDialog.setTitle("MENSAJE");
+//                    alertDialog.setMessage("EL CALZADO " + p.getDescripcion() + " FUE AGREGADO AL PEDIDO.");
+//                    alertDialog.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            dialogInterface.dismiss();
+//                        }
+//                    });
+//                    alertDialog.show();
                     finish();
                 } else {
 //                    Toast.makeText(DetalleCalzadoActivity.this, "ESTE CALZADO YA EXISTE EN EL PEDIDO", Toast.LENGTH_LONG).show();
                     alertDialog.setTitle("MENSAJE");
-                    alertDialog.setMessage("EL CALZADO YA EXISTE EN EL PEDIDO");
+                    alertDialog.setMessage("EL CALZADO YA EXISTE EN EL PEDIDO.");
                     alertDialog.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {

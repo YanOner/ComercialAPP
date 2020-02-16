@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.upc.gmt.bean.Producto;
 import com.upc.gmt.comercialgb.R;
@@ -26,10 +25,14 @@ public class PedidoActivity extends AppCompatActivity {
 
     Integer posicionItemPedido;
 
+    AlertDialog.Builder ad;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedido);
+
+        ad = new AlertDialog.Builder(this);
 
         if (Util.CLIENTE_SESSION != null) {
             setTitle("VER PEDIDO (" + Util.CLIENTE_SESSION.getNombres() + " - " + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
@@ -61,7 +64,16 @@ public class PedidoActivity extends AppCompatActivity {
 
     public void onClickComprar(View v) {
         if (LISTA_PRODUCTOS_PEDIDO.size() == 0) {
-            Toast.makeText(getApplicationContext(), "NO HAY CALZADOS EN EL PEDIDO", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "NO HAY CALZADOS EN EL PEDIDO", Toast.LENGTH_SHORT).show();
+            ad.setTitle("MENSAJE");
+            ad.setMessage("NO HAY CALZADOS EN EL PEDIDO.");
+            ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            ad.show();
             return;
         }
         boolean validado = true;
@@ -79,20 +91,18 @@ public class PedidoActivity extends AppCompatActivity {
         }
 
         if (!validado) {
-            Toast.makeText(getApplicationContext(), "POR FAVOR, CONFIRMAR TODOS LOS CALZADOS", Toast.LENGTH_SHORT).show();
-//            tvTotalPedido.setText("PRECIO TOTAL DE CALZADOS: S/ 0.00");
+//            Toast.makeText(getApplicationContext(), "POR FAVOR, CONFIRMAR TODOS LOS CALZADOS", Toast.LENGTH_SHORT).show();
+            ad.setTitle("MENSAJE");
+            ad.setMessage("POR FAVOR, CONFIRMAR TODOS LOS CALZADOS.");
+            ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            ad.show();
             return;
         }
-
-//        for (Producto p : Util.LISTA_PRODUCTOS_PEDIDO){
-//            if(Util.EMPLEADO_SESSION.getIdTipoUsuario() == 2){
-//                totalPrecio += (p.getCantidad()*p.getPrecioVendedor().doubleValue());
-//            }else{
-//                totalPrecio += (p.getCantidad()*p.getPrecioUnitario().doubleValue());
-//            }
-//        }
-
-        //tvTotalPedido.setText("PRECIO TOTAL DE CALZADOS: S/ "+totalPrecio);
 
         Intent i = new Intent(this, RegistrarPedidoActivity.class);
         startActivity(i);

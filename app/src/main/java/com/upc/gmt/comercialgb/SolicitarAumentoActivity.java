@@ -1,6 +1,8 @@
 package com.upc.gmt.comercialgb;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +11,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.upc.gmt.bean.Cliente;
 import com.upc.gmt.model.Solicitud;
@@ -44,12 +45,16 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
 
     int cantidadINT = 0;
 
+    AlertDialog.Builder ad;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aumento_credito);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        ad = new AlertDialog.Builder(this);
 
         progressDialog = new ProgressDialog(this);
 
@@ -69,21 +74,48 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
 
     public void onSolicitarAumento(View v) {
         if (!txtCantidadAumento.isEnabled()) {
-            Toast.makeText(getApplicationContext(), "SOLO SE PERMITE 3 SOLICITUDES EN ESTADO PENDIENTE", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "SOLO SE PERMITE 3 SOLICITUDES EN ESTADO PENDIENTE", Toast.LENGTH_LONG).show();
+            ad.setTitle("VALIDACIÓN");
+            ad.setMessage("SOLO SE PERMITE 3 SOLICITUDES EN ESTADO PENDIENTE.");
+            ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            ad.show();
             return;
         }
         String cantidad = txtCantidadAumento.getText().toString();
         if ("".equals(cantidad)) {
-            Toast.makeText(getApplicationContext(), "INGRESAR UNA CANTIDAD MAYOR A 0", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "INGRESAR UNA CANTIDAD MAYOR A 0", Toast.LENGTH_LONG).show();
+            ad.setTitle("VALIDACIÓN");
+            ad.setMessage("INGRESAR UNA CANTIDAD MAYOR A 0.");
+            ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            ad.show();
             return;
         }
         cantidadINT = Integer.parseInt(cantidad);
         if (cantidadINT < 1) {
-            Toast.makeText(getApplicationContext(), "INGRESAR UNA CANTIDAD MAYOR A 0", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "INGRESAR UNA CANTIDAD MAYOR A 0", Toast.LENGTH_LONG).show();
+            ad.setTitle("VALIDACIÓN");
+            ad.setMessage("INGRESAR UNA CANTIDAD MAYOR A 0.");
+            ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            ad.show();
             return;
         }
 
-        progressDialog.setTitle("Procesando...");
+        progressDialog.setTitle("PROCESANDO...");
         progressDialog.show();
         new HttpRequestTaskRegistrarAumento().execute();
 
@@ -170,9 +202,27 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         protected void onPostExecute(Integer i) {
             progressDialog.dismiss();
             if (i == null || i == 0) {
-                Toast.makeText(getApplicationContext(), "NO SE PUDO REGISTRAR LA SOLICITUD", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "NO SE PUDO REGISTRAR LA SOLICITUD", Toast.LENGTH_LONG).show();
+                ad.setTitle("MENSAJE");
+                ad.setMessage("NO SE PUDO REGISTRAR LA SOLICITUD, OCURRIÓ UN ERROR.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
             } else {
-                Toast.makeText(getApplicationContext(), "SE HA GENERADO LA SOLICITUD EXITOSAMENTE", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "SE HA GENERADO LA SOLICITUD EXITOSAMENTE", Toast.LENGTH_LONG).show();
+                ad.setTitle("MENSAJE");
+                ad.setMessage("SE HA GENERADO LA SOLICITUD EXITOSAMENTE.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
             }
             txtCantidadAumento.setText("");
             new HttpRequestTaskListaAumento().execute();

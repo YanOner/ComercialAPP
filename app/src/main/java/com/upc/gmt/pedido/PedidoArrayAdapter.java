@@ -1,6 +1,8 @@
 package com.upc.gmt.pedido;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.upc.gmt.bean.Producto;
@@ -35,11 +36,14 @@ public class PedidoArrayAdapter extends ArrayAdapter {
     private List<Producto> lista;
     private LayoutInflater inflater;
 
+    AlertDialog.Builder ad;
+
     public PedidoArrayAdapter(Context context, List<Producto> lista) {
         super(context, calzado, lista);
         this.context = context;
         this.lista = lista;
         inflater = LayoutInflater.from(context);
+        ad = new AlertDialog.Builder(getContext());
     }
 
     @Override
@@ -86,13 +90,31 @@ public class PedidoArrayAdapter extends ArrayAdapter {
                     Producto p = Util.LISTA_PRODUCTOS_PEDIDO.get(i);
                     if (p.isChecked()) {
                         if (txtCantidadPedido.getText().toString().equals("")) {
-                            Toast.makeText(getContext().getApplicationContext(), "CANTIDAD NO PERMITIDA", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getContext().getApplicationContext(), "CANTIDAD NO PERMITIDA", Toast.LENGTH_LONG).show();
+                            ad.setTitle("VALIDACIÓN");
+                            ad.setMessage("CANTIDAD NO PERMITIDA.");
+                            ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            ad.show();
                             chbArticulo.setChecked(false);
                             return;
                         }
                         int cantidad = Integer.parseInt(txtCantidadPedido.getText().toString());
                         if (cantidad < 1) {
-                            Toast.makeText(getContext().getApplicationContext(), "CANTIDAD NO PERMITIDA", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getContext().getApplicationContext(), "CANTIDAD NO PERMITIDA", Toast.LENGTH_LONG).show();
+                            ad.setTitle("VALIDACIÓN");
+                            ad.setMessage("CANTIDAD NO PERMITIDA.");
+                            ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            ad.show();
                             chbArticulo.setChecked(false);
                             return;
                         }
@@ -102,7 +124,17 @@ public class PedidoArrayAdapter extends ArrayAdapter {
 //                            return;
 //                        }
                         if (p.getStockVenta().intValue() < cantidad) {
-                            Toast.makeText(getContext().getApplicationContext(), "LA CANTIDAD INGRESADA SUPERA EL STOCK DISPONIBLE (" + p.getStockVenta().intValue() + ")", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getContext().getApplicationContext(), "LA CANTIDAD INGRESADA SUPERA EL STOCK DISPONIBLE (" + p.getStockVenta().intValue() + ")", Toast.LENGTH_LONG).show();
+                            ad.setTitle("VALIDACIÓN");
+                            ad.setMessage("LA CANTIDAD INGRESADA SUPERA EL STOCK DISPONIBLE (" + p.getStockVenta().intValue() + ").");
+                            ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            });
+                            ad.show();
+
                             chbArticulo.setChecked(false);
                             return;
                         }

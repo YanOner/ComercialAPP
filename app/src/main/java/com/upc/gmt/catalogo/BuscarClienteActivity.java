@@ -89,7 +89,7 @@ public class BuscarClienteActivity extends AppCompatActivity {
 
         if (tipoDocumento.equals("DNI") && numeroDocumento.length() != 8) {
             ad.setTitle("VALIDACIÓN");
-            ad.setMessage("El número de DNI debe ser 8 dígitos.");
+            ad.setMessage("EL NÚMERO DE DNI DEBE SER 8 DÍGITOS.");
             ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -100,7 +100,7 @@ public class BuscarClienteActivity extends AppCompatActivity {
             return;
         } else if (tipoDocumento.equals("RUC") && numeroDocumento.length() != 11) {
             ad.setTitle("VALIDACIÓN");
-            ad.setMessage("El número de RUC debe ser 11 dígitos.");
+            ad.setMessage("EL NÚMERO DE RUC DEBE SER 11 DÍGITOS.");
             ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -148,7 +148,7 @@ public class BuscarClienteActivity extends AppCompatActivity {
                 Util.CLIENTE_SESSION = cliente;
                 Util.LISTA_PRODUCTOS_PEDIDO = new ArrayList<>();
                 ad.setTitle("MENSAJE");
-                ad.setMessage("Cliente encontrado: " + cliente.getNombres());
+                ad.setMessage("CLIENTE ENCONTRADO: " + cliente.getNombres());
                 ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -166,7 +166,7 @@ public class BuscarClienteActivity extends AppCompatActivity {
             } else {
 //                Util.CLIENTE_SESSION = new Cliente();
                 ad.setTitle("MENSAJE");
-                ad.setMessage("Cliente no encontrado, ¿Desea registrar al Cliente?");
+                ad.setMessage("CLIENTE NO ENCONTRADO, ¿DESEA REGISTRAR AL CLIENTE?");
                 ad.setPositiveButton("SI", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

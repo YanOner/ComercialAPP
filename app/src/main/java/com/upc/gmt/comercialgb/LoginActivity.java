@@ -117,9 +117,7 @@ public class LoginActivity extends AppCompatActivity {
 //            empleado.setCodUsuario("00000");
             if (null != empleado) {
                 Util.EMPLEADO_SESSION = empleado;
-                Toast.makeText(LoginActivity.this,
-                        "BIENVENIDO " + empleado.getNombre().toUpperCase()
-                        , Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "BIENVENIDO " + empleado.getNombre().toUpperCase(), Toast.LENGTH_SHORT).show();
 //                new HttpRequestTaskCliente().execute();
 //                if (Util.REGRESAR_A_CATALOGO) {
 //                    finish();
@@ -135,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 //                        , Toast.LENGTH_LONG).show();
 
                 alertDialog.setTitle("MENSAJE");
-                alertDialog.setMessage("CREDENCIALES INCORRECTAS");
+                alertDialog.setMessage("CREDENCIALES INCORRECTAS.");
                 alertDialog.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

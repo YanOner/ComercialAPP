@@ -1,6 +1,8 @@
 package com.upc.gmt.pedido;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.upc.gmt.comercialgb.MenuPrincipalActivity;
 import com.upc.gmt.comercialgb.R;
@@ -44,6 +45,7 @@ import static com.upc.gmt.pedido.RegistrarPedidoActivity.RUC;
 import static com.upc.gmt.pedido.RegistrarPedidoActivity.tipoComprobante;
 import static com.upc.gmt.pedido.RegistrarPedidoActivity.tipoPago;
 import static com.upc.gmt.pedido.RegistrarPedidoActivity.tramaPedido;
+import static com.upc.gmt.pedido.RegistrarPedidoActivity.tramaPedidoDetalleReparto;
 
 public class PedidoConsignacionActivity extends AppCompatActivity {
 
@@ -61,11 +63,15 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
 
     int cuotasSeleccionadas = 4;
 
+    AlertDialog.Builder ad;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedido_consignacion);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        ad = new AlertDialog.Builder(this);
 
         progressDialog = new ProgressDialog(this);
 
@@ -140,7 +146,7 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
     }
 
     public void onAceptarConsignacion(View v) {
-        progressDialog.setMessage("Registrando Pedido...");
+        progressDialog.setMessage("REGISTRANDO PEDIDO...");
         progressDialog.show();
         new HttpRequestTaskRegistrarPedidoConsignacion().execute();
     }
@@ -212,7 +218,7 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
                 //SP_MantDetalleVenta
                 body.add("tramaPedidoDetalle", tramaPedido);
                 //SP_MantDetalleRepartoVenta
-//                body.add("tramaPedidoDetalle", tramaPedido);
+                body.add("tramaPedidoDetalleReparto", tramaPedidoDetalleReparto);
 
                 HttpEntity<?> httpEntity = new HttpEntity<Object>(body, requestHeaders);
 
@@ -233,14 +239,33 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
             Log.i("onPostExecute", "HttpRequestTaskRegistrarPedidoConsignacion");
             progressDialog.dismiss();
             if (respuesta != null && respuesta.intValue() != Constantes.CODIGO_SERVICIO_ERROR) {
-                Toast.makeText(getApplicationContext(), "SE HA REGISTRADO EL PEDIDO N° " + respuesta.intValue(), Toast.LENGTH_LONG).show();
-                Util.LISTA_PRODUCTOS_PEDIDO = new ArrayList<>();
-                Intent i = new Intent(getApplicationContext(), MenuPrincipalActivity.class);
-                startActivity(i);
-                RegistrarPedidoActivity.objeto.finish();
-                finish();
+//                Toast.makeText(getApplicationContext(), "SE HA REGISTRADO EL PEDIDO N° " + respuesta.intValue(), Toast.LENGTH_LONG).show();
+                ad.setTitle("MENSAJE");
+                ad.setMessage("SE HA REGISTRADO EL PEDIDO N° " + respuesta.intValue());
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Util.LISTA_PRODUCTOS_PEDIDO = new ArrayList<>();
+                        Intent intent = new Intent(getApplicationContext(), MenuPrincipalActivity.class);
+                        startActivity(intent);
+                        RegistrarPedidoActivity.objeto.finish();
+                        finish();
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.setCancelable(false);// setCanceledOnTouchOutside(false);
+                ad.show();
             } else {
-                Toast.makeText(getApplicationContext(), "NO SE PUDO REGISTRAR EL PEDIDO, OCURRIÓ UN ERROR", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "NO SE PUDO REGISTRAR EL PEDIDO, OCURRIÓ UN ERROR", Toast.LENGTH_LONG).show();
+                ad.setTitle("MENSAJE");
+                ad.setMessage("NO SE PUDO REGISTRAR EL PEDIDO, OCURRIÓ UN ERROR.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
             }
             Log.i("onPostExecute", "fin");
         }

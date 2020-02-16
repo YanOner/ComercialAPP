@@ -20,4 +20,7 @@ public class Constantes {
 
     public static int CODIGO_SERVICIO_ERROR = -1;
 
+    public static int TIPO_ENTREGA_ALMACEN = 0;
+    public static int TIPO_ENTREGA_DIRECCION = 1;
+
 }

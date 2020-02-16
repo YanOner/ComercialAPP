@@ -1,7 +1,9 @@
 package com.upc.gmt.pedido;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -15,7 +17,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.upc.gmt.bean.Producto;
 import com.upc.gmt.comercialgb.MenuPrincipalActivity;
@@ -63,6 +64,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
     static String RUC;
     static String RS;
     static String tramaPedido;
+    static String tramaPedidoDetalleReparto;
     static String codigoUbigeo;
     static int indexDepartamento;
     static int indexProvincia;
@@ -80,6 +82,8 @@ public class RegistrarPedidoActivity extends AppCompatActivity
     static String txtVisaCSV;
     static boolean flagCostoAceptado;
 
+    AlertDialog.Builder ad;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,11 +91,13 @@ public class RegistrarPedidoActivity extends AppCompatActivity
 
         setTitle("REGISTRAR PEDIDO (" + Util.CLIENTE_SESSION.getNombres() + " - " + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
 
+        ad = new AlertDialog.Builder(this);
+
         objeto = this;
 
         progressDialog = new ProgressDialog(this);
 
-        tipoEntrega = 0;
+        tipoEntrega = Constantes.TIPO_ENTREGA_ALMACEN;
         tipoPago = Constantes.ID_FORMA_PAGO_EFECTIVO;
         tipoComprobante = 0;
         RUC = "";
@@ -193,58 +199,148 @@ public class RegistrarPedidoActivity extends AppCompatActivity
     }
 
     public void onClickRealizarPedido(View v) {
-        if (tipoEntrega == 1 && direccionEntrega.equals("")) {//DOMICILIO
-            Toast.makeText(getApplicationContext(), "INGRESAR UNA DIRECCIÓN", Toast.LENGTH_LONG).show();
+        if (tipoEntrega == Constantes.TIPO_ENTREGA_DIRECCION && direccionEntrega.equals("")) {//DOMICILIO
+//            Toast.makeText(getApplicationContext(), "INGRESAR UNA DIRECCIÓN", Toast.LENGTH_LONG).show();
+            ad.setTitle("VALIDACIÓN");
+            ad.setMessage("INGRESAR UNA DIRECCIÓN.");
+            ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            ad.show();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEntregaFragment()).commit();
 //            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEnvioFragment()).commit();
             return;
         }
-        if (tipoEntrega == 1 && !flagCostoAceptado) {
-            Toast.makeText(getApplicationContext(), "POR FAVOR ACEPTAR EL COSTO DE ENVIO", Toast.LENGTH_LONG).show();
+        if (tipoEntrega == Constantes.TIPO_ENTREGA_DIRECCION && !flagCostoAceptado) {
+//            Toast.makeText(getApplicationContext(), "POR FAVOR ACEPTAR EL COSTO DE ENVIO", Toast.LENGTH_LONG).show();
+            ad.setTitle("MENSAJE");
+            ad.setMessage("POR FAVOR ACEPTAR EL COSTO DE ENVIO.");
+            ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            ad.show();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEntregaFragment()).commit();
 //            getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoEnvioFragment()).commit();
             return;
         }
         if (celular.equals("")) {
-            Toast.makeText(getApplicationContext(), "POR FAVOR INGRESAR UN NÚMERO DE CELULAR", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "POR FAVOR INGRESAR UN NÚMERO DE CELULAR", Toast.LENGTH_LONG).show();
+            ad.setTitle("VALIDACIÓN");
+            ad.setMessage("POR FAVOR INGRESAR UN NÚMERO DE CELULAR.");
+            ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            ad.show();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoPagoFragment()).commit();
             return;
         }
         if (tipoPago == Constantes.ID_FORMA_PAGO_VISA) {//VISA
             if (txtNroTarjetaVisa.equals("") || txtNroTarjetaVisa.length() != 16) {
-                Toast.makeText(getApplicationContext(), "NÚMERO DE TARJETA INCORRECTO", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "NÚMERO DE TARJETA INCORRECTO", Toast.LENGTH_LONG).show();
+                ad.setTitle("VALIDACIÓN");
+                ad.setMessage("NÚMERO DE TARJETA INCORRECTO.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoPagoFragment()).commit();
                 return;
             }
             if (txtNombreVisa.equals("")) {
-                Toast.makeText(getApplicationContext(), "INGRESAR UN NOMBRE", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "INGRESAR UN NOMBRE", Toast.LENGTH_LONG).show();
+                ad.setTitle("VALIDACIÓN");
+                ad.setMessage("INGRESAR UN NOMBRE.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoPagoFragment()).commit();
                 return;
             }
             if (txtApellidoVisa.equals("")) {
-                Toast.makeText(getApplicationContext(), "INGRESAR UN APELLIDO", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "INGRESAR UN APELLIDO", Toast.LENGTH_LONG).show();
+                ad.setTitle("VALIDACIÓN");
+                ad.setMessage("INGRESAR UN APELLIDO.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoPagoFragment()).commit();
                 return;
             }
             if (txtFechaVisa.equals("") || txtFechaVisa.length() != 5 || !txtFechaVisa.contains("/") || !("" + txtFechaVisa.charAt(2)).equals("/")) {
-                Toast.makeText(getApplicationContext(), "FECHA DE CADUCIDAD INCORRECTO", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "FECHA DE CADUCIDAD INCORRECTO", Toast.LENGTH_LONG).show();
+                ad.setTitle("VALIDACIÓN");
+                ad.setMessage("FECHA DE CADUCIDAD INCORRECTO.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoPagoFragment()).commit();
                 return;
             }
             if (txtVisaCSV.equals("") || txtVisaCSV.length() != 3) {
-                Toast.makeText(getApplicationContext(), "INGRESAR CSV", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "INGRESAR CSV", Toast.LENGTH_LONG).show();
+                ad.setTitle("VALIDACIÓN");
+                ad.setMessage("INGRESAR CSV.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new TipoPagoFragment()).commit();
                 return;
             }
         }
         if (tipoComprobante == 1) {
             if (RUC.equals("") || RUC.length() != 11) {
-                Toast.makeText(getApplicationContext(), "INGRESAR UN RUC CORRECTO", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "INGRESAR UN RUC CORRECTO", Toast.LENGTH_LONG).show();
+                ad.setTitle("VALIDACIÓN");
+                ad.setMessage("INGRESAR UN RUC CORRECTO.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new ComprobantePagoFragment()).commit();
                 return;
             }
             if (RS.equals("")) {
-                Toast.makeText(getApplicationContext(), "INGRESAR UNA RAZÓN SOCIAL", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "INGRESAR UNA RAZÓN SOCIAL", Toast.LENGTH_LONG).show();
+                ad.setTitle("VALIDACIÓN");
+                ad.setMessage("INGRESAR UNA RAZÓN SOCIAL.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragPedido, new ComprobantePagoFragment()).commit();
                 return;
             }
@@ -254,7 +350,16 @@ public class RegistrarPedidoActivity extends AppCompatActivity
 
         if (tipoPago == Constantes.ID_FORMA_PAGO_CONSIGNACION) {
             if (Util.CLIENTE_SESSION.getSaldolineacredito() < Util.PRECIO_TOTAL_PAGAR) {
-                Toast.makeText(getApplicationContext(), "NO TIENE SUFICIENTE LÍNEA DE CRÉDITO PARA COMPRAR POR CONSIGNACIÓN", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "NO TIENE SUFICIENTE LÍNEA DE CRÉDITO PARA COMPRAR POR CONSIGNACIÓN", Toast.LENGTH_LONG).show();
+                ad.setTitle("MENSAJE");
+                ad.setMessage("NO TIENE SUFICIENTE LÍNEA DE CRÉDITO PARA COMPRAR POR CONSIGNACIÓN.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
                 return;
             }
         }
@@ -267,21 +372,21 @@ public class RegistrarPedidoActivity extends AppCompatActivity
             tramaPedido = tramaPedido.substring(0, tramaPedido.length() - 1);
         }
         Log.i("tramaPedido", tramaPedido);
+
+        tramaPedidoDetalleReparto = "";
+        for (Producto p : Util.LISTA_PRODUCTOS_PEDIDO) {
+            tramaPedidoDetalleReparto += p.getIdproducto() + "," + p.getIdColor() + "," + p.getNroTalla() + "," + 1 + "," + codigoUbigeo + "," + p.getCantidad() + "," + Util.PRECIO_COSTO_ENVIO + "," + 1 + "," + tipoEntrega + ";";
+        }
+        if (tramaPedidoDetalleReparto.length() > 0) {
+            tramaPedidoDetalleReparto = tramaPedidoDetalleReparto.substring(0, tramaPedidoDetalleReparto.length() - 1);
+        }
+        Log.i("tramaPedidoDetalleReparto", tramaPedidoDetalleReparto);
+
         if (tipoPago == Constantes.ID_FORMA_PAGO_CONSIGNACION) {
             Intent i = new Intent(getApplicationContext(), PedidoConsignacionActivity.class);
             startActivity(i);
-//        }else if(tipoPago == 3){
-//            progressDialog.setMessage("Conectandose a Visa...");
-//            progressDialog.show();
-//            long count = System.currentTimeMillis()+2000;
-//            while(System.currentTimeMillis() != count){}
-//            progressDialog.dismiss();
-//            new HttpRequestTaskRegistrarPedido().execute();
-//            progressDialog.setMessage("Realizando Pago...");
-//            progressDialog.show();
-//            new HttpRequestTaskRegistrarPedido().execute();
         } else {
-            progressDialog.setMessage("Registrando Pedido...");
+            progressDialog.setMessage("REGISTRANDO PEDIDO...");
             progressDialog.show();
             new HttpRequestTaskRegistrarPedido().execute();
         }
@@ -354,13 +459,13 @@ public class RegistrarPedidoActivity extends AppCompatActivity
                 body.add("parmCodUsuario", Util.EMPLEADO_SESSION.getCodusuario());
                 body.add("parmRuc", RUC);//
                 body.add("parmRazonSocial", RS);//
-                body.add("parmIdBanco", codigoBanco);//
+                body.add("parmIdBanco", null);//
                 body.add("parmCodTrxTarjeta", null);//
                 body.add("parmComentarioConsignacion", null);
                 //SP_MantDetalleVenta
                 body.add("tramaPedidoDetalle", tramaPedido);
                 //SP_MantDetalleRepartoVenta
-//                body.add("tramaPedidoDetalle", tramaPedido);
+                body.add("tramaPedidoDetalleReparto", tramaPedidoDetalleReparto);
 
                 HttpEntity<?> httpEntity = new HttpEntity<Object>(body, requestHeaders);
 
@@ -381,13 +486,32 @@ public class RegistrarPedidoActivity extends AppCompatActivity
             Log.i("onPostExecute", "HttpRequestTaskRegistrarPedido");
             progressDialog.dismiss();
             if (respuesta != null && respuesta.intValue() != 0) {
-                Toast.makeText(getApplicationContext(), "SE HA REGISTRADO SU PEDIDO N° " + respuesta.intValue(), Toast.LENGTH_LONG).show();
-                Util.LISTA_PRODUCTOS_PEDIDO = new ArrayList<>();
-                Intent i = new Intent(getApplicationContext(), MenuPrincipalActivity.class);
-                startActivity(i);
-                finish();
+//                Toast.makeText(getApplicationContext(), "SE HA REGISTRADO SU PEDIDO N° " + respuesta.intValue(), Toast.LENGTH_LONG).show();
+                ad.setTitle("MENSAJE");
+                ad.setMessage("SE HA REGISTRADO SU PEDIDO N° " + respuesta.intValue());
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Util.LISTA_PRODUCTOS_PEDIDO = new ArrayList<>();
+                        Intent intent = new Intent(getApplicationContext(), MenuPrincipalActivity.class);
+                        startActivity(intent);
+                        finish();
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.setCancelable(false);
+                ad.show();
             } else {
-                Toast.makeText(getApplicationContext(), "NO SE PUDO REGISTRAR EL PEDIDO, OCURRIÓ UN ERROR", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "NO SE PUDO REGISTRAR EL PEDIDO, OCURRIÓ UN ERROR", Toast.LENGTH_LONG).show();
+                ad.setTitle("MENSAJE");
+                ad.setMessage("NO SE PUDO REGISTRAR EL PEDIDO, OCURRIÓ UN ERROR.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
             }
             Log.i("onPostExecute", "fin");
         }

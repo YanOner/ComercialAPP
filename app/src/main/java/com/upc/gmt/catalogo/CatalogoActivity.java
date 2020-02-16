@@ -1,6 +1,8 @@
 package com.upc.gmt.catalogo;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -79,10 +81,14 @@ public class CatalogoActivity extends AppCompatActivity {
 
     LinearLayout lyCatalogo;
 
+    AlertDialog.Builder ad;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalogo);
+
+        ad = new AlertDialog.Builder(this);
 
         lyCatalogo = (LinearLayout) findViewById(R.id.lyCatalogo);
 
@@ -98,10 +104,10 @@ public class CatalogoActivity extends AppCompatActivity {
         //Lista Precios
         listaPrecios = new ArrayList<>();
         listaPrecios.add("PRECIOS");
-        listaPrecios.add("De S/ 5 a 49 Soles");
-        listaPrecios.add("De S/ 50 a 99 Soles");
-        listaPrecios.add("De S/ 100 a 149 Soles");
-        listaPrecios.add("De S/ 150 a más");
+        listaPrecios.add("DE S/ 0 A 49 SOLES");
+        listaPrecios.add("DE S/ 50 A 99 SOLES");
+        listaPrecios.add("DE S/ 100 A 149 SOLES");
+        listaPrecios.add("DE S/ 150 A MÁS");
 
         ArrayAdapter<String> arrayPrecioCalzado = new ArrayAdapter<String>(getApplicationContext(), R.layout.simple_spinner_item, listaPrecios);
         arrayPrecioCalzado.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
@@ -256,7 +262,7 @@ public class CatalogoActivity extends AppCompatActivity {
 
     private void cargarFiltros() {
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Cargando...");
+        progressDialog.setMessage("CARGANDO...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setProgress(progresoCarga);
         progressDialog.setMax(100);
@@ -292,7 +298,7 @@ public class CatalogoActivity extends AppCompatActivity {
 
     public void onClickBuscar(View v) {
         progressDialog = new ProgressDialog(v.getContext());
-        progressDialog.setMessage("Buscando...");
+        progressDialog.setMessage("BUSCANDO...");
         progressDialog.show();
         new HttpRequestTaskBuscar().execute();
     }
@@ -380,6 +386,17 @@ public class CatalogoActivity extends AppCompatActivity {
             tvTotalCatalogo.setText("ENCONTRADOS: " + lista.size());
             Log.i("onPostExecute", "fin");
             progressDialog.dismiss();
+            if (listaProducto.size() == 0) {
+                ad.setTitle("MENSAJE");
+                ad.setMessage("NO SE ENCONTRARON CALZADOS.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
+            }
         }
 
     }

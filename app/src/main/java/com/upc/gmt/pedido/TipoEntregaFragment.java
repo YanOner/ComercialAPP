@@ -1,6 +1,8 @@
 package com.upc.gmt.pedido;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,11 +22,11 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.upc.gmt.bean.Costoubigeo;
 import com.upc.gmt.comercialgb.R;
+import com.upc.gmt.util.Constantes;
 import com.upc.gmt.util.Util;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -73,12 +75,7 @@ public class TipoEntregaFragment extends Fragment {
 
     double costoEnvio;
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
+    AlertDialog.Builder ad;
 
     private OnFragmentInteractionListener mListener;
 
@@ -97,8 +94,6 @@ public class TipoEntregaFragment extends Fragment {
     public static TipoEntregaFragment newInstance(String param1, String param2) {
         TipoEntregaFragment fragment = new TipoEntregaFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -107,8 +102,6 @@ public class TipoEntregaFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
 
@@ -160,6 +153,9 @@ public class TipoEntregaFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        ad = new AlertDialog.Builder(getContext());
+
         View.OnClickListener ocl = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,13 +163,13 @@ public class TipoEntregaFragment extends Fragment {
                 if (id == R.id.rdRecojoAlmacen) {
                     txtDirAlmacen.setVisibility(View.VISIBLE);
                     layoutDomicilio.setVisibility(View.INVISIBLE);
-                    RegistrarPedidoActivity.tipoEntrega = 0;
+                    RegistrarPedidoActivity.tipoEntrega = Constantes.TIPO_ENTREGA_ALMACEN;
                     Util.PRECIO_COSTO_ENVIO = 0.00;
                 } else if (id == R.id.rdEnvioDomicilio) {
                     new HttpRequestTaskDepartamentos().execute();
                     txtDirAlmacen.setVisibility(View.INVISIBLE);
                     layoutDomicilio.setVisibility(View.VISIBLE);
-                    RegistrarPedidoActivity.tipoEntrega = 1;
+                    RegistrarPedidoActivity.tipoEntrega = Constantes.TIPO_ENTREGA_DIRECCION;
                     txtDireccionEnvio.setText("");
                     btnAceptarCosto.setChecked(false);
                     txtDireccionEnvio.setEnabled(true);
@@ -208,7 +204,16 @@ public class TipoEntregaFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (btnAceptarCosto.isChecked()) {
                     if (txtDireccionEnvio.getText().toString().equals("") && costoEnvio != 0) {
-                        Toast.makeText(getContext(), "POR FAVOR INGRESAR UNA DIRECCIÓN", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(), "POR FAVOR INGRESAR UNA DIRECCIÓN", Toast.LENGTH_LONG).show();
+                        ad.setTitle("VALIDACIÓN");
+                        ad.setMessage("POR FAVOR INGRESAR UNA DIRECCIÓN.");
+                        ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+                        ad.show();
                         btnAceptarCosto.setChecked(false);
                         return;
                     }
@@ -318,7 +323,7 @@ public class TipoEntregaFragment extends Fragment {
 
         layoutDomicilio = (LinearLayout) getView().findViewById(R.id.layoutDomicilio);
 
-        if (RegistrarPedidoActivity.tipoEntrega == 1) {
+        if (RegistrarPedidoActivity.tipoEntrega == Constantes.TIPO_ENTREGA_DIRECCION) {
             new HttpRequestTaskDepartamentos().execute();
             txtDirAlmacen.setVisibility(View.INVISIBLE);
             layoutDomicilio.setVisibility(View.VISIBLE);
