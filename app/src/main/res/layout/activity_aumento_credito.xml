@@ -54,7 +54,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:enabled="false"
-                        android:text="cargando..."
+                        android:text="-"
                         android:textColor="@android:color/black" />
 
 
@@ -79,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:enabled="false"
-                        android:text="cargando..."
+                        android:text="-"
                         android:textColor="@android:color/black" />
 
                 </LinearLayout>
@@ -103,7 +103,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:enabled="false"
-                        android:text="cargando..."
+                        android:text="-"
                         android:textColor="@android:color/black" />
 
 
@@ -170,9 +170,15 @@
                         android:textAlignment="center"
                         android:textColor="@color/colorAccent" />
 
-                    <!--</LinearLayout>-->
-                    <!--</LinearLayout>-->
-
+                    <TextView
+                        android:id="@+id/tvClienteCredito"
+                        style="@style/textView_stylePedido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Cliente: - "
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -188,9 +194,19 @@
                     <!--android:orientation="vertical">-->
 
                     <Button
+                        android:id="@+id/btnBuscarClienteCredito"
+                        style="@style/button_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:onClick="onBuscarCliente"
+                        android:text="   BUSCAR CLIENTE   " />
+
+                    <Button
                         android:id="@+id/btnAumento"
                         style="@style/button_style"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:onClick="onSolicitarAumento"
                         android:text="   REGISTRAR   " />
@@ -199,6 +215,7 @@
                         android:id="@+id/btnRegresarAumento"
                         style="@style/button_style"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:onClick="onRegresarMenu"
                         android:text="   REGRESAR   " />

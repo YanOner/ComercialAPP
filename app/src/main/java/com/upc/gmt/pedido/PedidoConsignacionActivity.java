@@ -71,6 +71,8 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pedido_consignacion);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
+        setTitle("PEDIDO POR CONSIGNACIÓN (" + Util.CLIENTE_SESSION.getNombres() + " - " + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
+
         ad = new AlertDialog.Builder(this);
 
         progressDialog = new ProgressDialog(this);

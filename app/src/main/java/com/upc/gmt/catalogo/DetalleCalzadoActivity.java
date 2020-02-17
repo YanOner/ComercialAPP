@@ -307,7 +307,6 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
         Util.REGRESAR_A_CATALOGO = true;
         Intent i = new Intent(getApplicationContext(), BuscarClienteActivity.class);
         startActivityForResult(i, 1000);
-        return;
     }
 
     @Override

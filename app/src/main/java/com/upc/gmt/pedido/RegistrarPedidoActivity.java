@@ -303,7 +303,7 @@ public class RegistrarPedidoActivity extends AppCompatActivity
             if (txtVisaCSV.equals("") || txtVisaCSV.length() != 3) {
 //                Toast.makeText(getApplicationContext(), "INGRESAR CSV", Toast.LENGTH_LONG).show();
                 ad.setTitle("VALIDACIÓN");
-                ad.setMessage("INGRESAR CSV.");
+                ad.setMessage("INGRESAR CVV.");
                 ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {

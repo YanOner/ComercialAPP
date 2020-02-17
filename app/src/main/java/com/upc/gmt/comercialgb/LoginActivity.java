@@ -21,6 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+
 public class LoginActivity extends AppCompatActivity {
 
     EditText txtUsuario;
@@ -117,6 +119,9 @@ public class LoginActivity extends AppCompatActivity {
 //            empleado.setCodUsuario("00000");
             if (null != empleado) {
                 Util.EMPLEADO_SESSION = empleado;
+                Util.CLIENTE_SESSION = null;
+                Util.LISTA_PRODUCTOS_PEDIDO = new ArrayList<>();
+
                 Toast.makeText(LoginActivity.this, "BIENVENIDO " + empleado.getNombre().toUpperCase(), Toast.LENGTH_SHORT).show();
 //                new HttpRequestTaskCliente().execute();
 //                if (Util.REGRESAR_A_CATALOGO) {

@@ -403,7 +403,11 @@ public class TipoEntregaFragment extends Fragment {
             ArrayAdapter<String> array = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.simple_spinner_item, items);
             array.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
             spnDepartamento.setAdapter(array);
-            spnDepartamento.setSelection(RegistrarPedidoActivity.indexDepartamento);
+            if (RegistrarPedidoActivity.indexDepartamento < items.size()) {
+                spnDepartamento.setSelection(RegistrarPedidoActivity.indexDepartamento);
+            } else {
+                spnDepartamento.setSelection(0);
+            }
             Log.i("onPostExecute", "fin");
         }
     }
@@ -447,7 +451,11 @@ public class TipoEntregaFragment extends Fragment {
             ArrayAdapter<String> arrayProvincia = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simple_spinner_item, items);
             arrayProvincia.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
             spnProvincia.setAdapter(arrayProvincia);
-            spnProvincia.setSelection(RegistrarPedidoActivity.indexProvincia);
+            if (RegistrarPedidoActivity.indexProvincia < items.size()) {
+                spnProvincia.setSelection(RegistrarPedidoActivity.indexProvincia);
+            } else {
+                spnProvincia.setSelection(0);
+            }
         }
 
     }
@@ -491,7 +499,11 @@ public class TipoEntregaFragment extends Fragment {
             ArrayAdapter<String> arrayDistrito = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.simple_spinner_item, items);
             arrayDistrito.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
             spnDistrito.setAdapter(arrayDistrito);
-            spnDistrito.setSelection(RegistrarPedidoActivity.indexDistrito);
+            if (RegistrarPedidoActivity.indexDistrito < items.size()) {
+                spnDistrito.setSelection(RegistrarPedidoActivity.indexDistrito);
+            } else {
+                spnDistrito.setSelection(0);
+            }
         }
 
     }

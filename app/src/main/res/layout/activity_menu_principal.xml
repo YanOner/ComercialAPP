@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onAumentoLinea"
-            android:text="AUMENTO LÍNEA DE CRÉDITO"
+            android:text="AUMENTAR LÍNEA DE CRÉDITO"
             android:visibility="invisible" />
 
         <Button

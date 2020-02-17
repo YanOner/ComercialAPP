@@ -4,80 +4,42 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Solicitud {
-    private Integer idSolicitud;
+    private Integer idsolicitud; // Integer // Id or Primary Key
 
-    private Integer idCliente;
+    private String codusuario;  // String
+    private Integer idtiposolicitud;  // Integer
+    private Integer idestadosolicitud;  // Integer
 
-    private String codUsuario;
+    private Date fechasolicitud;  // Date
+    private String comentario;  // String
 
-    private Integer idtiposolicitud;
+    private BigDecimal montocomprapromedio;  // BigDecimal
 
-    private Integer idestadosolicitud;
+    private BigDecimal montoincrementocredito;  // BigDecimal
+    private String usuariogenerosolicitud;  // String
 
-    private Date fechaSolicitud;
+    private Date fecharespuesta;  // Date
+    private String usuariorespuesta;  // String
+    private String estado;  // String
 
-    private String comentario;
+    private BigDecimal lineacredito;  // BigDecimal
 
-    private BigDecimal montoCompraPromedio;
+    private BigDecimal lineacreditoanterior;  // BigDecimal
 
-    private BigDecimal montoIncrementoCredito;
-
-    private String usuarioGeneroSolicitud;
-
-    private Date fechaRespuesta;
-
-    private String usuarioRespuesta;
-
-    private String estado;
-
-    private BigDecimal lineaCredito;
-
-    private BigDecimal lineaCreditoAnterior;
-
-    public Solicitud(Integer idSolicitud, Integer idCliente, String codUsuario, Integer idtiposolicitud, Integer idestadosolicitud, Date fechaSolicitud, String comentario, BigDecimal montoCompraPromedio, BigDecimal montoIncrementoCredito, String usuarioGeneroSolicitud, Date fechaRespuesta, String usuarioRespuesta, String estado, BigDecimal lineaCredito, BigDecimal lineaCreditoAnterior) {
-        this.idSolicitud = idSolicitud;
-        this.idCliente = idCliente;
-        this.codUsuario = codUsuario;
-        this.idtiposolicitud = idtiposolicitud;
-        this.idestadosolicitud = idestadosolicitud;
-        this.fechaSolicitud = fechaSolicitud;
-        this.comentario = comentario;
-        this.montoCompraPromedio = montoCompraPromedio;
-        this.montoIncrementoCredito = montoIncrementoCredito;
-        this.usuarioGeneroSolicitud = usuarioGeneroSolicitud;
-        this.fechaRespuesta = fechaRespuesta;
-        this.usuarioRespuesta = usuarioRespuesta;
-        this.estado = estado;
-        this.lineaCredito = lineaCredito;
-        this.lineaCreditoAnterior = lineaCreditoAnterior;
+    public Integer getIdsolicitud() {
+        return idsolicitud;
     }
 
-    public Solicitud() {
-        super();
+    public void setIdsolicitud(Integer idsolicitud) {
+        this.idsolicitud = idsolicitud;
     }
 
-    public Integer getIdSolicitud() {
-        return idSolicitud;
+    public String getCodusuario() {
+        return codusuario;
     }
 
-    public void setIdSolicitud(Integer idSolicitud) {
-        this.idSolicitud = idSolicitud;
-    }
-
-    public Integer getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public String getCodUsuario() {
-        return codUsuario;
-    }
-
-    public void setCodUsuario(String codUsuario) {
-        this.codUsuario = codUsuario == null ? null : codUsuario.trim();
+    public void setCodusuario(String codusuario) {
+        this.codusuario = codusuario;
     }
 
     public Integer getIdtiposolicitud() {
@@ -96,12 +58,12 @@ public class Solicitud {
         this.idestadosolicitud = idestadosolicitud;
     }
 
-    public Date getFechaSolicitud() {
-        return fechaSolicitud;
+    public Date getFechasolicitud() {
+        return fechasolicitud;
     }
 
-    public void setFechaSolicitud(Date fechaSolicitud) {
-        this.fechaSolicitud = fechaSolicitud;
+    public void setFechasolicitud(Date fechasolicitud) {
+        this.fechasolicitud = fechasolicitud;
     }
 
     public String getComentario() {
@@ -109,47 +71,47 @@ public class Solicitud {
     }
 
     public void setComentario(String comentario) {
-        this.comentario = comentario == null ? null : comentario.trim();
+        this.comentario = comentario;
     }
 
-    public BigDecimal getMontoCompraPromedio() {
-        return montoCompraPromedio;
+    public BigDecimal getMontocomprapromedio() {
+        return montocomprapromedio;
     }
 
-    public void setMontoCompraPromedio(BigDecimal montoCompraPromedio) {
-        this.montoCompraPromedio = montoCompraPromedio;
+    public void setMontocomprapromedio(BigDecimal montocomprapromedio) {
+        this.montocomprapromedio = montocomprapromedio;
     }
 
-    public BigDecimal getMontoIncrementoCredito() {
-        return montoIncrementoCredito;
+    public BigDecimal getMontoincrementocredito() {
+        return montoincrementocredito;
     }
 
-    public void setMontoIncrementoCredito(BigDecimal montoIncrementoCredito) {
-        this.montoIncrementoCredito = montoIncrementoCredito;
+    public void setMontoincrementocredito(BigDecimal montoincrementocredito) {
+        this.montoincrementocredito = montoincrementocredito;
     }
 
-    public String getUsuarioGeneroSolicitud() {
-        return usuarioGeneroSolicitud;
+    public String getUsuariogenerosolicitud() {
+        return usuariogenerosolicitud;
     }
 
-    public void setUsuarioGeneroSolicitud(String usuarioGeneroSolicitud) {
-        this.usuarioGeneroSolicitud = usuarioGeneroSolicitud == null ? null : usuarioGeneroSolicitud.trim();
+    public void setUsuariogenerosolicitud(String usuariogenerosolicitud) {
+        this.usuariogenerosolicitud = usuariogenerosolicitud;
     }
 
-    public Date getFechaRespuesta() {
-        return fechaRespuesta;
+    public Date getFecharespuesta() {
+        return fecharespuesta;
     }
 
-    public void setFechaRespuesta(Date fechaRespuesta) {
-        this.fechaRespuesta = fechaRespuesta;
+    public void setFecharespuesta(Date fecharespuesta) {
+        this.fecharespuesta = fecharespuesta;
     }
 
-    public String getUsuarioRespuesta() {
-        return usuarioRespuesta;
+    public String getUsuariorespuesta() {
+        return usuariorespuesta;
     }
 
-    public void setUsuarioRespuesta(String usuarioRespuesta) {
-        this.usuarioRespuesta = usuarioRespuesta == null ? null : usuarioRespuesta.trim();
+    public void setUsuariorespuesta(String usuariorespuesta) {
+        this.usuariorespuesta = usuariorespuesta;
     }
 
     public String getEstado() {
@@ -157,47 +119,22 @@ public class Solicitud {
     }
 
     public void setEstado(String estado) {
-        this.estado = estado == null ? null : estado.trim();
+        this.estado = estado;
     }
 
-    public BigDecimal getLineaCredito() {
-        return lineaCredito;
+    public BigDecimal getLineacredito() {
+        return lineacredito;
     }
 
-    public void setLineaCredito(BigDecimal lineaCredito) {
-        this.lineaCredito = lineaCredito;
+    public void setLineacredito(BigDecimal lineacredito) {
+        this.lineacredito = lineacredito;
     }
 
-    public BigDecimal getLineaCreditoAnterior() {
-        return lineaCreditoAnterior;
+    public BigDecimal getLineacreditoanterior() {
+        return lineacreditoanterior;
     }
 
-    public void setLineaCreditoAnterior(BigDecimal lineaCreditoAnterior) {
-        this.lineaCreditoAnterior = lineaCreditoAnterior;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", idSolicitud=").append(idSolicitud);
-        sb.append(", idCliente=").append(idCliente);
-        sb.append(", codUsuario=").append(codUsuario);
-        sb.append(", idtiposolicitud=").append(idtiposolicitud);
-        sb.append(", idestadosolicitud=").append(idestadosolicitud);
-        sb.append(", fechaSolicitud=").append(fechaSolicitud);
-        sb.append(", comentario=").append(comentario);
-        sb.append(", montoCompraPromedio=").append(montoCompraPromedio);
-        sb.append(", montoIncrementoCredito=").append(montoIncrementoCredito);
-        sb.append(", usuarioGeneroSolicitud=").append(usuarioGeneroSolicitud);
-        sb.append(", fechaRespuesta=").append(fechaRespuesta);
-        sb.append(", usuarioRespuesta=").append(usuarioRespuesta);
-        sb.append(", estado=").append(estado);
-        sb.append(", lineaCredito=").append(lineaCredito);
-        sb.append(", lineaCreditoAnterior=").append(lineaCreditoAnterior);
-        sb.append("]");
-        return sb.toString();
+    public void setLineacreditoanterior(BigDecimal lineacreditoanterior) {
+        this.lineacreditoanterior = lineacreditoanterior;
     }
 }
