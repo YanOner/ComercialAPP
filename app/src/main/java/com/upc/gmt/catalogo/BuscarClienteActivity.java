@@ -1,6 +1,7 @@
 package com.upc.gmt.catalogo;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -38,6 +39,8 @@ public class BuscarClienteActivity extends AppCompatActivity {
 
     BuscarClienteActivity buscarClienteActivity;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +50,10 @@ public class BuscarClienteActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         ad = new AlertDialog.Builder(this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("VALIDANDO...");
 
         buscarClienteActivity = this;
 
@@ -67,11 +74,14 @@ public class BuscarClienteActivity extends AppCompatActivity {
         spnTipoDococumento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                txtNumeroDocumento.setText("");
                 String tipoDoc = (String) parent.getItemAtPosition(position);
                 if (tipoDoc.equals("DNI")) {
                     txtNumeroDocumento.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
-                } else {
+                } else if (tipoDoc.equals("RUC")) {
                     txtNumeroDocumento.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
+                } else {
+                    txtNumeroDocumento.setFilters(new InputFilter[]{new InputFilter.LengthFilter(25)});
                 }
             }
 
@@ -109,8 +119,19 @@ public class BuscarClienteActivity extends AppCompatActivity {
             });
             ad.show();
             return;
+        } else if (tipoDocumento.equals("OTRO") && numeroDocumento.length() == 0) {
+            ad.setTitle("VALIDACIÓN");
+            ad.setMessage("INGRESE UN NÚMERO DE DOCUMENTO.");
+            ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            ad.show();
+            return;
         }
-
+        progressDialog.show();
         new HttpRequestTaskBuscarCliente().execute();
     }
 
@@ -144,6 +165,7 @@ public class BuscarClienteActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Cliente cliente) {
+            progressDialog.dismiss();
             if (null != cliente) {
                 Util.CLIENTE_SESSION = cliente;
                 Util.LISTA_PRODUCTOS_PEDIDO = new ArrayList<>();

@@ -23,4 +23,6 @@ public class Constantes {
     public static int TIPO_ENTREGA_ALMACEN = 0;
     public static int TIPO_ENTREGA_DIRECCION = 1;
 
+    public static int VENTA_ESTADO_PENDIENTE = 2;
+
 }

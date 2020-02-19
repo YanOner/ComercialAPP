@@ -423,7 +423,6 @@ public class TipoEntregaFragment extends Fragment {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
-//                        .queryParam("codUbigeoCosto", idUbigeoDepartamento);
                 Log.i("URL", builder.toUriString());
                 ParameterizedTypeReference<List<Costoubigeo>> responseType = new ParameterizedTypeReference<List<Costoubigeo>>() {
                 };
@@ -471,7 +470,6 @@ public class TipoEntregaFragment extends Fragment {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
-//                        .queryParam("codUbigeoCosto", idUbigeoProvincia);
                 Log.i("URL", builder.toUriString());
                 ParameterizedTypeReference<List<Costoubigeo>> responseType = new ParameterizedTypeReference<List<Costoubigeo>>() {
                 };

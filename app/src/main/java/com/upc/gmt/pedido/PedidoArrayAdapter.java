@@ -291,8 +291,9 @@ public class PedidoArrayAdapter extends ArrayAdapter {
 //            int id = context.getResources().getIdentifier(p.getSku().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
 //            Picasso.with(context).load(id).resize(150, 150).into(imageView);
         } catch (Exception e) {
-            e.printStackTrace();
             Log.e("PedidoArrayAdapter", e.getMessage());
+            int id = context.getResources().getIdentifier("calzado_generico", "mipmap", context.getPackageName());
+            Picasso.with(context).load(id).resize(150, 150).centerCrop().into(imageView);
         }
 
         return convertView;

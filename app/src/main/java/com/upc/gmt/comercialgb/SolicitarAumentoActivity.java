@@ -115,7 +115,6 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         }
 
         if (!txtCantidadAumento.isEnabled()) {
-//            Toast.makeText(getApplicationContext(), "SOLO SE PERMITE 3 SOLICITUDES EN ESTADO PENDIENTE", Toast.LENGTH_LONG).show();
             ad.setTitle("VALIDACIÓN");
             ad.setMessage("SOLO SE PERMITE 3 SOLICITUDES EN ESTADO PENDIENTE.");
             ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
@@ -129,7 +128,6 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         }
         String cantidad = txtCantidadAumento.getText().toString();
         if ("".equals(cantidad)) {
-//            Toast.makeText(getApplicationContext(), "INGRESAR UNA CANTIDAD MAYOR A 0", Toast.LENGTH_LONG).show();
             ad.setTitle("VALIDACIÓN");
             ad.setMessage("INGRESAR UNA CANTIDAD MAYOR A 0.");
             ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
@@ -204,9 +202,6 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
             try {
                 String URL = Util.URL_SERVICE_BASE + "/solicitud/registrar";
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
-//                        .queryParam("idCliente", Util.CLIENTE_SESSION.getIdCliente())
-//                        .queryParam("codUsuario", Util.EMPLEADO_SESSION.getCodusuario())
-//                        .queryParam("montoIncrementoCredito", cantidadIncremento);
 
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -242,7 +237,6 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         protected void onPostExecute(Integer i) {
             progressDialog.dismiss();
             if (i == null || i == 0) {
-//                Toast.makeText(getApplicationContext(), "NO SE PUDO REGISTRAR LA SOLICITUD", Toast.LENGTH_LONG).show();
                 ad.setTitle("MENSAJE");
                 ad.setMessage("NO SE PUDO REGISTRAR LA SOLICITUD, OCURRIÓ UN ERROR.");
                 ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
@@ -253,7 +247,6 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
                 });
                 ad.show();
             } else {
-//                Toast.makeText(getApplicationContext(), "SE HA GENERADO LA SOLICITUD EXITOSAMENTE", Toast.LENGTH_LONG).show();
                 ad.setTitle("MENSAJE");
                 ad.setMessage("SE HA GENERADO LA SOLICITUD EXITOSAMENTE.");
                 ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
@@ -325,7 +318,6 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
                     default:
                         estado = "ANULADO";
                 }
-//                textoDetalle += "" + s.getIdSolicitud() + ".       S/ " + s.getMontoIncrementoCredito().intValue() + "       " + fechaFMT + "   " + estado + System.getProperty("line.separator");
                 textoDetalle += "" + s.getIdsolicitud() + String.format("%25s", "S/ " + s.getMontoincrementocredito().intValue()) + String.format("%14s", fechaFMT) + String.format("%12s", estado);
                 textoDetalle = String.format("%-70s", textoDetalle) + System.getProperty("line.separator");
             }

@@ -4,140 +4,91 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Venta {
-    private Integer idVenta;
+    private Integer idventa; // Integer // Id or Primary Key
+    private Date fechaventa;  // Date
+    private String nrodocumentocli;  // String
 
-    private Integer idCliente;
+    private BigDecimal subtotal;  // BigDecimal
 
-    private Date fechaVenta;
+    private BigDecimal igv;  // BigDecimal
 
-    private BigDecimal subTotal;
+    private BigDecimal descuentototal;  // BigDecimal
 
-    private BigDecimal IGV;
+    private BigDecimal total;  // BigDecimal
 
-    private BigDecimal descuento;
+    private BigDecimal totalcostoenvio;  // BigDecimal
 
-    private BigDecimal total;
+    private BigDecimal totalventa;  // BigDecimal
 
-    private BigDecimal montoEntrega;
+    private Integer nrocuotas;  // Integer
+    private Integer idfomapago;  // Integer
+    private String nrocuenta;  // String
 
-    private BigDecimal totalVenta;
+    private BigDecimal subtotalfinal;  // BigDecimal
 
-    private Integer nroCuotas;
+    private BigDecimal igvfinal;  // BigDecimal
 
-    private String tipoRecojo;
+    private BigDecimal descuentototalfinal;  // BigDecimal
 
-    private String usuarioModifico;
+    private BigDecimal totalfinal;  // BigDecimal
 
-    private Date fechaModifico;
+    private BigDecimal totalventafinal;  // BigDecimal
+    private String estado;  // String
+    private String usuariomodifico;  // String
 
-    private String usuarioAnulo;
+    private Date fechamodifico;  // Date
+    private String usuarioanulo;  // String
 
-    private Date fechaAnulo;
+    private Date fechaanulo;  // Date
+    private Integer idestado;  // Integer
+    private String codusuario;  // String
 
-    private String numOperaBancaria;
-
-    private Date fechaOperaBancaria;
-
-    private String codTrxTarjeta;
-
-    private Date fechTrxTarjeta;
-
-    private String estado;
-
-    private String codUbigeoCosto;
-
-    private Integer idFomaPago;
-
-    private Integer idCuponDescuento;
-
-    private String direccionEntrega;
-
-    private Integer idEstadoVenta;
-
-    private Integer idBancos;
-
-    private String nroCuenta;
-
-    public Venta(Integer idVenta, Integer idCliente, Date fechaVenta, BigDecimal subTotal, BigDecimal IGV, BigDecimal descuento, BigDecimal total, BigDecimal montoEntrega, BigDecimal totalVenta, Integer nroCuotas, String tipoRecojo, String usuarioModifico, Date fechaModifico, String usuarioAnulo, Date fechaAnulo, String numOperaBancaria, Date fechaOperaBancaria, String codTrxTarjeta, Date fechTrxTarjeta, String estado, String codUbigeoCosto, Integer idFomaPago, Integer idCuponDescuento, String direccionEntrega, Integer idEstadoVenta, Integer idBancos, String nroCuenta) {
-        this.idVenta = idVenta;
-        this.idCliente = idCliente;
-        this.fechaVenta = fechaVenta;
-        this.subTotal = subTotal;
-        this.IGV = IGV;
-        this.descuento = descuento;
-        this.total = total;
-        this.montoEntrega = montoEntrega;
-        this.totalVenta = totalVenta;
-        this.nroCuotas = nroCuotas;
-        this.tipoRecojo = tipoRecojo;
-        this.usuarioModifico = usuarioModifico;
-        this.fechaModifico = fechaModifico;
-        this.usuarioAnulo = usuarioAnulo;
-        this.fechaAnulo = fechaAnulo;
-        this.numOperaBancaria = numOperaBancaria;
-        this.fechaOperaBancaria = fechaOperaBancaria;
-        this.codTrxTarjeta = codTrxTarjeta;
-        this.fechTrxTarjeta = fechTrxTarjeta;
-        this.estado = estado;
-        this.codUbigeoCosto = codUbigeoCosto;
-        this.idFomaPago = idFomaPago;
-        this.idCuponDescuento = idCuponDescuento;
-        this.direccionEntrega = direccionEntrega;
-        this.idEstadoVenta = idEstadoVenta;
-        this.idBancos = idBancos;
-        this.nroCuenta = nroCuenta;
+    public Integer getIdventa() {
+        return idventa;
     }
 
-    public Venta() {
-        super();
+    public void setIdventa(Integer idventa) {
+        this.idventa = idventa;
     }
 
-    public Integer getIdVenta() {
-        return idVenta;
+    public Date getFechaventa() {
+        return fechaventa;
     }
 
-    public void setIdVenta(Integer idVenta) {
-        this.idVenta = idVenta;
+    public void setFechaventa(Date fechaventa) {
+        this.fechaventa = fechaventa;
     }
 
-    public Integer getIdCliente() {
-        return idCliente;
+    public String getNrodocumentocli() {
+        return nrodocumentocli;
     }
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
+    public void setNrodocumentocli(String nrodocumentocli) {
+        this.nrodocumentocli = nrodocumentocli;
     }
 
-    public Date getFechaVenta() {
-        return fechaVenta;
+    public BigDecimal getSubtotal() {
+        return subtotal;
     }
 
-    public void setFechaVenta(Date fechaVenta) {
-        this.fechaVenta = fechaVenta;
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
     }
 
-    public BigDecimal getSubTotal() {
-        return subTotal;
+    public BigDecimal getIgv() {
+        return igv;
     }
 
-    public void setSubTotal(BigDecimal subTotal) {
-        this.subTotal = subTotal;
+    public void setIgv(BigDecimal igv) {
+        this.igv = igv;
     }
 
-    public BigDecimal getIGV() {
-        return IGV;
+    public BigDecimal getDescuentototal() {
+        return descuentototal;
     }
 
-    public void setIGV(BigDecimal IGV) {
-        this.IGV = IGV;
-    }
-
-    public BigDecimal getDescuento() {
-        return descuento;
-    }
-
-    public void setDescuento(BigDecimal descuento) {
-        this.descuento = descuento;
+    public void setDescuentototal(BigDecimal descuentototal) {
+        this.descuentototal = descuentototal;
     }
 
     public BigDecimal getTotal() {
@@ -148,100 +99,84 @@ public class Venta {
         this.total = total;
     }
 
-    public BigDecimal getMontoEntrega() {
-        return montoEntrega;
+    public BigDecimal getTotalcostoenvio() {
+        return totalcostoenvio;
     }
 
-    public void setMontoEntrega(BigDecimal montoEntrega) {
-        this.montoEntrega = montoEntrega;
+    public void setTotalcostoenvio(BigDecimal totalcostoenvio) {
+        this.totalcostoenvio = totalcostoenvio;
     }
 
-    public BigDecimal getTotalVenta() {
-        return totalVenta;
+    public BigDecimal getTotalventa() {
+        return totalventa;
     }
 
-    public void setTotalVenta(BigDecimal totalVenta) {
-        this.totalVenta = totalVenta;
+    public void setTotalventa(BigDecimal totalventa) {
+        this.totalventa = totalventa;
     }
 
-    public Integer getNroCuotas() {
-        return nroCuotas;
+    public Integer getNrocuotas() {
+        return nrocuotas;
     }
 
-    public void setNroCuotas(Integer nroCuotas) {
-        this.nroCuotas = nroCuotas;
+    public void setNrocuotas(Integer nrocuotas) {
+        this.nrocuotas = nrocuotas;
     }
 
-    public String getTipoRecojo() {
-        return tipoRecojo;
+    public Integer getIdfomapago() {
+        return idfomapago;
     }
 
-    public void setTipoRecojo(String tipoRecojo) {
-        this.tipoRecojo = tipoRecojo == null ? null : tipoRecojo.trim();
+    public void setIdfomapago(Integer idfomapago) {
+        this.idfomapago = idfomapago;
     }
 
-    public String getUsuarioModifico() {
-        return usuarioModifico;
+    public String getNrocuenta() {
+        return nrocuenta;
     }
 
-    public void setUsuarioModifico(String usuarioModifico) {
-        this.usuarioModifico = usuarioModifico == null ? null : usuarioModifico.trim();
+    public void setNrocuenta(String nrocuenta) {
+        this.nrocuenta = nrocuenta;
     }
 
-    public Date getFechaModifico() {
-        return fechaModifico;
+    public BigDecimal getSubtotalfinal() {
+        return subtotalfinal;
     }
 
-    public void setFechaModifico(Date fechaModifico) {
-        this.fechaModifico = fechaModifico;
+    public void setSubtotalfinal(BigDecimal subtotalfinal) {
+        this.subtotalfinal = subtotalfinal;
     }
 
-    public String getUsuarioAnulo() {
-        return usuarioAnulo;
+    public BigDecimal getIgvfinal() {
+        return igvfinal;
     }
 
-    public void setUsuarioAnulo(String usuarioAnulo) {
-        this.usuarioAnulo = usuarioAnulo == null ? null : usuarioAnulo.trim();
+    public void setIgvfinal(BigDecimal igvfinal) {
+        this.igvfinal = igvfinal;
     }
 
-    public Date getFechaAnulo() {
-        return fechaAnulo;
+    public BigDecimal getDescuentototalfinal() {
+        return descuentototalfinal;
     }
 
-    public void setFechaAnulo(Date fechaAnulo) {
-        this.fechaAnulo = fechaAnulo;
+    public void setDescuentototalfinal(BigDecimal descuentototalfinal) {
+        this.descuentototalfinal = descuentototalfinal;
     }
 
-    public String getNumOperaBancaria() {
-        return numOperaBancaria;
+    public BigDecimal getTotalfinal() {
+        return totalfinal;
     }
 
-    public void setNumOperaBancaria(String numOperaBancaria) {
-        this.numOperaBancaria = numOperaBancaria == null ? null : numOperaBancaria.trim();
+    public void setTotalfinal(BigDecimal totalfinal) {
+        this.totalfinal = totalfinal;
     }
 
-    public Date getFechaOperaBancaria() {
-        return fechaOperaBancaria;
+    public BigDecimal getTotalventafinal() {
+        return totalventafinal;
     }
 
-    public void setFechaOperaBancaria(Date fechaOperaBancaria) {
-        this.fechaOperaBancaria = fechaOperaBancaria;
-    }
-
-    public String getCodTrxTarjeta() {
-        return codTrxTarjeta;
-    }
-
-    public void setCodTrxTarjeta(String codTrxTarjeta) {
-        this.codTrxTarjeta = codTrxTarjeta == null ? null : codTrxTarjeta.trim();
-    }
-
-    public Date getFechTrxTarjeta() {
-        return fechTrxTarjeta;
-    }
-
-    public void setFechTrxTarjeta(Date fechTrxTarjeta) {
-        this.fechTrxTarjeta = fechTrxTarjeta;
+    public void setTotalventafinal(BigDecimal totalventafinal) {
+        this.totalventafinal = totalventafinal;
     }
 
     public String getEstado() {
@@ -249,99 +184,84 @@ public class Venta {
     }
 
     public void setEstado(String estado) {
-        this.estado = estado == null ? null : estado.trim();
+        this.estado = estado;
     }
 
-    public String getCodUbigeoCosto() {
-        return codUbigeoCosto;
+    public String getUsuariomodifico() {
+        return usuariomodifico;
     }
 
-    public void setCodUbigeoCosto(String codUbigeoCosto) {
-        this.codUbigeoCosto = codUbigeoCosto == null ? null : codUbigeoCosto.trim();
+    public void setUsuariomodifico(String usuariomodifico) {
+        this.usuariomodifico = usuariomodifico;
     }
 
-    public Integer getIdFomaPago() {
-        return idFomaPago;
+    public Date getFechamodifico() {
+        return fechamodifico;
     }
 
-    public void setIdFomaPago(Integer idFomaPago) {
-        this.idFomaPago = idFomaPago;
+    public void setFechamodifico(Date fechamodifico) {
+        this.fechamodifico = fechamodifico;
     }
 
-    public Integer getIdCuponDescuento() {
-        return idCuponDescuento;
+    public String getUsuarioanulo() {
+        return usuarioanulo;
     }
 
-    public void setIdCuponDescuento(Integer idCuponDescuento) {
-        this.idCuponDescuento = idCuponDescuento;
+    public void setUsuarioanulo(String usuarioanulo) {
+        this.usuarioanulo = usuarioanulo;
     }
 
-    public String getDireccionEntrega() {
-        return direccionEntrega;
+    public Date getFechaanulo() {
+        return fechaanulo;
     }
 
-    public void setDireccionEntrega(String direccionEntrega) {
-        this.direccionEntrega = direccionEntrega == null ? null : direccionEntrega.trim();
+    public void setFechaanulo(Date fechaanulo) {
+        this.fechaanulo = fechaanulo;
     }
 
-    public Integer getIdEstadoVenta() {
-        return idEstadoVenta;
+    public Integer getIdestado() {
+        return idestado;
     }
 
-    public void setIdEstadoVenta(Integer idEstadoVenta) {
-        this.idEstadoVenta = idEstadoVenta;
+    public void setIdestado(Integer idestado) {
+        this.idestado = idestado;
     }
 
-    public Integer getIdBancos() {
-        return idBancos;
+    public String getCodusuario() {
+        return codusuario;
     }
 
-    public void setIdBancos(Integer idBancos) {
-        this.idBancos = idBancos;
-    }
-
-    public String getNroCuenta() {
-        return nroCuenta;
-    }
-
-    public void setNroCuenta(String nroCuenta) {
-        this.nroCuenta = nroCuenta == null ? null : nroCuenta.trim();
+    public void setCodusuario(String codusuario) {
+        this.codusuario = codusuario;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", idVenta=").append(idVenta);
-        sb.append(", idCliente=").append(idCliente);
-        sb.append(", fechaVenta=").append(fechaVenta);
-        sb.append(", subTotal=").append(subTotal);
-        sb.append(", IGV=").append(IGV);
-        sb.append(", descuento=").append(descuento);
-        sb.append(", total=").append(total);
-        sb.append(", montoEntrega=").append(montoEntrega);
-        sb.append(", totalVenta=").append(totalVenta);
-        sb.append(", nroCuotas=").append(nroCuotas);
-        sb.append(", tipoRecojo=").append(tipoRecojo);
-        sb.append(", usuarioModifico=").append(usuarioModifico);
-        sb.append(", fechaModifico=").append(fechaModifico);
-        sb.append(", usuarioAnulo=").append(usuarioAnulo);
-        sb.append(", fechaAnulo=").append(fechaAnulo);
-        sb.append(", numOperaBancaria=").append(numOperaBancaria);
-        sb.append(", fechaOperaBancaria=").append(fechaOperaBancaria);
-        sb.append(", codTrxTarjeta=").append(codTrxTarjeta);
-        sb.append(", fechTrxTarjeta=").append(fechTrxTarjeta);
-        sb.append(", estado=").append(estado);
-        sb.append(", codUbigeoCosto=").append(codUbigeoCosto);
-        sb.append(", idFomaPago=").append(idFomaPago);
-        sb.append(", idCuponDescuento=").append(idCuponDescuento);
-        sb.append(", direccionEntrega=").append(direccionEntrega);
-        sb.append(", idEstadoVenta=").append(idEstadoVenta);
-        sb.append(", idBancos=").append(idBancos);
-        sb.append(", nroCuenta=").append(nroCuenta);
-        sb.append("]");
-        return sb.toString();
+        return "Venta{" +
+                "idventa=" + idventa +
+                ", fechaventa=" + fechaventa +
+                ", nrodocumentocli='" + nrodocumentocli + '\'' +
+                ", subtotal=" + subtotal +
+                ", igv=" + igv +
+                ", descuentototal=" + descuentototal +
+                ", total=" + total +
+                ", totalcostoenvio=" + totalcostoenvio +
+                ", totalventa=" + totalventa +
+                ", nrocuotas=" + nrocuotas +
+                ", idfomapago=" + idfomapago +
+                ", nrocuenta='" + nrocuenta + '\'' +
+                ", subtotalfinal=" + subtotalfinal +
+                ", igvfinal=" + igvfinal +
+                ", descuentototalfinal=" + descuentototalfinal +
+                ", totalfinal=" + totalfinal +
+                ", totalventafinal=" + totalventafinal +
+                ", estado='" + estado + '\'' +
+                ", usuariomodifico='" + usuariomodifico + '\'' +
+                ", fechamodifico=" + fechamodifico +
+                ", usuarioanulo='" + usuarioanulo + '\'' +
+                ", fechaanulo=" + fechaanulo +
+                ", idestado=" + idestado +
+                ", codusuario='" + codusuario + '\'' +
+                '}';
     }
 }

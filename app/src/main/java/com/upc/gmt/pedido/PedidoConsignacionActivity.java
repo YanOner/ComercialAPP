@@ -163,33 +163,6 @@ public class PedidoConsignacionActivity extends AppCompatActivity {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
-//                        .queryParam("ParmTotal", Util.PRECIO_TOTAL_PAGAR)
-//                        .queryParam("ParmNroCuotas",
-//                                cuotasSeleccionadas
-//                        )
-//                        .queryParam("ParmTipoRecojo", tipoEntrega)
-//                        .queryParam("ParmNumOperaBancaria",
-//                                0
-//                        )
-//                        .queryParam("ParmCodTrxTarjeta",
-//                                ""
-//                        )
-//                        .queryParam("ParmCodUbigeoCosto",
-//                                (tipoEntrega == 1) ? codigoUbigeo : ""
-//                        )
-//                        .queryParam("ParmIdFomaPago", tipoPago)
-//                        .queryParam("ParmDireccionEntrega",
-//                                (tipoEntrega == 1) ? direccionEntrega : ""
-//                        )
-//                        .queryParam("ParmIdBanco",
-//                                0
-//                        )
-//                        .queryParam("ParmNroCuenta", "")
-//                        .queryParam("ParmTipoDocumento", tipoComprobante)
-//                        .queryParam("ParmRuc", RUC)
-//                        .queryParam("ParmRazonSocial", RS)
-//                        .queryParam("ParmIdTipoUsuario", Util.EMPLEADO_SESSION.getIdtipousuario().intValue())
-//                        .queryParam("tramaPedido", tramaPedido);
 
                 Log.i("URL", builder.toUriString());
 

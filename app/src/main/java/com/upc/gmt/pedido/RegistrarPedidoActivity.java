@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.upc.gmt.bean.Producto;
 import com.upc.gmt.comercialgb.MenuPrincipalActivity;
 import com.upc.gmt.comercialgb.R;
+import com.upc.gmt.model.Venta;
 import com.upc.gmt.util.Constantes;
 import com.upc.gmt.util.Util;
 
@@ -38,6 +39,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RegistrarPedidoActivity extends AppCompatActivity
         implements TipoEnvioFragment.OnFragmentInteractionListener,
@@ -383,8 +385,8 @@ public class RegistrarPedidoActivity extends AppCompatActivity
         Log.i("tramaPedidoDetalleReparto", tramaPedidoDetalleReparto);
 
         if (tipoPago == Constantes.ID_FORMA_PAGO_CONSIGNACION) {
-            Intent i = new Intent(getApplicationContext(), PedidoConsignacionActivity.class);
-            startActivity(i);
+            //VALIDAR LOS PEDIDOS EN PENDIENTE EN CONSIGNACION
+            new HttpRequestTaskValidarVentas().execute();
         } else {
             progressDialog.setMessage("REGISTRANDO PEDIDO...");
             progressDialog.show();
@@ -402,39 +404,11 @@ public class RegistrarPedidoActivity extends AppCompatActivity
         protected Integer doInBackground(Void... params) {
             Log.i("doInBackground", "HttpRequestTaskRegistrarPedido");
             try {
-                String URL = Util.URL_SERVICE_BASE + "/venta/registrar";//TEST
+                String URL = Util.URL_SERVICE_BASE + "/venta/registrar";
                 RestTemplate restTemplate = new RestTemplate();
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
-//                        .queryParam("ParmIdCliente", Util.CLIENTE_SESSION.getIdCliente())
-//                        .queryParam("ParmTotal", Util.PRECIO_TOTAL_PAGAR)
-//                        .queryParam("ParmNroCuotas",//DEV
-//                                (tipoPago == 2) ? nroCuotas : 0
-//                        )
-//                        .queryParam("ParmTipoRecojo", tipoEntrega)
-//                        .queryParam("ParmNumOperaBancaria",//DEV
-//                                (tipoPago == 4) ? 0 : 0
-//                        )
-//                        .queryParam("ParmCodTrxTarjeta",//DEV
-//                                (tipoPago == 3) ? String.valueOf(currentTimeMillis()) : ""
-//                        )
-//                        .queryParam("ParmCodUbigeoCosto",//DEV
-//                                (tipoEntrega == 1) ? codigoUbigeo : ""
-//                        )
-//                        .queryParam("ParmIdFomaPago", tipoPago)
-//                        .queryParam("ParmDireccionEntrega",
-//                                (tipoEntrega == 1) ? direccionEntrega : ""
-//                        )
-//                        .queryParam("ParmIdBanco",//DEV
-//                                (tipoPago == 4) ? codigoBanco : 0
-//                        )
-//                        .queryParam("ParmNroCuenta", "")
-//                        .queryParam("ParmTipoDocumento", tipoComprobante)
-//                        .queryParam("ParmRuc", RUC)
-//                        .queryParam("ParmRazonSocial", RS)
-//                        .queryParam("ParmIdTipoUsuario", Util.EMPLEADO_SESSION.getIdtipousuario().intValue())
-//                        .queryParam("tramaPedido", tramaPedido);
 
                 Log.i("URL", builder.toUriString());
 
@@ -486,7 +460,6 @@ public class RegistrarPedidoActivity extends AppCompatActivity
             Log.i("onPostExecute", "HttpRequestTaskRegistrarPedido");
             progressDialog.dismiss();
             if (respuesta != null && respuesta.intValue() != 0) {
-//                Toast.makeText(getApplicationContext(), "SE HA REGISTRADO SU PEDIDO N° " + respuesta.intValue(), Toast.LENGTH_LONG).show();
                 ad.setTitle("MENSAJE");
                 ad.setMessage("SE HA REGISTRADO SU PEDIDO N° " + respuesta.intValue());
                 ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
@@ -502,7 +475,6 @@ public class RegistrarPedidoActivity extends AppCompatActivity
                 ad.setCancelable(false);
                 ad.show();
             } else {
-//                Toast.makeText(getApplicationContext(), "NO SE PUDO REGISTRAR EL PEDIDO, OCURRIÓ UN ERROR", Toast.LENGTH_LONG).show();
                 ad.setTitle("MENSAJE");
                 ad.setMessage("NO SE PUDO REGISTRAR EL PEDIDO, OCURRIÓ UN ERROR.");
                 ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
@@ -514,6 +486,48 @@ public class RegistrarPedidoActivity extends AppCompatActivity
                 ad.show();
             }
             Log.i("onPostExecute", "fin");
+        }
+
+    }
+
+    public class HttpRequestTaskValidarVentas extends AsyncTask<Void, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+            try {
+                String URL = Util.URL_SERVICE_BASE + Util.URL_SERVICE_PEDIDO + "/venta/listByEstado/" + Util.CLIENTE_SESSION.getNrodocumentocli() + "/" + Constantes.VENTA_ESTADO_PENDIENTE;
+                RestTemplate restTemplate = new RestTemplate();
+                restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+                UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+                Log.i("URL", builder.toUriString());
+                ParameterizedTypeReference<List<Venta>> responseType = new ParameterizedTypeReference<List<Venta>>() {
+                };
+                ResponseEntity<List<Venta>> respuesta = restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, null, responseType);
+                List<Venta> lista = respuesta.getBody();
+                Log.i("respuesta", lista.toString());
+                return lista.size();
+            } catch (Exception e) {
+                return 0;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Integer respuesta) {
+            if (respuesta > 3) {
+                ad.setTitle("MENSAJE");
+                ad.setMessage("EL CLIENTE CUENTA CON MÁS DE 3 PEDIDOS EN PENDIENTE DE PAGO, POR FAVOR SELECCIONAR OTRO TIPO DE PAGO.");
+                ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                ad.show();
+            } else {
+                Intent i = new Intent(getApplicationContext(), PedidoConsignacionActivity.class);
+                startActivity(i);
+            }
         }
 
     }

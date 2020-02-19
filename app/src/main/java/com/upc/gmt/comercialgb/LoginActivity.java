@@ -1,6 +1,7 @@
 package com.upc.gmt.comercialgb;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -34,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
 
     AlertDialog.Builder alertDialog;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,10 @@ public class LoginActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         alertDialog = new AlertDialog.Builder(this);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage("VALIDANDO...");
 
         txtUsuario = (EditText) findViewById(R.id.txtUsuario);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
@@ -72,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onValidarIngreso(View v) {
         usuario = txtUsuario.getText().toString();
         password = txtPassword.getText().toString();
+        progressDialog.show();
         new HttpRequestTaskLogin().execute();
         //Intent i = new Intent(getApplicationContext(),com.upc.gmt.comercialgb.MenuPrincipalActivity.class);
         //startActivity(i);
@@ -114,9 +122,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Empleado empleado) {
-            //TEST
-//            empleado = new Usuario();
-//            empleado.setCodUsuario("00000");
+            progressDialog.dismiss();
             if (null != empleado) {
                 Util.EMPLEADO_SESSION = empleado;
                 Util.CLIENTE_SESSION = null;

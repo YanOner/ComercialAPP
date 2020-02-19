@@ -438,7 +438,7 @@ public class CatalogoActivity extends AppCompatActivity {
             spnTallaCalzado.setAdapter(arrayTallaCalzado);
             Log.i("onPostExecute", "fin");
             progresoCarga += 25;
-            progressDialog.setProgress(progresoCarga);
+            progressDialog.incrementProgressBy(progresoCarga);
         }
 
     }
@@ -480,7 +480,7 @@ public class CatalogoActivity extends AppCompatActivity {
             spnColor.setAdapter(array);
             Log.i("onPostExecute", "fin");
             progresoCarga += 25;
-            progressDialog.setProgress(progresoCarga);
+            progressDialog.incrementProgressBy(progresoCarga);
         }
 
     }
@@ -562,7 +562,7 @@ public class CatalogoActivity extends AppCompatActivity {
             spnTipoCalzado.setAdapter(array);
             Log.i("onPostExecute", "fin");
             progresoCarga += 25;
-            progressDialog.setProgress(progresoCarga);
+            progressDialog.incrementProgressBy(progresoCarga);
         }
 
     }
@@ -604,7 +604,7 @@ public class CatalogoActivity extends AppCompatActivity {
             spnTemporada.setAdapter(array);
             Log.i("onPostExecute", "fin");
             progresoCarga += 25;
-            progressDialog.setProgress(progresoCarga);
+            progressDialog.incrementProgressBy(progresoCarga);
         }
 
     }

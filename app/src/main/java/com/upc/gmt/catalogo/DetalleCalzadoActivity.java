@@ -222,6 +222,8 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
 //                imageView.setTag(imageView.getDrawable());
             } catch (Exception e) {
                 Log.e("DETALLE IMG", e.getMessage());
+                int idR = getApplication().getResources().getIdentifier("calzado_generico", "mipmap", getApplication().getPackageName());
+                Picasso.with(getApplicationContext()).load(idR).resize(150, 150).centerCrop().into(imageView);
             }
 
             lyDetalleCalzado.addView(imageView);
@@ -426,8 +428,6 @@ public class DetalleCalzadoActivity extends AppCompatActivity {
                 restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
                 UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
-//                        .queryParam("idProducto", idProducto)
-//                        .queryParam("idColor", idColor);
                 Log.i("URL", builder.toUriString());
                 ParameterizedTypeReference<List<Producto>> responseType = new ParameterizedTypeReference<List<Producto>>() {
                 };
