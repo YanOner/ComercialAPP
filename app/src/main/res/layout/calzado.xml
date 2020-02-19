@@ -8,16 +8,16 @@
     <ImageView
         android:id="@+id/grid_item_image"
         android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginLeft="1dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
         android:src="@android:drawable/ic_delete" />
 
     <TextView
         android:id="@+id/grid_item_label_nombre"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:textColor="@android:color/black"
