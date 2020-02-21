@@ -279,8 +279,9 @@ public class PedidoArrayAdapter extends ArrayAdapter {
 //            picasso.setIndicatorsEnabled(true);
 //            picasso.setLoggingEnabled(true);
         try {
-//                Log.i("PedidoArrayAdapter", p.getSKU()+"_"+p.getIdColor()+"_1.jpg");
+            Log.i("PedidoArrayAdapter", p.getSku() + "_" + p.getIdColor() + "_1.jpg");
             int idIMG = context.getResources().getIdentifier(p.getSku().toLowerCase() + "_" + p.getIdColor() + "_1", "mipmap", context.getPackageName());
+            Log.i("idIMG", "" + idIMG);
             if (idIMG == 0) {
 //                    Picasso.with(getApplicationContext()).load(id).resize(150, 150).centerCrop().into(imageView);
                 Picasso.with(context).load(Util.URL_SERVICE_BASE + "/imagen/ver?nombre=calzado_generico.jpg").resize(100, 100).into(imageView);

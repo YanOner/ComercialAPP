@@ -30,7 +30,6 @@ public class BuscarClienteActivity extends AppCompatActivity {
 
     Spinner spnTipoDococumento;
     EditText txtNumeroDocumento;
-//    TextView tvNumeroDoc;
 
     String tipoDocumento = "";
     String numeroDocumento = "";
@@ -64,8 +63,8 @@ public class BuscarClienteActivity extends AppCompatActivity {
         txtNumeroDocumento.setFilters(new InputFilter[]{new InputFilter.LengthFilter(8)});
 
         List<String> listaTipoDoc = new ArrayList<>();
-        listaTipoDoc.add(Constantes.TIPO_DOC_DNI);
         listaTipoDoc.add(Constantes.TIPO_DOC_RUC);
+        listaTipoDoc.add(Constantes.TIPO_DOC_DNI);
         listaTipoDoc.add(Constantes.TIPO_DOC_OTRO);
         ArrayAdapter arrayTipoDoc = new ArrayAdapter<>(getApplicationContext(), R.layout.simple_spinner_item, listaTipoDoc);
         arrayTipoDoc.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);

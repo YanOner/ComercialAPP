@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +41,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class RegistrarPedidoActivity extends AppCompatActivity
         implements TipoEnvioFragment.OnFragmentInteractionListener,
@@ -83,6 +85,8 @@ public class RegistrarPedidoActivity extends AppCompatActivity
     static String txtFechaVisa;
     static String txtVisaCSV;
     static boolean flagCostoAceptado;
+
+    static String codigoTransaccionVISA;
 
     AlertDialog.Builder ad;
 
@@ -388,6 +392,23 @@ public class RegistrarPedidoActivity extends AppCompatActivity
             //VALIDAR LOS PEDIDOS EN PENDIENTE EN CONSIGNACION
             new HttpRequestTaskValidarVentas().execute();
         } else {
+            codigoTransaccionVISA = null;
+            if (tipoPago == Constantes.ID_FORMA_PAGO_VISA) {
+                codigoTransaccionVISA = UUID.randomUUID().toString();
+                //SIMULAR PASARELLA DE VISA
+                progressDialog.setMessage("VALIDANDO PAGO CON VISA...");
+                progressDialog.show();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        progressDialog.dismiss();
+                    }
+                }, 5000);
+            }
+            if (tipoPago != Constantes.ID_FORMA_PAGO_TRANSFERENCIA_BANCARIA) {
+                codigoBanco = null;
+            }
+
             progressDialog.setMessage("REGISTRANDO PEDIDO...");
             progressDialog.show();
             new HttpRequestTaskRegistrarPedido().execute();
@@ -431,10 +452,10 @@ public class RegistrarPedidoActivity extends AppCompatActivity
                 body.add("parmIdFomaPago", tipoPago);
                 body.add("parmTipoDocumento", tipoComprobante);
                 body.add("parmCodUsuario", Util.EMPLEADO_SESSION.getCodusuario());
-                body.add("parmRuc", RUC);//
-                body.add("parmRazonSocial", RS);//
-                body.add("parmIdBanco", null);//
-                body.add("parmCodTrxTarjeta", null);//
+                body.add("parmRuc", RUC);
+                body.add("parmRazonSocial", RS);
+                body.add("parmIdBanco", codigoBanco);
+                body.add("parmCodTrxTarjeta", codigoTransaccionVISA);
                 body.add("parmComentarioConsignacion", null);
                 //SP_MantDetalleVenta
                 body.add("tramaPedidoDetalle", tramaPedido);

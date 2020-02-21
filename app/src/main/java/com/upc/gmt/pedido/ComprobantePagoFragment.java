@@ -130,6 +130,14 @@ public class ComprobantePagoFragment extends Fragment {
                     lyRUC.setVisibility(View.VISIBLE);
                     lyRS.setVisibility(View.VISIBLE);
                     RegistrarPedidoActivity.tipoComprobante = 1;
+                    if (Util.CLIENTE_SESSION.getTipopersona().equals(Constantes.TIPO_PERSONA_JURIDICA)
+                            && (txtPedidoRuc.getText().toString().equals("")
+                            || txtPedidoRS.getText().toString().equals(""))) {
+                        txtPedidoRS.setText(Util.CLIENTE_SESSION.getNombres());
+                        txtPedidoRuc.setText(Util.CLIENTE_SESSION.getNrodocumentocli());
+                        RegistrarPedidoActivity.RS = Util.CLIENTE_SESSION.getNombres();
+                        RegistrarPedidoActivity.RUC = Util.CLIENTE_SESSION.getNrodocumentocli();
+                    }
                 }
             }
         };

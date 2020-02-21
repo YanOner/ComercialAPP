@@ -9,6 +9,8 @@ import android.widget.Button;
 import com.upc.gmt.catalogo.CatalogoActivity;
 import com.upc.gmt.util.Util;
 
+import java.util.ArrayList;
+
 public class MenuPrincipalActivity extends AppCompatActivity {
 
     @Override
@@ -25,6 +27,13 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 //        }
 
         setTitle("MENÚ PRINCIPAL (" + Util.EMPLEADO_SESSION.getCorreoelectronico().toUpperCase() + ")");
+
+        Util.CLIENTE_SESSION = null;
+        Util.LISTA_PRODUCTOS_PEDIDO = new ArrayList<>();
+        Util.PRECIO_TOTAL_DESCUENTO = 0.00;
+        Util.PRECIO_TOTAL_CALZADOS = 0.00;
+        Util.PRECIO_COSTO_ENVIO = 0.00;
+        Util.PRECIO_TOTAL_PAGAR = 0.00;
 
     }
 

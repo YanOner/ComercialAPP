@@ -17,27 +17,32 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.upc.gmt.catalogo.BuscarClienteActivity"
+            android:launchMode="singleTask"
             android:label="@string/app_buscar_cliente"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".LoginActivity"
+            android:launchMode="singleTask"
             android:label="@string/app_inicio"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".MenuPrincipalActivity"
+            android:launchMode="singleTask"
             android:label="@string/app_menu_principal"
             android:parentActivityName=".LoginActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.upc.gmt.pedido.RegistrarPedidoActivity"
+            android:launchMode="singleTask"
             android:label="REGISTRAR PEDIDO"
             android:parentActivityName="com.upc.gmt.pedido.PedidoActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.upc.gmt.catalogo.CatalogoActivity"
+            android:launchMode="singleTask"
             android:label="@string/app_mostrar_catalogo"
             android:parentActivityName="com.upc.gmt.comercialgb.MenuPrincipalActivity"
             android:screenOrientation="landscape" />
@@ -51,20 +56,24 @@
         <!--            android:screenOrientation="landscape" />-->
         <activity
             android:name="com.upc.gmt.catalogo.DetalleCalzadoActivity"
+            android:launchMode="singleTask"
             android:label="DETALLE DEL CALZADO"
             android:parentActivityName="com.upc.gmt.catalogo.CatalogoActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.upc.gmt.pedido.PedidoActivity"
+            android:launchMode="singleTask"
             android:label="VER PEDIDO"
             android:parentActivityName="com.upc.gmt.catalogo.CatalogoActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.upc.gmt.catalogo.FullScreenImageActivity"
+            android:launchMode="singleTask"
             android:label="IMAGEN CALZADO"
             android:screenOrientation="landscape" />
         <activity
             android:name=".SolicitarAumentoActivity"
+            android:launchMode="singleTask"
             android:label="AUMENTO DE LÍNEA DE CRÉDITO"
             android:screenOrientation="landscape" />
         <!--        <activity-->
@@ -73,6 +82,7 @@
         <!--            android:screenOrientation="landscape" />-->
         <activity
             android:name="com.upc.gmt.pedido.PedidoConsignacionActivity"
+            android:launchMode="singleTask"
             android:label="PEDIDO POR CONSIGNACIÓN"
             android:screenOrientation="landscape" />
         <!--        <activity-->
@@ -93,6 +103,7 @@
         <!--            android:screenOrientation="landscape" />-->
         <activity
             android:name=".HomeActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

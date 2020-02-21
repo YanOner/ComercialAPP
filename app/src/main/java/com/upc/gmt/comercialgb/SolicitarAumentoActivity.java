@@ -70,7 +70,7 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
 
 //        new HttpRequestTaskClienteAumento().execute();
         if (Util.CLIENTE_SESSION != null) {
-            txtClienteCredito.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres());
+            txtClienteCredito.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + " (" + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
             txtCreditoTotalAumento.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getLineacreditoactual()));
             txtCreditoDisponibleAumento.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getSaldolineacredito()));
             txtDeudaPendienteAumento.setText("S/ " + Util.formatearDecimales((Util.CLIENTE_SESSION.getLineacreditoactual() - Util.CLIENTE_SESSION.getSaldolineacredito())));
@@ -92,7 +92,7 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Log.i("onActivityResult", requestCode + "-" + resultCode);
         if (Util.CLIENTE_SESSION != null) {
-            txtClienteCredito.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres());
+            txtClienteCredito.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + "(" + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
             txtCreditoTotalAumento.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getLineacreditoactual()));
             txtCreditoDisponibleAumento.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getSaldolineacredito()));
             txtDeudaPendienteAumento.setText("S/ " + Util.formatearDecimales((Util.CLIENTE_SESSION.getLineacreditoactual() - Util.CLIENTE_SESSION.getSaldolineacredito())));
@@ -129,7 +129,7 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         String cantidad = txtCantidadAumento.getText().toString();
         if ("".equals(cantidad)) {
             ad.setTitle("VALIDACIÓN");
-            ad.setMessage("INGRESAR UNA CANTIDAD MAYOR A 0.");
+            ad.setMessage("INGRESAR UNA CANTIDAD MAYOR O IGUAL A 500.");
             ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -140,10 +140,10 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
             return;
         }
         cantidadIncremento = Double.parseDouble(cantidad);
-        if (cantidadIncremento < 1) {
+        if (cantidadIncremento < 500) {
 //            Toast.makeText(getApplicationContext(), "INGRESAR UNA CANTIDAD MAYOR A 0", Toast.LENGTH_LONG).show();
             ad.setTitle("VALIDACIÓN");
-            ad.setMessage("INGRESAR UNA CANTIDAD MAYOR A 0.");
+            ad.setMessage("INGRESAR UNA CANTIDAD MAYOR O IGUAL A 500.");
             ad.setPositiveButton("ACEPTAR", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
