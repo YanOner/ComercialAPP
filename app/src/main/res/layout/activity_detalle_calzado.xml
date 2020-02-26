@@ -76,6 +76,53 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="5dp"
+                        android:text="Tipo de Calzado:" />
+
+                    <TextView
+                        style="@style/textView_stylePedido"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Zapato" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/textView_stylePedido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="Temporada:" />
+
+                    <TextView
+                        style="@style/textView_stylePedido"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Primavera - Verano 2020" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/textView_stylePedido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="5dp"
                         android:text="Código:" />
 
                     <TextView

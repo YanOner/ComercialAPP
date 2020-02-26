@@ -74,7 +74,7 @@
                         android:hint="Usuario"
                         android:imeOptions="actionDone"
                         android:inputType="textEmailAddress"
-                        android:text="ASESOR0" />
+                        android:text="ASESOR01" />
 
                     <EditText
                         android:id="@+id/txtPassword"
@@ -82,7 +82,8 @@
                         android:layout_height="match_parent"
                         android:hint="Contraseña"
                         android:imeOptions="actionDone"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:text="123456" />
 
                     <Button
                         android:layout_height="match_parent"

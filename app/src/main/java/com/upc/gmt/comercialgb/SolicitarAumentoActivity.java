@@ -92,7 +92,7 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         Log.i("onActivityResult", requestCode + "-" + resultCode);
         if (Util.CLIENTE_SESSION != null) {
-            txtClienteCredito.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + "(" + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
+            txtClienteCredito.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + " (" + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
             txtCreditoTotalAumento.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getLineacreditoactual()));
             txtCreditoDisponibleAumento.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getSaldolineacredito()));
             txtDeudaPendienteAumento.setText("S/ " + Util.formatearDecimales((Util.CLIENTE_SESSION.getLineacreditoactual() - Util.CLIENTE_SESSION.getSaldolineacredito())));

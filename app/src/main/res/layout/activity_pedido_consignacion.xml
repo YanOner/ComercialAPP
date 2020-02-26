@@ -85,11 +85,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Deuda Pendiente:"
+                            android:text="Total a Pagar:"
                             android:textColor="#000000" />
 
                         <EditText
-                            android:id="@+id/txtDeudaPendiente"
+                            android:id="@+id/txtTotalConsignacion"
                             style="@style/editText_style"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -194,11 +194,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:text="Línea de Crédito Disponible Después:"
+                                android:text="Deuda Pendiente:"
                                 android:textColor="#000000" />
 
                             <EditText
-                                android:id="@+id/txtCreditoDespues"
+                                android:id="@+id/txtDeudaPendiente"
                                 style="@style/editText_style"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -208,6 +208,7 @@
                                 android:textColor="@android:color/black" />
 
                         </LinearLayout>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -225,11 +226,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:text="Total a Pagar:"
+                                android:gravity="center"
+                                android:text="Línea de Crédito Disponible Después:"
                                 android:textColor="#000000" />
 
                             <EditText
-                                android:id="@+id/txtTotalConsignacion"
+                                android:id="@+id/txtCreditoDespues"
                                 style="@style/editText_style"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -239,6 +241,7 @@
                                 android:textColor="@android:color/black" />
 
                         </LinearLayout>
+
                     </LinearLayout>
 
 
