@@ -69,13 +69,13 @@ public class SolicitarAumentoActivity extends AppCompatActivity {
         txtClienteCredito = (TextView) findViewById(R.id.tvClienteCredito);
 
 //        new HttpRequestTaskClienteAumento().execute();
-        if (Util.CLIENTE_SESSION != null) {
-            txtClienteCredito.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + " (" + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
-            txtCreditoTotalAumento.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getLineacreditoactual()));
-            txtCreditoDisponibleAumento.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getSaldolineacredito()));
-            txtDeudaPendienteAumento.setText("S/ " + Util.formatearDecimales((Util.CLIENTE_SESSION.getLineacreditoactual() - Util.CLIENTE_SESSION.getSaldolineacredito())));
-            new HttpRequestTaskListaAumento().execute();
-        }
+//        if (Util.CLIENTE_SESSION != null) {
+//            txtClienteCredito.setText("Cliente: " + Util.CLIENTE_SESSION.getNombres() + " (" + Util.CLIENTE_SESSION.getNrodocumentocli() + ")");
+//            txtCreditoTotalAumento.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getLineacreditoactual()));
+//            txtCreditoDisponibleAumento.setText("S/ " + Util.formatearDecimales(Util.CLIENTE_SESSION.getSaldolineacredito()));
+//            txtDeudaPendienteAumento.setText("S/ " + Util.formatearDecimales((Util.CLIENTE_SESSION.getLineacreditoactual() - Util.CLIENTE_SESSION.getSaldolineacredito())));
+//            new HttpRequestTaskListaAumento().execute();
+//        }
     }
 
     public void onRegresarMenu(View v) {
